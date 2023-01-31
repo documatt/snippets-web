@@ -28,8 +28,8 @@
             Snippets
           </b-navbar-item>
           <b-navbar-dropdown :hoverable="true" label="More" right>
-            <b-navbar-item href="https://techwriter.documatt.com">Tech writer at work</b-navbar-item>
-            <b-navbar-item href="https://restructuredtext.documatt.com">reStructuredText</b-navbar-item>
+            <b-navbar-item href="https://documatt.com/blog/">Tech writer at work</b-navbar-item>
+            <b-navbar-item href="https://documatt.com/restructuredtext-reference/">reStructuredText</b-navbar-item>
           </b-navbar-dropdown>
         </template>
       </b-navbar>

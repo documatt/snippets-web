@@ -141,7 +141,7 @@
       <div class="navbar-item">
         <b-field>
           <p class="control">
-            <a class="button" href="https://restructuredtext.documatt.com/" target="_blank">
+            <a class="button" href="https://documatt.com/restructuredtext-reference/" target="_blank">
               <b-icon icon="help-circle-outline"></b-icon>
               <span>Syntax</span>
             </a>
@@ -260,7 +260,7 @@ export default {
     externalLink () {
       const text =
           '\n' +
-          'Learn syntax at https://techwriter.documatt.com/restructuredtext-sphinx/index.html.' +
+          'Learn syntax at https://documatt.com/restructuredtext-reference/.' +
           '\n'
       this.eventBus.$emit(EV_EDITOR_INSERT, text)
     },
@@ -268,7 +268,7 @@ export default {
     externalLinkWithTitle () {
       const text = '' +
           '\n' +
-          'See `syntax reference <https://techwriter.documatt.com/restructuredtext-sphinx/index.html>`_.' +
+          'See `syntax reference <https://documatt.com/restructuredtext-reference/>`_.' +
           '\n'
       this.eventBus.$emit(EV_EDITOR_INSERT, text)
     },
@@ -276,7 +276,7 @@ export default {
     blockImage () {
       const text =
           '\n' +
-          '.. image:: https://techwriter.documatt.com/_static/open-doodles-clumsy.svg' +
+          '.. image:: https://documatt.com/blog/_static/open-doodles-clumsy.svg' +
           '\n'
       this.eventBus.$emit(EV_EDITOR_INSERT, text)
     },
@@ -286,7 +286,7 @@ export default {
           '\n' +
           'Inline images like |favicon| can be defined with image directive in a substitution definition.\n' +
           '\n' +
-          '.. |favicon| image:: https://techwriter.documatt.com/_static/img/favicon.ico\n' +
+          '.. |favicon| image:: https://documatt.com/blog/_static/img/favicon.ico\n' +
           '   :width: 1em\n' +
           '\n'
       this.eventBus.$emit(EV_EDITOR_INSERT, text)

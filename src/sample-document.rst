@@ -4,19 +4,19 @@ Sample document
 
 .. epigraph:: This document demonstrate reStructuredText syntax. Professional books and tech documentation are plain text files written with this easy markup language. Documatt Snippets is online editor with preview useful for learning and testing reStructuredText without installing it.
 
-.. tip:: The following text shows just a very little of reStructuredText. For more examples and description of reStructuredText see for example https://techwriter.documatt.com/restructuredtext-sphinx/index.html.
+.. tip:: The following text shows just a very little of reStructuredText. For more examples and description of reStructuredText see for example https://documatt.com/restructuredtext-reference/.
 
 ***************
 Inline elements
 ***************
 
-Paragraphs may contain *emphasised*, **strong emphasised** words. Links to external webs like https://techwriter.documatt.com are auto-recognized. Sometimes you need ``monospaced text``. Useful are also :sup:`superscript` or :sub:`subscript`.
+Paragraphs may contain *emphasised*, **strong emphasised** words. Links to external webs like https://documatt.com/blog/ are auto-recognized. Sometimes you need ``monospaced text``. Useful are also :sup:`superscript` or :sub:`subscript`.
 
 ******
 Images
 ******
 
-.. image:: https://techwriter.documatt.com/_static/open-doodles-clumsy.svg
+.. image:: https://documatt.com/blog/_static/open-doodles-clumsy.svg
 
 *****
 Lists
