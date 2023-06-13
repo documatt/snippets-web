@@ -2,8 +2,6 @@
 Snippets Help
 #############
 
-.. section-autonumbering::
-
 *********************
 Snippets? What is it?
 *********************
@@ -43,7 +41,7 @@ At this moment, we don't set hard limit of a document length (a number of charac
 Keyboard shortcuts
 ******************
 
-:kdb:`Ctrl-Shift-P` switches between :guilabel:`Preview` and :guilabel:`Write` tab
+:kbd:`Ctrl-Shift-P` switches between :guilabel:`Preview` and :guilabel:`Write` tab
 
 ***************
 Reporting abuse
