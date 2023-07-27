@@ -15,10 +15,11 @@ author = 'Documatt.com, s.r.o.'
 
 extensions = [
   "sphinx_design",
+  "myst_parser"
 ]
 
 templates_path = ['_templates']
-exclude_patterns = []
+exclude_patterns = ['.venv', 'venv']
 
 
 
