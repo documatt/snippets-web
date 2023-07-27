@@ -2,17 +2,38 @@ import Vue from 'vue'
 import App from './App.vue'
 import { initGlobalState, store } from './store'
 import Buefy from 'buefy'
-import * as Sentry from '@sentry/browser'
-import { Vue as VueIntegration } from '@sentry/integrations'
+import * as Sentry from '@sentry/vue'
 import { sayVer, setLogLevelFromQR } from './utils'
 
 setLogLevelFromQR()
 sayVer()
 
 Sentry.init({
-  dsn: 'https://84efc7bb43e747d1b8e8e2576c34da55@o480229.ingest.sentry.io/5526698',
-  integrations: [new VueIntegration({ Vue, attachProps: true })],
-})
+  Vue,
+  dsn:'https://9b2af326a0bf40539512abad9615e9e1@o4505595116650496.ingest.sentry.io/4505601347026944',
+  integrations: [
+    new Sentry.BrowserTracing({
+      routingInstrumentation: Sentry.vueRouterInstrumentation(router),
+    }),
+    new Sentry.Replay(),
+  ],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+
+  // Set `tracePropagationTargets` to control for which URLs distributed tracing should be enabled
+  tracePropagationTargets: ["localhost", /^https:\/\/yourserver\.io\/api/],
+
+  // Capture Replay for 10% of all sessions,
+  // plus for 100% of sessions with an error
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1.0,
+});
+
+throw new Error('Sentry, do you work?');
+
 
 Vue.config.productionTip = false
 
