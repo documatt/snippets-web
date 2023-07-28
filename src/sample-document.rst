@@ -2,15 +2,15 @@
 Sample document
 ###############
 
-.. epigraph:: This document demonstrate reStructuredText syntax. Professional books and tech documentation are plain text files written with this easy markup language. Documatt Snippets is online editor with preview useful for learning and testing reStructuredText without installing it.
+.. epigraph:: This document demonstrates reStructuredText syntax. Professional books and tech documentation are plain text files with this easy markup language. Documatt Snippets is an online editor with a preview useful for learning and testing reStructuredText without installing it.
 
-.. tip:: The following text shows just a very little of reStructuredText. For more examples and description of reStructuredText see for example https://documatt.com/restructuredtext-reference/.
+.. tip:: The following text shows just a very little of reStructuredText. For more examples and descriptions of reStructuredText, see, for example, https://documatt.com/restructuredtext-reference/.
 
 ***************
 Inline elements
 ***************
 
-Paragraphs may contain *emphasised*, **strong emphasised** words. Links to external webs like https://documatt.com/blog/ are auto-recognized. Sometimes you need ``monospaced text``. Useful are also :sup:`superscript` or :sub:`subscript`.
+Paragraphs may contain *emphasized*, **strongly emphasized** words. Links to external webs like https://documatt.com/blog/ are auto-recognized. Sometimes you need ``monospaced text``. Useful are also :sup:`superscript` or :sub:`subscript`.
 
 ******
 Images
@@ -28,7 +28,7 @@ Unordered lists usually use ``*`` as bullet symbol:
 * Second item
 * A sub item
 
-Ordered (enumerated) lists that is auto-numbered starts with ``#.``:
+Ordered (enumerated) lists that are auto-numbered start with ``#.``:
 
 #. one
 #. two
