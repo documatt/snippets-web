@@ -1,0 +1,12 @@
+@import "./variables.scss";
+
+// Buefy's icon pack
+@import url("https://cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css");
+
+// Import Buefy, Bulma, Bulma Helpers
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
+@import '~bulma-helpers/bulma-helpers';
+
+@import "~nprogress/nprogress.css";
+

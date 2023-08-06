@@ -1,0 +1,94 @@
+/*
+ * Documatt CodeMirror theme "deo".
+ * Roughly based on builtin neo (https://codemirror.net/theme/neo.css)
+ */
+
+.cm-s-deo {
+  /* Color scheme */
+  &.CodeMirror {
+    background-color: #ffffff;
+    color: #2e383c;
+    line-height: 1.4375;
+  }
+
+  .cm-comment {
+    color: green;
+    font-style: italic;
+  }
+
+  .cm-keyword, .cm-s-neo .cm-property {
+    color: #1d75b3;
+  }
+
+  .cm-atom, .cm-s-neo .cm-number {
+    color: #75438a;
+  }
+
+  .cm-node, .cm-s-neo .cm-tag {
+    color: #9c3328;
+  }
+
+  .cm-string {
+    color: #b35e14;
+  }
+
+  .cm-variable, .cm-s-neo .cm-qualifier {
+    color: #047d65;
+  }
+
+  .cm-string-2 { // inline literal
+    color: #ff3860;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    padding: 2px;
+  }
+
+  .cm-header {
+    color: #1d75b3;
+  }
+
+  .cm-header-1 { font-size: 150%; }
+  .cm-header-2 { font-size: 130%; }
+  .cm-header-3 { font-size: 120%; }
+  .cm-header-4 { font-size: 110%; }
+  .cm-header-5 { font-size: 100%; }
+  .cm-header-6 { font-size: 90%; }
+
+  .cm-link {
+    color: darkgrey;
+    text-decoration-color: darkgrey;
+
+    &::after {
+      //content: url("/icons/icons8-external-link-16.png");
+      //display: inline-block;
+    }
+  }
+
+  /* Editor styling */
+  pre {
+    padding: 0;
+  }
+
+  .CodeMirror-gutters {
+    border: none;
+    border-right: 10px solid transparent;
+    background-color: transparent;
+  }
+
+  .CodeMirror-linenumber {
+    padding: 0;
+    color: #e0e2e5;
+  }
+
+  .CodeMirror-guttermarker {
+    color: #1d75b3;
+  }
+
+  .CodeMirror-guttermarker-subtle {
+    color: #e0e2e5;
+  }
+
+  &.CodeMirror-empty {
+    color: #999;
+  }
+}

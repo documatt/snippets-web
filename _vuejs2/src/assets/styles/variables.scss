@@ -1,0 +1,172 @@
+@import "~bulma/sass/utilities/_all";
+
+// *** Fonts *******************************************************************
+
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display&display=swap');
+
+$family-primary: 'Playfair Display', serif;
+
+// *** Colors ******************************************************************
+
+// Documatt colors
+$mocca: rgb(245, 243, 240);
+$dm-blue: #0c7cba;
+
+$primary: $dm-blue;
+$secondary: $mocca;
+
+// *** Links *******************************************************************
+
+$link: $grey-dark;
+$link-hover: $grey;
+
+a {
+  text-decoration: underline !important;
+}
+
+// *** Navbar ******************************************************************
+
+$navbar-item-active-color: $primary;
+$navbar-item-hover-color: $primary;
+$navbar-item-active-background-color: hsl(0, 0%, 98%);
+
+.navbar-item {
+  font-size: $size-5;
+  text-decoration: none !important;
+
+  &.is-active {
+    font-weight: $weight-semibold;
+  }
+
+  &.has-dropdown a {
+    text-decoration: none !important;
+  }
+}
+
+// *** Breadcrumb **************************************************************
+
+$breadcrumb-item-padding-horizontal: 0.75rem;
+$breadcrumb-item-padding-vertical: 0.75rem;
+
+nav.breadcrumb {
+  background: $mocca;
+  /* offset-x | offset-y | blur-radius | spread-radius | color */
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06) !important;
+}
+
+// No underline in active breadcrumb item
+nav.breadcrumb li.is-active a {
+  text-decoration: none !important;
+}
+
+// *** Footer ******************************************************************
+
+$footer-background-color: $mocca;
+$footer-padding: 3rem 1.5rem 3rem;
+
+footer.footer {
+  margin-top: 3rem;
+  color: $primary !important;
+  // identical box-shadow as breadcrumb, just flipped
+  /* offset-x | offset-y | blur-radius | spread-radius | color */
+  // breadcrumb has:
+  // box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06) !important;
+  box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, .1), 0 -1px 2px 0 rgba(0, 0, 0, .06) !important;
+}
+
+footer img.logo {
+  width: 10rem;
+}
+
+
+// *** Message *****************************************************************
+
+// Horizontally center <b-message>s
+
+.media {
+  align-items: center;
+}
+
+// *** Intro hero banner *******************************************************
+
+section.hero.intro {
+  .hero-body {
+    padding: 0;
+
+    .collapse {
+      // Remove too big 30px buefy collapse's margin-bottom
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .title {
+    color: $primary;
+  }
+
+  .subtitle {
+    line-height: 1.5;
+  }
+}
+
+// *** Twitter follow button in intro hero banner ******************************
+
+// Alight follow button to the right
+.twitter-follow-button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+// *** Buefy loader ************************************************************
+
+// loading icon - stay always visible
+.loading-overlay.is-active {
+  position: fixed;
+}
+
+// *** Buefy fixes *************************************************************
+
+@mixin toolbar-font() {
+  font-size: 95% !important;
+  font-family: $family-secondary !important;
+  color: dimgray !important;
+  letter-spacing: 0.0025em !important;
+}
+
+button {
+  @include toolbar-font();
+
+  &.is-primary {
+    color: antiquewhite !important;
+    background-color: $dm-blue !important;
+
+    &:hover {
+      background-color: lighten($dm-blue, 30) !important;
+    }
+  }
+}
+
+.dialog .button {
+  font-weight: normal !important;
+}
+
+$tooltip-bg: dimgray !important;
+
+.b-tooltip.is-primary .tooltip-content {
+  background-color: $tooltip-bg;
+}
+
+.b-tooltip.is-top.is-primary .tooltip-content::before {
+    border-top-color: $tooltip-bg;
+}
+
+.b-tooltip.is-left.is-primary .tooltip-content::before {
+    border-left-color: $tooltip-bg;
+}
+
+.b-tooltip.is-bottom.is-primary .tooltip-content::before {
+    border-bottom-color: $tooltip-bg;
+}
+
+a.dropdown-item {
+  text-decoration: none !important;
+}

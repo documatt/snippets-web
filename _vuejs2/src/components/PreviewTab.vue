@@ -1,0 +1,210 @@
+<template>
+  <div>
+    <PreviewToolbar/>
+
+    <div class="columns">
+      <div class="column is-2"></div>
+      <div class="column is-8">
+        <b-loading :active="previewInProgress" :is-full-page="false"/>
+
+        <b-message type="is-danger" v-if="previewIsFailed">
+          Preview has failed. We're sorry for inconveniences.
+          <b-button @click="refresh">Try again</b-button>
+        </b-message>
+
+        <template v-if="!isBodyEmpty">
+          <!-- eslint-disable-next-line vue/no-v-html -->
+          <div class="docutils-body content is-medium" v-html="previewHtml">
+          </div>
+        </template>
+        <template v-else>
+          <div class="no-preview-message has-text-grey is-size-1 has-text-centered">
+            Nothing to preview
+            <b-icon icon="message-alert-outline"/>
+          </div>
+        </template>
+
+      </div>
+      <div class="column is-2"></div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapGetters, mapState } from 'vuex'
+import PreviewToolbar from '@/components/PreviewToolbar'
+
+export default {
+  name: 'PreviewTab',
+  components: { PreviewToolbar },
+  computed: {
+    ...mapState('document', [
+      'previewHtml',
+      'previewInProgress',
+      'previewIsFailed'
+    ]),
+    ...mapGetters('document', ['isBodyEmpty'])
+
+  },
+
+  methods: {
+    async refresh () {
+      await this.$store.dispatch('document/getAndSetPreview', null, { root: true })
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+.no-preview-message {
+  span.icon {
+    margin: 1rem;
+
+    i::before {
+      font-size: 125%;
+    }
+  }
+}
+
+// Already imported
+//@import url('https://fonts.googleapis.com/css?family=Playfair+Display&display=swap');
+$docutils-body-family: 'Playfair Display';
+
+.docutils-body.content {
+  font-family: $docutils-body-family, serif;
+
+  // Reset paddingu u section z Bulmy
+  .section {
+    padding: 0 0 3rem 0 !important;
+
+    // kromě posledního
+    &:last-of-type {
+      padding: 0 !important;
+    }
+  }
+
+  // Kotva permalinku, normálně schovaná
+  a.headerlink {
+    padding-left: 1rem;
+    visibility: hidden !important;
+    text-decoration: none !important;
+  }
+
+  // Viditelnost kotvy permalinku při najetí myší na nadpis
+  h1:hover > a.headerlink,
+  h2:hover > a.headerlink,
+  h3:hover > a.headerlink,
+  h4:hover > a.headerlink,
+  h5:hover > a.headerlink,
+  h6:hover > a.headerlink {
+    visibility: visible !important;
+  }
+
+  // Odkazy na nadpisy z contents:: bez podtržení
+  h1 a.toc-backref,
+  h2 a.toc-backref,
+  h3 a.toc-backref,
+  h4 a.toc-backref,
+  h5 a.toc-backref,
+  h6 a.toc-backref {
+    text-decoration: none !important;
+  }
+
+  blockquote.epigraph {
+    background: none !important;
+    font-weight: bold !important;
+    font-size: 115% !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+
+  .topic,
+  .admonition,
+  .sidebar {
+    background-color: whitesmoke;
+    border-left: 5px solid #dbdbdb;
+    padding: 1.25em 1.5em;
+    margin: 1em;
+  }
+
+  .sidebar {
+    float: right;
+  }
+
+  .topic-title,
+  .sidebar-title {
+    font-weight: bold;
+  }
+
+  // Normální vzhled :download:
+  a.download code {
+    font-family: $docutils-body-family, serif !important;
+    background: none !important;
+    color: #4a4a4a;
+    font-size: 1.25rem !important;
+    font-weight: normal !important;
+    padding: 0 !important;
+  }
+
+  .rubric {
+    font-weight: bold;
+  }
+
+  // inline literals
+  .literal {
+    border-radius: 5px;
+  }
+
+  // literal blocks
+  .highlight {
+    margin: 1rem 0 1rem 0;
+  }
+
+  // external links
+  a[href^="http"]::after {
+    content: url("/icons/icons8-external-link-16.png");
+    display: inline-block;
+  }
+}
+
+// System messages
+.docutils-body.content {
+  // Same styles both for problematic and
+  .problematic,
+  .system-message {
+    background-color: #fdd4cd;
+    color: #ae1800;
+  }
+
+  // Place with problem
+  .problematic {
+    border-radius: 5px;
+    padding: 5px;
+
+    &::after {
+      content: url(/icons/icons8-error-16.png);
+    }
+  }
+
+  // Message box with problem
+  .system-message {
+    border-radius: 5px;
+    padding: 1em;
+    margin: 1em 0 1em 0;
+
+    .system-message-title {
+      font-weight: bold;
+      margin-bottom: 0;
+
+      // Text vertically middle
+      display: flex;
+      align-items: center;
+
+      // Display alert icon after the text
+      &::after {
+        content: url(/icons/icons8-error-64.png);
+      }
+    }
+  }
+}
+</style>
