@@ -5,9 +5,57 @@ import ToolingIcon from "./icons/IconTooling.vue";
 import EcosystemIcon from "./icons/IconEcosystem.vue";
 import CommunityIcon from "./icons/IconCommunity.vue";
 import SupportIcon from "./icons/IconSupport.vue";
+import Button from "primevue/button";
 </script>
 
 <template>
+  <div class="surface-section px-4 py-5 md:px-6 lg:px-8">
+    <ul class="list-none p-0 m-0 flex align-items-center font-medium mb-3">
+      <li>
+        <a class="text-500 no-underline line-height-3 cursor-pointer"
+          >Application</a
+        >
+      </li>
+      <li class="px-2">
+        <i class="pi pi-angle-right text-500 line-height-3"></i>
+      </li>
+      <li>
+        <span class="text-900 line-height-3">Analytics</span>
+      </li>
+    </ul>
+    <div
+      class="flex align-items-start flex-column lg:justify-content-between lg:flex-row"
+    >
+      <div>
+        <div class="font-medium text-3xl text-900">Customers</div>
+        <div class="flex align-items-center text-700 flex-wrap">
+          <div class="mr-5 flex align-items-center mt-3">
+            <i class="pi pi-users mr-2"></i>
+            <span>332 Active Users</span>
+          </div>
+          <div class="mr-5 flex align-items-center mt-3">
+            <i class="pi pi-globe mr-2"></i>
+            <span>9402 Sessions</span>
+          </div>
+          <div class="flex align-items-center mt-3">
+            <i class="pi pi-clock mr-2"></i>
+            <span>2.32m Avg. Duration</span>
+          </div>
+        </div>
+      </div>
+      <div class="mt-3 lg:mt-0">
+        <Button
+          label="Add"
+          class="p-button-outlined mr-2"
+          icon="pi pi-user-plus"
+        ></Button>
+        <Button label="Save" icon="pi pi-check"></Button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ------------------------ -->
+  <Button label="První tlačítko?" />
   <WelcomeItem>
     <template #icon>
       <DocumentationIcon />
