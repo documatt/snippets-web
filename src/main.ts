@@ -4,7 +4,9 @@ import App from "./App.vue";
 import PrimeVue from "primevue/config";
 import ToastService from "primevue/toastservice";
 
-import "./assets/main.css";
+// Bulma
+import "@/assets/bulma.scss";
+
 import "primeflex/primeflex.css";
 import "primevue/resources/themes/lara-light-teal/theme.css";
 import "primevue/resources/primevue.min.css";

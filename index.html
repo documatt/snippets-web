@@ -1,13 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vite App</title>
+</head>
+
+<body>
+  <h1 class="title">
+    Bulma
+  </h1>
+
+  <p class="subtitle">
+    Modern CSS framework based on <a
+      href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox">Flexbox</a>
+  </p>
+
+  <div class="field">
+    <div class="control">
+      <input class="input" type="text" placeholder="Input">
+    </div>
+  </div>
+
+  <div class="field">
+    <p class="control">
+      <span class="select">
+        <select>
+          <option>Select dropdown</option>
+        </select>
+      </span>
+    </p>
+  </div>
+
+  <div class="buttons">
+    <a class="button is-primary">Primary</a>
+    <a class="button is-link">Link</a>
+  </div>
+
+  <div id="app"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
