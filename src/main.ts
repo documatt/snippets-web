@@ -4,21 +4,12 @@ import App from "./App.vue";
 import PrimeVue from "primevue/config";
 import ToastService from "primevue/toastservice";
 
-// All styles
+// All styles (includes Bulma and Prime)
 import "@/assets/main.scss";
 
-// --- Bulma ----
-// Bulma style overrides imported already by main.scss
+// Bulma JS for navbar burger and restyling PrimeVue with Bulma
 import "@/bulma/navbar-burger-toggle.js";
 // import { BulmaPT } from "./BulmaPT";
-
-// --- PrimeVue ----
-// likely to be removed ---->>>
-import "primevue/resources/themes/lara-light-teal/theme.css";
-import "primeflex/primeflex.css";
-import "primevue/resources/primevue.min.css";
-// <<<----
-import "primeicons/primeicons.css";
 
 const app = createApp(App);
 

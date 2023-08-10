@@ -5,7 +5,7 @@ import Toast from "primevue/toast";
 import ScrollTop from "primevue/scrolltop";
 
 import EditorTab from "./components/EditorTab.vue";
-import TheNavbar from "./components/TheNavbar.vue";
+import {type TabViewChangeEvent} from "primevue/tabview";
 
 function onTabChange(ev: TabViewChangeEvent) {
   console.log("Tab changed to", ev.index);
@@ -17,6 +17,9 @@ function onTabChange(ev: TabViewChangeEvent) {
 
   <TabView
     @tab-change="onTabChange"
+    :pt="{
+
+    }"
   >
     <TabPanel :pt="{
       root: 'is-active'
@@ -63,10 +66,7 @@ function onTabChange(ev: TabViewChangeEvent) {
 </template>
 
 <style scoped>
-.container {
-  display: flex;
+:deep(.p-tabview-nav) {
   justify-content: center;
-  /* align-items: center; */
-  min-height: 100vh;
 }
 </style>
