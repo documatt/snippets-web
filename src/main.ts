@@ -9,7 +9,7 @@ import "@/assets/main.scss";
 
 // Bulma JS for navbar burger and restyling PrimeVue with Bulma
 import "@/bulma/navbar-burger-toggle.js";
-// import { BulmaPT } from "./BulmaPT";
+// import { BulmaPT } from "@/bulma/BulmaPT";
 
 const app = createApp(App);
 

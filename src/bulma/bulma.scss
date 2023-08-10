@@ -121,6 +121,18 @@ footer img.logo {
 @import "bulma/sass/form/_all.sass";
 @import "bulma/sass/components/navbar.sass";
 @import "bulma/sass/components/breadcrumb.sass";
+@import "bulma/sass/components/tabs.sass";
 @import "bulma/sass/layout/hero.sass";
 @import "bulma/sass/layout/section.sass";
 @import "bulma/sass/layout/section.sass";
+
+// *****************************************************************************
+// 4. Overrides
+// *****************************************************************************
+
+// Add horizontal padding to container when on touch (mobile+tablet)
+@include touch {
+  .container {
+    padding: 0 1rem;
+  }
+}

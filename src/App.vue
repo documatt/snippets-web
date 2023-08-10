@@ -5,25 +5,13 @@ import Toast from "primevue/toast";
 import ScrollTop from "primevue/scrolltop";
 
 import EditorTab from "./components/EditorTab.vue";
-import {type TabViewChangeEvent} from "primevue/tabview";
-
-function onTabChange(ev: TabViewChangeEvent) {
-  console.log("Tab changed to", ev.index);
-}
 </script>
 
 <template>
   <Toast></Toast>
 
-  <TabView
-    @tab-change="onTabChange"
-    :pt="{
-
-    }"
-  >
-    <TabPanel :pt="{
-      root: 'is-active'
-    }">
+  <TabView>
+    <TabPanel>
       <template #header>
         <i class="pi pi-pencil mr-2"></i>
         <span>Write</span>
@@ -66,7 +54,13 @@ function onTabChange(ev: TabViewChangeEvent) {
 </template>
 
 <style scoped>
+/* Center tab headers */
 :deep(.p-tabview-nav) {
   justify-content: center;
+}
+/* Turn off too wide horizontal padding of tab panel (content) */
+:deep(.p-tabview-panels) {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 </style>

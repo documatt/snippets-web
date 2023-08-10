@@ -3,5 +3,5 @@ import EditorToolbar from "./EditorToolbar.vue";
 </script>
 
 <template>
-  <EditorToolbar />
+    <EditorToolbar />
 </template>
