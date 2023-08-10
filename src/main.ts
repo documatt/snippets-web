@@ -3,6 +3,7 @@ import { createPinia } from "pinia";
 import App from "./App.vue";
 import PrimeVue from "primevue/config";
 import ToastService from "primevue/toastservice";
+import Tooltip from 'primevue/tooltip';
 
 // All styles (includes Bulma and Prime)
 import "@/assets/main.scss";
@@ -19,5 +20,7 @@ app.use(PrimeVue, {
   // pt: BulmaPT
 });
 app.use(ToastService);
+
+app.directive("tooltip", Tooltip)
 
 app.mount("#app");

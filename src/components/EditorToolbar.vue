@@ -1,13 +1,32 @@
 <template>
-  <div class="card relative z-2">
-    <Menubar :model="items"/>
+  <div>
+    <Menubar :model="items">
+      <template #end>
+        <div class="flex align-items-center">
+          <Button label="New" />
+
+          <i
+            class="pi ml-3"
+            :class="saveStatusIcons"
+            v-tooltip.left="'All changes automatically saved'"
+          ></i>
+        </div>
+      </template>
+    </Menubar>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 import Menubar from "primevue/menubar";
+import Button from "primevue/button";
+
+let isSaving = ref(true);
+
+const saveStatusIcons = computed(() =>
+  isSaving.value ? ["pi-spinner", "pi-spin"] : ["pi-spinner"]
+)
 
 const items = ref([
   {
@@ -133,3 +152,9 @@ const items = ref([
   }
 ]);
 </script>
+
+<style scoped>
+:deep(.p-menubar) {
+  background: none;
+}
+</style>
