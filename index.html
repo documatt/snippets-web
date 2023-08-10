@@ -5,42 +5,77 @@
   <meta charset="UTF-8">
   <link rel="icon" href="/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vite App</title>
+  <title>Documatt Snippets, reStructuredText online preview and editor</title>
+  <meta name="description"
+    content="Preview and edit reStructuredText files online with Sphinx and Docutils without installing it.">
 </head>
 
 <body>
-  <h1 class="title">
-    Bulma
-  </h1>
+  <!-- Header (navbar and breadcrumb) not Vue-rendered for better SEO -->
+  <!-- Navbar -->
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://documatt.com">
+          <img src="/documatt-logo.svg"
+            alt="Documatt: Write beautiful documentation and books in an easy tool for tech and novel writers."
+            width="162" height="28">
+        </a>
 
-  <p class="subtitle">
-    Modern CSS framework based on <a
-      href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox">Flexbox</a>
-  </p>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMain">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
 
-  <div class="field">
-    <div class="control">
-      <input class="input" type="text" placeholder="Input">
+      <div id="navbarMain" class="navbar-menu">
+        <div class="navbar-start"></div>
+        <div class="navbar-end">
+          <a class="navbar-item" href="https://documatt.com">
+            Product
+          </a>
+
+          <a class="navbar-item is-active" href="/">
+            Snippets
+          </a>
+
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link" href="https://documatt.com/blog/">
+              Techwriter blog
+            </a>
+
+            <div class="navbar-dropdown is-right">
+              <a class="navbar-item" href="https://documatt.com/restructuredtext-reference">
+                reStructuredText
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- .container -->
+  </nav>
+  <!-- Navbar END -->
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb" aria-label="breadcrumbs">
+    <div class="container">
+      <ul>
+        <li class="is-active"><a href="/" aria-current="page">Snippets - reStructuredText online preview and editor</a>
+        </li>
+      </ul>
     </div>
-  </div>
+  </nav>
+  <!-- Breadcrumb END -->
 
-  <div class="field">
-    <p class="control">
-      <span class="select">
-        <select>
-          <option>Select dropdown</option>
-        </select>
-      </span>
-    </p>
-  </div>
+  <!-- Header (navbar + breadcrumb) END -->
 
-  <div class="buttons">
-    <a class="button is-primary">Primary</a>
-    <a class="button is-link">Link</a>
-  </div>
-
+  <!-- Vue  -->
   <div id="app"></div>
   <script type="module" src="/src/main.ts"></script>
+  <!-- Vue END -->
+
+
+  <!-- TODO: StatCounter -->
 </body>
 
 </html>

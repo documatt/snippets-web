@@ -1,0 +1,130 @@
+@charset "utf-8";
+
+// Bulma customization
+
+// *****************************************************************************
+// 1. Import the initial variables
+// *****************************************************************************
+
+@import "bulma/sass/utilities/initial-variables.sass";
+
+// *****************************************************************************
+// 2. Update global and component's variables
+// *****************************************************************************
+
+// // Set your brand colors
+// $purple: #8A4D76;
+// $pink: #FA7C91;
+// $brown: #757763;
+// $beige-light: #D0D1CD;
+// $beige-lighter: #EFF0EB;
+
+// // Update Bulma's global variables
+$family-primary: 'Playfair Display', serif;
+// $family-sans-serif: "Nunito", sans-serif;
+// $grey-dark: $brown;
+// $grey-light: $beige-light;
+// $primary: $purple;
+// $link: $pink;
+// $widescreen-enabled: false;
+// $fullhd-enabled: false;
+
+// // Update some of Bulma's component variables
+// $body-background-color: $beige-lighter;
+// $control-border-width: 2px;
+// $input-border-color: transparent;
+// $input-shadow: none;
+
+// *** Colors ******************************************************************
+
+// Documatt colors
+$mocca: rgb(245, 243, 240);
+$dm-blue: #0c7cba;
+
+$primary: $dm-blue;
+$secondary: $mocca;
+
+// *** Links *******************************************************************
+
+$link: $grey-dark;
+$link-hover: $grey;
+
+a {
+  text-decoration: underline !important;
+}
+
+// *** Navbar ******************************************************************
+// https://bulma.io/documentation/components/navbar/
+
+$navbar-item-active-color: $primary;
+$navbar-item-hover-color: $primary;
+$navbar-item-active-background-color: hsl(0, 0%, 98%);
+
+$navbar-height: 5rem;
+
+.navbar-item {
+  font-size: $size-5;
+  text-decoration: none !important;
+
+  &.is-active {
+    font-weight: $weight-semibold;
+  }
+
+  &.has-dropdown a {
+    text-decoration: none !important;
+  }
+}
+
+// *** Breadcrumb **************************************************************
+
+$breadcrumb-item-padding-horizontal: 0.75rem;
+$breadcrumb-item-padding-vertical: 0.75rem;
+
+nav.breadcrumb {
+  padding: 0 1rem;
+  background: $mocca;
+  /* offset-x | offset-y | blur-radius | spread-radius | color */
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06) !important;
+}
+
+// No underline in active breadcrumb item
+nav.breadcrumb li.is-active a {
+  text-decoration: none !important;
+}
+
+// *** Footer ******************************************************************
+
+$footer-background-color: $mocca;
+$footer-padding: 3rem 1.5rem 3rem;
+
+footer.footer {
+  margin-top: 3rem;
+  color: $primary !important;
+  // identical box-shadow as breadcrumb, just flipped
+  /* offset-x | offset-y | blur-radius | spread-radius | color */
+  // breadcrumb has:
+  // box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06) !important;
+  box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, .1), 0 -1px 2px 0 rgba(0, 0, 0, .06) !important;
+}
+
+footer img.logo {
+  width: 10rem;
+}
+
+// *****************************************************************************
+// 3. Import the rest of Bulma
+// *****************************************************************************
+// Everything
+//      @import "bulma/bulma";
+// or what you need
+@import "bulma/sass/utilities/_all.sass";
+@import "bulma/sass/base/_all.sass";
+@import "bulma/sass/elements/button.sass";
+@import "bulma/sass/elements/container.sass";
+@import "bulma/sass/elements/title.sass";
+@import "bulma/sass/form/_all.sass";
+@import "bulma/sass/components/navbar.sass";
+@import "bulma/sass/components/breadcrumb.sass";
+@import "bulma/sass/layout/hero.sass";
+@import "bulma/sass/layout/section.sass";
+@import "bulma/sass/layout/section.sass";

@@ -1,179 +1,72 @@
 <script setup lang="ts">
-import { ref } from "vue";
-
-import { useToast } from "primevue/usetoast";
-
-import InputText from "primevue/inputtext";
-import Button from "primevue/button";
+import TabView from "primevue/tabview";
+import TabPanel from "primevue/tabpanel";
 import Toast from "primevue/toast";
+import ScrollTop from "primevue/scrolltop";
 
-const text = ref();
+import EditorTab from "./components/EditorTab.vue";
+import TheNavbar from "./components/TheNavbar.vue";
 
-const toast = useToast();
-
-const greet = () => {
-  toast.add({
-    severity: "info",
-    summary: "Summary",
-    detail: `I am a detail. Text is '${text.value}'`
-  });
-};
+function onTabChange(ev: TabViewChangeEvent) {
+  console.log("Tab changed to", ev.index);
+}
 </script>
 
 <template>
   <Toast></Toast>
-  <div class="container">
-    <span class="p-float-label">
-      <InputText id="txt" v-model="text" />
-      <label for="txt">Username</label>
-    </span>
 
-    <Button label="Greet" @click="greet" icon="pi pi-user"></Button>
-  </div>
+  <TabView
+    @tab-change="onTabChange"
+  >
+    <TabPanel :pt="{
+      root: 'is-active'
+    }">
+      <template #header>
+        <i class="pi pi-pencil mr-2"></i>
+        <span>Write</span>
+      </template>
+      <EditorTab />
+    </TabPanel>
+    <TabPanel>
+      <template #header>
+        <i class="pi pi-eye mr-2"></i>
+        <span>Preview</span>
+      </template>
+      <p>
+        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+        accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
+        illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+        explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
+        odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+        voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non
+        numquam eius modi.
+      </p>
+    </TabPanel>
+    <TabPanel>
+      <template #header>
+        <i class="pi pi-share-alt mr-2"></i>
+        <span>Share</span>
+      </template>
+      <p>
+        At vero eos et accusamus et iusto odio dignissimos ducimus qui
+        blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
+        et quas molestias excepturi sint occaecati cupiditate non provident,
+        similique sunt in culpa qui officia deserunt mollitia animi, id est
+        laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
+        distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
+        cumque nihil impedit quo minus.
+      </p>
+    </TabPanel>
+  </TabView>
 
-  <div>
-    <div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
-      <div class="text-900 font-bold text-6xl mb-4 text-center">
-        Pricing Plans
-      </div>
-      <div class="text-700 text-xl mb-6 text-center line-height-3">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit numquam
-        eligendi quos.
-      </div>
-
-      <div class="grid">
-        <div class="col-12 lg:col-4">
-          <div class="p-3 h-full">
-            <div
-              class="shadow-2 p-3 h-full flex flex-column surface-card"
-              style="border-radius: 6px"
-            >
-              <div class="text-900 font-medium text-xl mb-2">Basic</div>
-              <div class="text-600">Plan description</div>
-              <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
-              <div class="flex align-items-center">
-                <span class="font-bold text-2xl text-900">$9</span>
-                <span class="ml-2 font-medium text-600">per month</span>
-              </div>
-              <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
-              <ul class="list-none p-0 m-0 flex-grow-1">
-                <li class="flex align-items-center mb-3">
-                  <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                  <span>Arcu vitae elementum</span>
-                </li>
-                <li class="flex align-items-center mb-3">
-                  <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                  <span>Dui faucibus in ornare</span>
-                </li>
-                <li class="flex align-items-center mb-3">
-                  <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                  <span>Morbi tincidunt augue</span>
-                </li>
-              </ul>
-              <hr
-                class="mb-3 mx-0 border-top-1 border-none surface-border mt-auto"
-              />
-              <Button label="Buy Now" class="p-3 w-full mt-auto"></Button>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 lg:col-4">
-          <div class="p-3 h-full">
-            <div
-              class="shadow-2 p-3 h-full flex flex-column surface-card"
-              style="border-radius: 6px"
-            >
-              <div class="text-900 font-medium text-xl mb-2">Premium</div>
-              <div class="text-600">Plan description</div>
-              <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
-              <div class="flex align-items-center">
-                <span class="font-bold text-2xl text-900">$29</span>
-                <span class="ml-2 font-medium text-600">per month</span>
-              </div>
-              <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
-              <ul class="list-none p-0 m-0 flex-grow-1">
-                <li class="flex align-items-center mb-3">
-                  <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                  <span>Arcu vitae elementum</span>
-                </li>
-                <li class="flex align-items-center mb-3">
-                  <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                  <span>Dui faucibus in ornare</span>
-                </li>
-                <li class="flex align-items-center mb-3">
-                  <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                  <span>Morbi tincidunt augue</span>
-                </li>
-                <li class="flex align-items-center mb-3">
-                  <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                  <span>Duis ultricies lacus sed</span>
-                </li>
-              </ul>
-              <hr class="mb-3 mx-0 border-top-1 border-none surface-border" />
-              <Button label="Buy Now" class="p-3 w-full"></Button>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 lg:col-4">
-          <div class="p-3 h-full">
-            <div
-              class="shadow-2 p-3 flex flex-column surface-card"
-              style="border-radius: 6px"
-            >
-              <div class="text-900 font-medium text-xl mb-2">Enterprise</div>
-              <div class="text-600">Plan description</div>
-              <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
-              <div class="flex align-items-center">
-                <span class="font-bold text-2xl text-900">$49</span>
-                <span class="ml-2 font-medium text-600">per month</span>
-              </div>
-              <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
-              <ul class="list-none p-0 m-0 flex-grow-1">
-                <li class="flex align-items-center mb-3">
-                  <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                  <span>Arcu vitae elementum</span>
-                </li>
-                <li class="flex align-items-center mb-3">
-                  <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                  <span>Dui faucibus in ornare</span>
-                </li>
-                <li class="flex align-items-center mb-3">
-                  <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                  <span>Morbi tincidunt augue</span>
-                </li>
-                <li class="flex align-items-center mb-3">
-                  <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                  <span>Duis ultricies lacus sed</span>
-                </li>
-                <li class="flex align-items-center mb-3">
-                  <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                  <span>Imperdiet proin</span>
-                </li>
-                <li class="flex align-items-center mb-3">
-                  <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                  <span>Nisi scelerisque</span>
-                </li>
-              </ul>
-              <hr class="mb-3 mx-0 border-top-1 border-none surface-border" />
-              <Button
-                label="Buy Now"
-                class="p-3 w-full p-button-outlined"
-              ></Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <ScrollTop />
 </template>
 
 <style scoped>
 .container {
   display: flex;
-  align-items: center;
   justify-content: center;
+  /* align-items: center; */
   min-height: 100vh;
 }
 </style>
