@@ -14,7 +14,7 @@
       <i
         class="pi ml-3"
         :class="saveStatusIcons"
-        v-tooltip.left="'All changes automatically saved'"
+        v-tooltip.left="saveStatusTooltip"
       ></i>
     </div>
   </div>
@@ -31,6 +31,9 @@ let isSaving = ref(true);
 
 const saveStatusIcons = computed(() =>
   isSaving.value ? ["pi-spinner", "pi-spin"] : ["pi-check-circle"]
+);
+const saveStatusTooltip = computed(() =>
+  isSaving.value ? "Saving changes" : "All changes saved"
 );
 
 // New document button
