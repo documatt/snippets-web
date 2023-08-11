@@ -30,7 +30,7 @@ import { useConfirm } from "primevue/useconfirm";
 let isSaving = ref(true);
 
 const saveStatusIcons = computed(() =>
-  isSaving.value ? ["pi-spinner", "pi-spin"] : ["pi-spinner"]
+  isSaving.value ? ["pi-spinner", "pi-spin"] : ["pi-check-circle"]
 );
 
 // New document button
