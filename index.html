@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <!-- Header (navbar and breadcrumb) not Vue-rendered for better SEO -->
+  <!-- Navbar, breadcrumb and footer not Vue-rendered for better SEO -->
   <!-- Navbar -->
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="container">
@@ -67,14 +67,42 @@
   </nav>
   <!-- Breadcrumb END -->
 
-  <!-- Header (navbar + breadcrumb) END -->
-
   <div class="container">
     <!-- Vue  -->
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
     <!-- Vue END -->
   </div>
+
+  <!-- Footer -->
+  <div id="footer" class="px-4 py-6 md:px-6 lg:px-8 text-center mt-3">
+    <a href="https://documatt.com" target="_blank">
+      <img src="/documatt-logo.svg"
+        alt="Documatt: Write beautiful documentation and books in an easy tool for tech and novel writers." width="162"
+        height="28">
+    </a>
+    <p class="dm-blue line-height-3 mt-0 mb-4">
+      Write beautiful docs, manuals, or books in an easy tool for tech and novel writers. Output to HTML, PDF, and EPUB, share, collaborate and publish.
+    </p>
+    <div class="mt-4 mb-3">
+      Copyright &copy; 2023 Documatt
+      &mdash;
+      <a href="https://documatt.com/about/legal/" target="_blank">Terms & Privacy</a>
+    </div>
+    <!-- Social icons -->
+    <div class="flex align-items-center justify-content-center">
+      <a href="https://twitter.com/documattcom" target="_blank" class="cursor-pointer text-700 mr-5">
+        <i class="pi pi-twitter"></i>
+      </a>
+      <a href="https://facebook.com/documattcom" target="_blank" class="cursor-pointer text-700 mr-5">
+        <i class="pi pi-facebook"></i>
+      </a>
+      <a href="https://github.com/documatt" target="_blank" class="cursor-pointer text-700">
+        <i class="pi pi-github"></i>
+      </a>
+    </div>
+  </div>
+  <!-- Footer END -->
 
   <!-- TODO: StatCounter -->
 </body>

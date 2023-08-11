@@ -1,6 +1,29 @@
+// *****************************************************************************
+// Font
+// *****************************************************************************
 
-@import url('https://fonts.googleapis.com/css?family=Playfair+Display&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display&display=swap");
 
+// *****************************************************************************
+// Common
+// *****************************************************************************
+
+// *** Colors ******************************************************************
+
+$dm-mocca: rgb(245, 243, 240);
+$dm-blue: #0c7cba;
+
+:root {
+  // made them available also outside SASS
+  --dm-mocca: $dm-mocca;
+  --dm-blue: $dm-blue;
+}
+
+.dm-blue {
+  color: $dm-blue;
+}
+
+// *** Colors ******************************************************************
 
 body {
   font-family: var(--font-family);
@@ -9,7 +32,15 @@ body {
   color: var(--text-color);
 }
 
+// *****************************************************************************
+// Bulma
+// *****************************************************************************
+
 @import "@/bulma/bulma.scss";
+
+// *****************************************************************************
+// Prime
+// *****************************************************************************
 
 // likely to be removed ---->>>
 @import "primevue/resources/themes/lara-light-teal/theme.css";
@@ -17,3 +48,35 @@ body {
 @import "primevue/resources/primevue.min.css";
 // <<<----
 @import "primeicons/primeicons.css";
+
+// *****************************************************************************
+// Custom styles
+// *****************************************************************************
+
+// *** Footer ******************************************************************
+
+#footer {
+  background-color: $dm-mocca;
+  // identical box-shadow as breadcrumb, just flipped
+  /* offset-x | offset-y | blur-radius | spread-radius | color */
+  // breadcrumb has:
+  // box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+  box-shadow:
+    0 -1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 -1px 2px 0 rgba(0, 0, 0, 0.06);
+
+  color: $dm-blue;
+
+  a,
+  i {
+    color: $dm-blue;
+
+    &:hover {
+      color: lighten($dm-blue, 20%);
+    }
+  }
+
+  a {
+    text-decoration: underline;
+  }
+}
