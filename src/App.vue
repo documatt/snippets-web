@@ -3,12 +3,16 @@ import TabView from "primevue/tabview";
 import TabPanel from "primevue/tabpanel";
 import Toast from "primevue/toast";
 import ScrollTop from "primevue/scrolltop";
+import ConfirmDialog from "primevue/confirmdialog";
 
 import EditorTab from "./components/EditorTab.vue";
 </script>
 
 <template>
+  <!-- DOM placeholder for rendering toast popups -->
   <Toast></Toast>
+  <!-- DOM placeholder for rendering confirm dialogs -->
+  <ConfirmDialog></ConfirmDialog>
 
   <TabView>
     <TabPanel>

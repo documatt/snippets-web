@@ -5,7 +5,7 @@ import { ref } from "vue";
 let value = ref("I am simple RST editor");
 </script>
 <template>
-  <div>
+  <div class="m-3">
     <Textarea v-model="value" autoResize rows="5" cols="80" />
   </div>
 </template>
