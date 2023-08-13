@@ -15,6 +15,7 @@ import "@/bulma/navbar-burger-toggle.js";
 
 const app = createApp(App);
 
+// Plugins
 app.use(createPinia());
 app.use(PrimeVue, {
   // unstyled: true,
@@ -23,6 +24,7 @@ app.use(PrimeVue, {
 app.use(ToastService);
 app.use(ConfirmationService);
 
+// Global directives registration
 app.directive("tooltip", Tooltip)
 
 app.mount("#app");

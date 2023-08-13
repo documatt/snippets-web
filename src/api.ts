@@ -2,8 +2,45 @@
 // https://github.com/documatt/snippets-api/blob/dev/docs/rest-api.md
 
 import Axios from "axios";
-import type { AxiosInstance } from "axios";
+import type { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 import NProgress from "nprogress";
+import type { ToastMessageOptions } from "primevue/toast";
+import type { ToastServiceMethods } from "primevue/toastservice";
+
+// TODO: Announce API error via toast
+// The problem is to obtain toast service since the following
+//    import { useToast } from 'primevue/usetoast';
+//    const toast = useToast();
+// will complain
+//    [Vue warn]: inject() can only be used inside setup() or functional components.
+//    usetoast.esm.js:7 Uncaught Error: No PrimeVue Toast provided!
+// Solution might be wrapping API client as renderless component or
+// as functional component.
+// https://vuejs.org/guide/components/slots.html#renderless-components
+// https://vuejs.org/guide/extras/render-function.html#functional-components
+// However, if this would be component, can it be used from Pinia actions?
+// What about wrapping into composable?
+// Update 1: useToast() cannot be used from composable
+// Update 2: functional components are too complex (don't understand them)
+// Update 3: also renderless components aren't the way - cannot be used from
+//    Pinia actions.
+// Update 4: Store for `toad` (from `useToad()`) is no solution too because
+//    also Pinia is not available here
+//
+// --> The only solution how to notify in toast is from store actions. E.g.,:
+//    export const useBookStore = defineStore("book", () => {
+//        const toast = useToast();
+//        async function createAndSetBook() {
+//            const newBookId = "some-book";
+//            const bookApi = new BookApi(newBookId);
+//            try {
+//                await bookApi.create("SPHINX_530");
+//            catch (err) {
+//                toast.value.add({"summary": "very bad"})
+//            }
+//        }
+//    }
+// --> Or, Maybe notify API errors via some kind of event bus?
 
 // Create Axios instance with defaults
 const axios: AxiosInstance = Axios.create({
@@ -12,7 +49,9 @@ const axios: AxiosInstance = Axios.create({
 
 // Using Axios interceptors:
 // - on success - start and stop NProgress
-// - on error - log and announce to an user via toast
+// - on error - stop NProgress, log, announce to an user via toast
+// Stopping NProgress (`done()`) also in error handlers prevens stucking
+// progress bar in the infinite loading
 
 axios.interceptors.request.use(
   (conf) => {
@@ -20,8 +59,12 @@ axios.interceptors.request.use(
     return conf;
   },
   (err) => {
+    NProgress.done();
+
     console.log("API request error: ", err.toJSON());
+
     // oznámit toastem
+
     throw err;
   }
 );
@@ -32,6 +75,8 @@ axios.interceptors.response.use(
     return resp;
   },
   (err) => {
+    NProgress.done();
+
     if (err.response) {
       console.log(
         "API response error: the request was made but the server responded with a non 2xx status code. Data:",
@@ -53,10 +98,28 @@ axios.interceptors.response.use(
         "'."
       );
     }
+
     // oznámit toastem
+
     throw err;
   }
 );
+
+// async function send(config: AxiosRequestConfig) {
+//   try {
+//     NProgress.start();
+//     return await axios(config);
+//   } catch (err) {
+//     console.log(
+//       `Sending API request '${config.method?.toUpperCase()} ${
+//         config.url
+//       }' failed.`,
+//       err.toJSON()
+//     );
+//   } finally {
+//     NProgress.done();
+//   }
+// }
 
 interface Book {
   id: BookId;
@@ -213,12 +276,12 @@ export class ShareApi {
 
 type AvailEngines = {
   [engine: string]: {
-    "name": string,
-    "markup": "md" | "rst" | "rst+md",
-    "root_doc": string,
-    "output": string[]
-  }
-}
+    name: string;
+    markup: "md" | "rst" | "rst+md";
+    root_doc: string;
+    output: string[];
+  };
+};
 
 export class QueryApi {
   static async engines(): Promise<AvailEngines> {
@@ -226,5 +289,14 @@ export class QueryApi {
   }
 }
 
-// const docApi = new DocApi("book-id", "doc-id")
-// docApi.updateMetadata("new-doc-id");
+/**
+ * Send unified API error message with PrimeVue Toast
+ */
+export function toastApiError(toast: ToastServiceMethods) {
+  toast.add({
+    severity: "error",
+    summary: "API error",
+    detail:
+      "The application will not work as expected. See browser console log for details or try reload page."
+  })
+}
