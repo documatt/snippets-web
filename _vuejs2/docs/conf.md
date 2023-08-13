@@ -1,6 +1,6 @@
 # Configuration
 
-During the build (npm run build), there must exist `VUE_APP_API_BASE_URL` evn var that points to Api URL.
+During the build (npm run build), there must exist `VUE_APP_API_BASE_URL` evn var that points to Api URL. No trailing slash!
 
 `RUNNING_ENV` with values `dev` or `prod` is crutial for disniguish errors in Sentry or visually distinguish in Web "you are on non-PROD".
 
