@@ -121,24 +121,25 @@ axios.interceptors.response.use(
 //   }
 // }
 
-interface Book {
+export interface Book {
   id: BookId;
-  title: string;
+  engine: Engine;
 }
 
-interface Doc {
+export interface Doc {
   id: DocId;
   bookId: BookId;
 }
 
-interface Job {
+export interface Job {
   job_id: string;
   job_status: "queued" | "started" | "deferred" | "finished" | "failed";
 }
 
-type BookId = string;
-type DocId = string;
-type Engine = "SPHINX_530";
+export type BookId = string;
+export type DocId = string;
+export type Engine = "SPHINX_530";
+export type Body = ArrayBuffer;
 
 export class BookApi {
   constructor(public bookId: BookId) {}
@@ -189,45 +190,45 @@ export class DocApi {
     public docId: DocId
   ) {}
 
-  // todo: něco jako bytes v Pythonu. Asi typed array
+  // TODO: něco jako bytes v Pythonu. Asi typed array
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Typed_arrays
   // https://web.dev/webgl-typed-arrays/
-  async getBody(): Promise<ArrayBuffer> {
-    // todo: %-encode docId
+  async getBody(): Promise<Body> {
+    // TODO: %-encode docId
     // Axios will follow redirect to S3 automatically
     return (await axios.get(`/book/${this.bookId}/doc/${this.docId}`)).data;
   }
 
-  async createDoc(body: ArrayBuffer) {
-    // todo: %-encode docId
+  async createDoc(body: Body) {
+    // TODO: %-encode docId
     await axios.post(`book/${this.bookId}/doc/${this.docId}`, body);
   }
 
   async updateMetadata(newId: DocId) {
-    // todo: %-encode existing docId
+    // TODO: %-encode existing docId
     await axios.patch(`/book/${this.bookId}/doc/${this.docId}`, {
       id: newId
     });
   }
 
-  async updateBody(body: ArrayBuffer) {
-    // todo: %-encode docId
+  async updateBody(body: Body) {
+    // TODO: %-encode docId
     await axios.patch(`/book/${this.bookId}/doc/${this.docId}/body`, body);
   }
 
   async delete() {
-    // todo: %-encode docId
+    // TODO: %-encode docId
     await axios.delete(`/book/${this.bookId}/doc/${this.docId}`);
   }
 
   async enqueuePreview(): Promise<Job> {
-    // todo: %-encode docId
+    // TODO: %-encode docId
     return (await axios.post(`/book/${this.bookId}/doc/${this.docId}/preview`))
       .data;
   }
 
-  async getPreviewBody(jobId: string): Promise<ArrayBuffer> {
-    // todo: %-encode docId
+  async getPreviewBody(jobId: string): Promise<Body> {
+    // TODO: %-encode docId
     return (
       await axios.get(`/book/${this.bookId}/doc/${this.docId}/preview/${jobId}`)
     ).data;
@@ -253,7 +254,7 @@ type ShareExpireMode =
 
 interface ShareStatus {
   id: string;
-  // todo: JS datetime types?
+  // TODO: JS datetime types?
   created_at: string;
   expire_at: string | null;
 }
@@ -269,12 +270,12 @@ export class ShareApi {
 
   static async getFile(digest: string, path: string): Promise<ArrayBuffer> {
     // Axios follows redirects to S3 automatically
-    // todo: %-encode path
+    // TODO: %-encode path
     return (await axios.get(`/share/${digest}/${path}`)).data;
   }
 }
 
-type AvailEngines = {
+export type EnginesInfo = {
   [engine: string]: {
     name: string;
     markup: "md" | "rst" | "rst+md";
@@ -284,8 +285,8 @@ type AvailEngines = {
 };
 
 export class QueryApi {
-  static async engines(): Promise<AvailEngines> {
-    return (await axios.get(`/query/engines`)).data;
+  static async engines(): Promise<EnginesInfo> {
+    return (await axios.get(`/query/engine`)).data;
   }
 }
 
