@@ -2,7 +2,6 @@
 import { computed } from "vue";
 
 import { useDocStore } from "@/stores/DocStore";
-import { storeToRefs } from "pinia";
 import Button from "primevue/button";
 import { useConfirm } from "primevue/useconfirm";
 
@@ -52,10 +51,7 @@ function onNewDocumentClick(event) {
     message: "Discard existing document and start with the new one?",
     icon: "pi pi-exclamation-triangle",
     accept: () => {
-      console.log("accept");
-    },
-    reject: () => {
-      console.log("reject");
+      docStore.body = ""
     }
   });
 };
