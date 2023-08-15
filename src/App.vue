@@ -9,7 +9,6 @@ import EditorTab from "./components/EditorTab.vue";
 
 import { useGlobalStore } from "./stores/GlobalStore";
 import { useBookStore } from "./stores/BookStore";
-import { storeToRefs } from "pinia";
 
 // const { currentId } = storeToRefs(useBookStore())
 const globalStore = useGlobalStore()
