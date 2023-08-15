@@ -1,21 +1,26 @@
 <script setup lang="ts">
-import Textarea from "primevue/textarea";
+import { Codemirror } from "vue-codemirror";
 
 import { useDocStore } from "../stores/DocStore";
-import { storeToRefs } from "pinia";
 
-let { body } = storeToRefs(useDocStore())
+const docStore = useDocStore();
 
+async function onBlur() {
+  await docStore.save();
+}
+function onChanges() {
+  docStore.isDirty = true;
+}
 </script>
 <template>
-  <div class="m-3">
-
-    <Textarea v-model="body" autoResize rows="5" cols="80" />
-  </div>
+  <codemirror
+    v-model="docStore.body"
+    placeholder="Every journey begins with a first step."
+    :style="{ height: '400px' }"
+    :autofocus="true"
+    :indent-with-tab="true"
+    :tab-size="4"
+    @changes="onChanges"
+    @blur="onBlur"
+  />
 </template>
-
-<style scoped>
-:deep(.p-inputtextarea) {
-    font-family: monospace;
-}
-</style>

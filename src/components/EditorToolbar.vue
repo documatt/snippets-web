@@ -8,12 +8,40 @@ import { useConfirm } from "primevue/useconfirm";
 
 let docStore = useDocStore()
 
-const saveStatusIcons = computed(() =>
-  docStore.isSaving ? ["pi-spinner", "pi-spin"] : ["pi-check-circle"]
-);
-const saveStatusTooltip = computed(() =>
-  docStore.isSaving ? "Saving changes" : "All changes saved"
-);
+const isDirtyAndNotSaved = computed(()=>{
+  return docStore.isDirty && !docStore.isSaving
+})
+
+const isDirtyButSaving = computed(()=>{
+  return docStore.isDirty && docStore.isSaving
+})
+
+const isNotDirtyAndSaved = computed(()=>{
+  return !docStore.isDirty && !docStore.isSaving
+})
+
+const saveStatusIcons = computed(() => {
+  // adding "pi-spin" will animate an icon
+  if (isDirtyAndNotSaved.value)
+    return ["pi-spinner"]
+  else if (isDirtyButSaving.value)
+    return ["pi-spinner", "pi-spin"]
+  else if (isNotDirtyAndSaved.value)
+    return ["pi-check-circle"]
+
+  throw Error("Unexpected document state")
+});
+
+const saveStatusTooltip = computed(() => {
+  if (isDirtyAndNotSaved.value)
+    return "Pending changes"
+  else if (isDirtyButSaving.value)
+    return "Saving changes"
+  else if (isNotDirtyAndSaved.value)
+    return "All changes saved automatically"
+
+  throw Error("Unexpected document state")
+});
 
 // New document button
 const confirm = useConfirm();
