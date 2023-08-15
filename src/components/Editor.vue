@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import Textarea from "primevue/textarea";
-import { ref } from "vue";
+import { useDocStore } from "../stores/DocStore";
+import { storeToRefs } from "pinia";
 
-let value = ref("I am simple RST editor");
+let { body } = storeToRefs(useDocStore())
+
 </script>
 <template>
   <div class="m-3">
-    <Textarea v-model="value" autoResize rows="5" cols="80" />
+    <Textarea v-model="body" autoResize rows="5" cols="80" />
   </div>
 </template>
 
