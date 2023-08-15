@@ -35,7 +35,7 @@ export const useGlobalStore = defineStore("global", () => {
     if (bookStore.currentId && docStore.currentId) {
       // *** Load the existing one ***
       await bookStore.loadAndSet(bookStore.currentId);
-      await docStore.loadAndSet(bookStore.currentId, docStore.currentId);
+      await docStore.loadAndSetBody();
     } else {
       // *** Create a new one ***
       // generate new UUID as bookId
@@ -48,7 +48,8 @@ export const useGlobalStore = defineStore("global", () => {
 
       // set book and doc state
       await bookStore.loadAndSet(newBookId);
-      await docStore.loadAndSet(newBookId, rootDocId);
+      docStore.currentId = rootDocId;
+      await docStore.loadAndSetBody();
     }
   }
 

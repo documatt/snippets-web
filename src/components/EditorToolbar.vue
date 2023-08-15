@@ -1,22 +1,23 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed } from "vue";
 
+import { useDocStore } from "@/stores/DocStore";
+import { storeToRefs } from "pinia";
 import Button from "primevue/button";
 import { useConfirm } from "primevue/useconfirm";
 
-// Save status icon
-let isSaving = ref(true);
+let docStore = useDocStore()
 
 const saveStatusIcons = computed(() =>
-  isSaving.value ? ["pi-spinner", "pi-spin"] : ["pi-check-circle"]
+  docStore.isSaving ? ["pi-spinner", "pi-spin"] : ["pi-check-circle"]
 );
 const saveStatusTooltip = computed(() =>
-  isSaving.value ? "Saving changes" : "All changes saved"
+  docStore.isSaving ? "Saving changes" : "All changes saved"
 );
 
 // New document button
 const confirm = useConfirm();
-const onNewDocumentClick = (event) => {
+function onNewDocumentClick(event) {
   confirm.require({
     target: event.currentTarget,
     header: "New document",
@@ -30,15 +31,21 @@ const onNewDocumentClick = (event) => {
     }
   });
 };
+
+async function onSaveBody() {
+  await docStore.save()
+}
+
 </script>
 
 <template>
   <div>
     <div class="flex align-items-center justify-content-center">
       <span class="p-buttonset">
-        <Button label="Save" icon="pi pi-check" outlined />
-        <Button label="Delete" icon="pi pi-trash" outlined />
-        <Button label="Cancel" icon="pi pi-times" outlined />
+        <Button label="Save" icon="pi pi-check" outlined @click="onSaveBody"/>
+        <Button label="More buttons" icon="pi pi-trash" outlined disabled/>
+        <Button label="are just for" icon="pi pi-trash" outlined disabled/>
+        <Button label="demonstration" icon="pi pi-times" outlined disabled/>
       </span>
 
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
