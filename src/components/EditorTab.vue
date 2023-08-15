@@ -5,7 +5,9 @@ import OfferSampleDoc from "./OfferSampleDoc.vue";
 </script>
 
 <template>
+  <div>
     <EditorToolbar />
-    <OfferSampleDoc/>
+    <OfferSampleDoc />
     <Editor />
+  </div>
 </template>

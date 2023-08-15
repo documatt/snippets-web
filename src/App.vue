@@ -1,20 +1,17 @@
 <script setup lang="ts">
-import TabView from "primevue/tabview";
-import TabPanel from "primevue/tabpanel";
-import Toast from "primevue/toast";
-import ScrollTop from "primevue/scrolltop";
 import ConfirmDialog from "primevue/confirmdialog";
+import ScrollTop from "primevue/scrolltop";
+import TabPanel from "primevue/tabpanel";
+import TabView from "primevue/tabview";
+import Toast from "primevue/toast";
 
 import EditorTab from "./components/EditorTab.vue";
 
 import { useGlobalStore } from "./stores/GlobalStore";
-import { useBookStore } from "./stores/BookStore";
 
-// const { currentId } = storeToRefs(useBookStore())
-const globalStore = useGlobalStore()
-const bookStore = useBookStore()
+const globalStore = useGlobalStore();
 
-globalStore.init()
+globalStore.init();
 </script>
 
 <template>
@@ -23,45 +20,51 @@ globalStore.init()
   <!-- DOM placeholder for rendering confirm dialogs -->
   <ConfirmDialog></ConfirmDialog>
 
-  Book: {{ bookStore.currentId }}
-
   <TabView>
     <TabPanel>
       <template #header>
         <i class="pi pi-pencil mr-2"></i>
         <span>Write</span>
       </template>
-      <EditorTab />
+      <div class="grid">
+        <div class="col-12 xl:col-8 xl:col-offset-2">
+          <EditorTab />
+        </div>
+      </div>
     </TabPanel>
     <TabPanel>
       <template #header>
         <i class="pi pi-eye mr-2"></i>
         <span>Preview</span>
       </template>
-      <p>
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-        accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
-        illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-        explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-        odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-        voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non
-        numquam eius modi.
-      </p>
+      <div class="grid">
+        <div class="col-12 xl:col-8 xl:col-offset-2">
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
+          ab illo inventore veritatis et quasi architecto beatae vitae dicta
+          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+          aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
+          qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit,
+          sed quia non numquam eius modi.
+        </div>
+      </div>
     </TabPanel>
     <TabPanel>
       <template #header>
         <i class="pi pi-share-alt mr-2"></i>
         <span>Share</span>
       </template>
-      <p>
-        At vero eos et accusamus et iusto odio dignissimos ducimus qui
-        blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
-        et quas molestias excepturi sint occaecati cupiditate non provident,
-        similique sunt in culpa qui officia deserunt mollitia animi, id est
-        laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
-        distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
-        cumque nihil impedit quo minus.
-      </p>
+      <div class="grid">
+        <div class="col-12 xl:col-8 xl:col-offset-2">
+          At vero eos et accusamus et iusto odio dignissimos ducimus qui
+          blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
+          et quas molestias excepturi sint occaecati cupiditate non provident,
+          similique sunt in culpa qui officia deserunt mollitia animi, id est
+          laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
+          distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
+          cumque nihil impedit quo minus.
+        </div>
+      </div>
     </TabPanel>
   </TabView>
 
