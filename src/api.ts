@@ -1,10 +1,11 @@
 // Snippets REST API client
 // https://github.com/documatt/snippets-api/blob/dev/docs/rest-api.md
 
-import type { AxiosInstance, AxiosRequestConfig } from "axios";
+import type { AxiosHeaders, AxiosInstance, AxiosRequestConfig } from "axios";
 import Axios from "axios";
 import NProgress from "nprogress";
 import type { ToastServiceMethods } from "primevue/toastservice";
+import { MIMEType } from "./files";
 
 // ###### Why cannot use PrimeVue Toast here to announce API error? #####
 // The problem is to obtain toast service since the following
@@ -187,7 +188,8 @@ export class DocApi {
     await send({
       method: "patch",
       url: `/book/${this.bookId}/doc/${this.docId}/body`,
-      data: body
+      data: body,
+      headers: { "Content-Type": MIMEType.applicationOctedStream}
     });
   }
 
