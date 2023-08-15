@@ -10,10 +10,9 @@ export const useDocStore = defineStore("doc", () => {
   const toast = useToast();
   const bookStore = useBookStore();
 
-  // Store and automatically update current doc ID in LocalStorage
-  const currentId = useStorage<DocId>("snippets.docId", null);
-
-  const body = ref<Body>();
+  // Store and automatically update doc ID and body in LocalStorage
+  const currentId = useStorage<DocId>("snippets.doc.id", null);
+  const body = useStorage<Body>("snippets.doc.body", null);
 
   const isSaving = ref(false);
 

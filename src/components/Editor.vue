@@ -2,14 +2,26 @@
 import { Codemirror } from "vue-codemirror";
 
 import { useDocStore } from "../stores/DocStore";
+import { ref } from "vue";
+import { useDebounceFn } from '@vueuse/core'
+
 
 const docStore = useDocStore();
 
+/**
+ * Trigger save after 2500 ms after last request OR each 5000 ms at max.
+ */
+const debouncedSave = useDebounceFn(async () => {
+  await docStore.save()
+}, 2500, { maxWait: 5000})
+
 async function onBlur() {
-  await docStore.save();
+  if (docStore.isDirty) debouncedSave();
 }
-function onChanges() {
+
+function onChange() {
   docStore.isDirty = true;
+  debouncedSave()
 }
 </script>
 <template>
@@ -20,7 +32,7 @@ function onChanges() {
     :autofocus="true"
     :indent-with-tab="true"
     :tab-size="4"
-    @changes="onChanges"
+    @change="onChange"
     @blur="onBlur"
   />
 </template>

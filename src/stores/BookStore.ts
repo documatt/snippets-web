@@ -5,7 +5,7 @@ import { ref } from "vue";
 
 export const useBookStore = defineStore("book", () => {
   // Store and automatically update current book ID in LocalStorage
-  const currentId = useStorage<BookId>("snippets.bookId", null);
+  const currentId = useStorage<BookId>("snippets.book.id", null);
 
   const currentBook = ref<Book>();
 
