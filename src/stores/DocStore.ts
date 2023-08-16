@@ -11,7 +11,7 @@ export const useDocStore = defineStore("doc", () => {
   const bookStore = useBookStore();
 
   // Store and automatically update doc ID and body in LocalStorage
-  const currentId = useStorage<DocId>("snippets.doc.id", null);
+  const id = useStorage<DocId>("snippets.doc.id", null);
   const body = useStorage<Body>("snippets.doc.body", null);
 
   const isSaving = ref(false);
@@ -21,13 +21,13 @@ export const useDocStore = defineStore("doc", () => {
 
   const extension = computed<string>(() => {
     // https://www.npmjs.com/package/file-extension
-    return fileExtension(currentId.value);
+    return fileExtension(id.value);
   });
 
   async function loadAndSetBody() {
     body.value = await new DocApi(
-      bookStore.currentId,
-      currentId.value
+      bookStore.id,
+      id.value
     ).getBody();
   }
 
@@ -36,7 +36,7 @@ export const useDocStore = defineStore("doc", () => {
       isSaving.value = true;
       isDirty.value = true;
 
-      await new DocApi(bookStore.currentId, currentId.value).updateBody(
+      await new DocApi(bookStore.id, id.value).updateBody(
         body.value
       );
 
@@ -53,7 +53,7 @@ export const useDocStore = defineStore("doc", () => {
   }
 
   return {
-    currentId,
+    id,
     extension,
     body,
     isSaving,

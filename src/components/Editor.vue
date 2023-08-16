@@ -28,7 +28,6 @@ function onChange() {
   <codemirror
     v-model="docStore.body"
     placeholder="Every journey begins with a first step."
-    :style="{ height: '400px' }"
     :autofocus="true"
     :indent-with-tab="true"
     :tab-size="4"

@@ -32,9 +32,9 @@ export const useGlobalStore = defineStore("global", () => {
    * Decides whether to load+set the existing. Or, create+set a new book.
    */
   async function createOrLoadBookAndDoc() {
-    if (bookStore.currentId && docStore.currentId) {
+    if (bookStore.id && docStore.id) {
       // *** Load the existing one ***
-      await bookStore.loadAndSet(bookStore.currentId);
+      await bookStore.loadAndSet(bookStore.id);
       await docStore.loadAndSetBody();
     } else {
       // *** Create a new one ***
@@ -48,7 +48,7 @@ export const useGlobalStore = defineStore("global", () => {
 
       // set book and doc state
       await bookStore.loadAndSet(newBookId);
-      docStore.currentId = rootDocId;
+      docStore.id = rootDocId;
       await docStore.loadAndSetBody();
     }
   }
