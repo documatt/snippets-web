@@ -12,7 +12,7 @@ const toBlurry = computed(
 
 <template>
   <div>
-    <button @click.prevent="docStore.refreshPreview">Refresh preview</button>
+    <button @click.prevent="docStore.refreshPreview">Refresh preview (to be removed in prod - has no meaning)</button>
 
     <template v-if="!isPreviewBodyEmpty">
       <div v-html="docStore.previewBody" :class="{ blurry: toBlurry }"></div>
