@@ -5,6 +5,7 @@ import PrimeVue from "primevue/config";
 import ToastService from "primevue/toastservice";
 import ConfirmationService from 'primevue/confirmationservice';
 import Tooltip from 'primevue/tooltip';
+import { router } from "./router";
 
 // All styles (includes Bulma and Prime)
 import "@/assets/main.scss";
@@ -16,6 +17,7 @@ import "@/bulma/navbar-burger-toggle.js";
 const app = createApp(App);
 
 // Plugins
+app.use(router);
 app.use(createPinia());
 app.use(PrimeVue, {
   // unstyled: true,

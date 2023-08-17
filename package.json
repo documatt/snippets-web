@@ -24,7 +24,8 @@
     "primevue": "^3.31.0",
     "uuid": "^9.0.0",
     "vue": "^3.3.4",
-    "vue-codemirror": "^6.1.1"
+    "vue-codemirror": "^6.1.1",
+    "vue-router": "^4.2.4"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.3.2",
