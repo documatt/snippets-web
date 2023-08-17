@@ -12,9 +12,10 @@ const docStore = useDocStore();
 
 const isBlank = computed(() => !docStore.body);
 
-function setSampleDocument() {
+async function setSampleDocument() {
   if (docStore.extension === "rst") docStore.body = sampleRst;
   if (docStore.extension === "md") docStore.body = sampleMd;
+  await docStore.save()
 }
 </script>
 

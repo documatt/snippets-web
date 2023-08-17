@@ -6,7 +6,6 @@ import TabView from "primevue/tabview";
 import Toast from "primevue/toast";
 
 import EditorTab from "./components/EditorTab.vue";
-import PreviewTab from "./components/PreviewTab.vue";
 import ShareTab from "./components/ShareTab.vue";
 
 import { useGlobalStore } from "./stores/GlobalStore";
@@ -25,34 +24,41 @@ globalStore.init();
   <TabView>
     <TabPanel>
       <template #header>
-        <i class="pi pi-pencil mr-2"></i>
+        <i class="pi pi-file-edit mr-2"></i>
         <span>Write</span>
       </template>
-      <div class="grid">
-        <div class="col-12 xl:col-8 xl:col-offset-2">
-          <EditorTab />
-        </div>
-      </div>
+      <EditorTab />
     </TabPanel>
     <TabPanel>
       <template #header>
-        <i class="pi pi-eye mr-2"></i>
-        <span>Preview</span>
+        <i class="pi pi-file mr-2"></i>
+        <span>Read</span>
       </template>
       <div class="grid">
         <div class="col-12 xl:col-8 xl:col-offset-2">
-          <PreviewTab />
+          ... reader here ...
         </div>
       </div>
     </TabPanel>
     <TabPanel>
       <template #header>
-        <i class="pi pi-share-alt mr-2"></i>
+        <i class="pi pi-file-export mr-2"></i>
         <span>Share</span>
       </template>
       <div class="grid">
         <div class="col-12 xl:col-8 xl:col-offset-2">
           <ShareTab />
+        </div>
+      </div>
+    </TabPanel>
+    <TabPanel>
+      <template #header>
+        <i class="pi pi-wrench mr-2"></i>
+        <span>Settings</span>
+      </template>
+      <div class="grid">
+        <div class="col-12 xl:col-8 xl:col-offset-2">
+          ... settings here ...
         </div>
       </div>
     </TabPanel>

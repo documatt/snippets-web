@@ -13,6 +13,8 @@ export const useGlobalStore = defineStore("global", () => {
 
   const enginesInfo = ref<EnginesInfo>();
 
+  const isPreviewPaneVisible = ref(false);
+
   /**
    * Create initial state
    */
@@ -53,5 +55,5 @@ export const useGlobalStore = defineStore("global", () => {
     }
   }
 
-  return { enginesInfo, init };
+  return { enginesInfo, isPreviewPaneVisible, init };
 });

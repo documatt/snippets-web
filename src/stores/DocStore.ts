@@ -27,7 +27,9 @@ export const useDocStore = defineStore("doc", () => {
   const previewBody = ref<Body>();
 
   const isSaving = ref(false);
+
   const isPreviewInProgress = ref(false);
+  const isPreviewInError = ref(false);
 
   // Body has unsaved changes
   const isDirty = ref(false);
@@ -109,12 +111,14 @@ export const useDocStore = defineStore("doc", () => {
         if (job_status == "failed") {
           console.log(`preview attempt ${attempts}: preview error`);
           isPreviewInProgress.value = false;
+          isPreviewInError.value = true;
           pause();
           return;
         } else if (job_status == "finished") {
           console.log(`preview attempt ${attempts}: preview succeeded`);
           previewBody.value = await docApi.getPreviewBody(jobId);
           isPreviewInProgress.value = false;
+          isPreviewInError.value = false;
           pause();
           return;
         } else {
@@ -142,6 +146,7 @@ export const useDocStore = defineStore("doc", () => {
     isSaving,
     isDirty,
     isPreviewInProgress,
+    isPreviewInError,
     loadAndSetBody,
     save,
     refreshPreview

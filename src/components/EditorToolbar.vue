@@ -2,11 +2,14 @@
 import { computed } from "vue";
 
 import { useDocStore } from "@/stores/DocStore";
+import { useGlobalStore } from "@/stores/GlobalStore";
 import Toolbar from "primevue/toolbar";
 import Button from "primevue/button";
 import { useConfirm } from "primevue/useconfirm";
+import SplitButton from "primevue/splitbutton";
 
-let docStore = useDocStore();
+const globalStore = useGlobalStore();
+const docStore = useDocStore();
 
 const isDirtyAndNotSaved = computed(() => {
   return docStore.isDirty && !docStore.isSaving;
@@ -54,6 +57,10 @@ function onNewDocumentClick(event) {
 async function onSaveBody() {
   await docStore.save();
 }
+
+function togglePreviewPaneVisibility() {
+  globalStore.isPreviewPaneVisible = !globalStore.isPreviewPaneVisible
+}
 </script>
 
 <template>
@@ -62,16 +69,22 @@ async function onSaveBody() {
       <Button label="Save" icon="pi pi-check" outlined @click="onSaveBody" />
       <Button label="More buttons" icon="pi pi-trash" outlined disabled />
       <Button label="are just for" icon="pi pi-trash" outlined disabled />
-      <Button label="demonstration" icon="pi pi-times" outlined disabled />
     </template>
     <template #end>
-      <Button label="New" @click="onNewDocumentClick($event)"></Button>
-
       <i
         class="pi ml-3"
         :class="saveStatusIcons"
         v-tooltip.left="saveStatusTooltip"
       ></i>
+
+      <Button label="New" @click="onNewDocumentClick($event)"></Button>
+
+      <Button
+        label="Preview"
+        icon="pi pi-arrow-up-right"
+        outlined
+        @click="togglePreviewPaneVisibility"
+      />
     </template>
   </Toolbar>
 </template>
