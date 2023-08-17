@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { useDocStore } from "@/stores/DocStore";
-import { useGlobalStore } from "@/stores/GlobalStore";
 import { usePreviewStore } from "@/stores/PreviewStore";
 import { computed } from "vue";
-import Sidebar from "primevue/sidebar";
 
-const globalStore = useGlobalStore();
 const docStore = useDocStore();
 const previewStore = usePreviewStore();
 
@@ -17,30 +14,10 @@ const toBlurry = computed(
     previewStore.isInProgress ||
     previewStore.isInError
 );
+
 </script>
 
 <template>
-  <Sidebar
-    v-model:visible="globalStore.isPreviewPaneVisible"
-    position="right"
-    class="w-9 xl:w-6"
-  >
-    <template #header>
-      <div class="flex">
-        <button
-          class="p-sidebar-icon p-link mr-2"
-          v-tooltip.bottom="'Widen preview pane'"
-        >
-          <span class="pi pi-angle-double-left" />
-        </button>
-        <button
-          class="p-sidebar-icon p-link mr-2"
-          v-tooltip.bottom="'Narrow preview pane'"
-        >
-          <span class="pi pi-angle-double-right" />
-        </button>
-      </div>
-    </template>
     <div>
       <button @click.prevent="previewStore.refreshPreview">
         Refresh preview (to be removed in prod - has no meaning)
@@ -59,7 +36,6 @@ const toBlurry = computed(
         <i class="pi pi-spin pi-cog" style="font-size: 4rem"></i>
       </div>
     </div>
-  </Sidebar>
 </template>
 
 <style scoped>

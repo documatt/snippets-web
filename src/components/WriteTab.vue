@@ -2,7 +2,7 @@
 import Editor from "./Editor.vue";
 import EditorToolbar from "./EditorToolbar.vue";
 import OfferSampleDoc from "./OfferSampleDoc.vue";
-import PreviewPane from "./PreviewPane.vue";
+import PreviewSidebar from "./PreviewSidebar.vue";
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import PreviewPane from "./PreviewPane.vue";
       <EditorToolbar />
       <OfferSampleDoc />
       <Editor />
-      <PreviewPane />
+      <PreviewSidebar />
     </div>
   </div>
 </template>
