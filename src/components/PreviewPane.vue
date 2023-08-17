@@ -1,19 +1,21 @@
 <script setup lang="ts">
 import { useDocStore } from "@/stores/DocStore";
 import { useGlobalStore } from "@/stores/GlobalStore";
+import { usePreviewStore } from "@/stores/PreviewStore";
 import { computed } from "vue";
 import Sidebar from "primevue/sidebar";
 
 const globalStore = useGlobalStore();
 const docStore = useDocStore();
+const previewStore = usePreviewStore();
 
-const isPreviewBodyEmpty = computed(() => !docStore.previewBody);
+const isPreviewBodyEmpty = computed(() => !previewStore.body);
 const toBlurry = computed(
   () =>
     docStore.isDirty ||
     docStore.isSaving ||
-    docStore.isPreviewInProgress ||
-    docStore.isPreviewInError
+    previewStore.isInProgress ||
+    previewStore.isInError
 );
 </script>
 
@@ -40,16 +42,16 @@ const toBlurry = computed(
       </div>
     </template>
     <div>
-      <button @click.prevent="docStore.refreshPreview">
+      <button @click.prevent="previewStore.refreshPreview">
         Refresh preview (to be removed in prod - has no meaning)
       </button>
 
       <template v-if="!isPreviewBodyEmpty">
-        <div v-html="docStore.previewBody" :class="{ blurry: toBlurry }"></div>
+        <div v-html="previewStore.body" :class="{ blurry: toBlurry }"></div>
       </template>
-      <div v-else-if="docStore.isPreviewInError">
+      <div v-else-if="previewStore.isInError">
         TODO: Je nám líto, ale náhled se nepovedl
-        <button @click.prevent="docStore.refreshPreview">
+        <button @click.prevent="previewStore.refreshPreview">
           Refresh preview
         </button>
       </div>
