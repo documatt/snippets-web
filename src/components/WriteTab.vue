@@ -4,14 +4,16 @@ import EditorToolbar from "./EditorToolbar.vue";
 import Explorer from "./Explorer.vue";
 import OfferSampleDoc from "./OfferSampleDoc.vue";
 import PreviewSidebar from "./PreviewSidebar.vue";
+import Breadcrumb from "./Breadcrumb.vue";
 </script>
-
 <template>
+
   <div class="grid">
     <div class="col-12 xl:col-3">
       <Explorer/>
     </div>
     <div class="col-12 xl:col-9">
+      <Breadcrumb/>
       <EditorToolbar />
       <OfferSampleDoc />
       <Editor />
