@@ -5,7 +5,7 @@ import TabPanel from "primevue/tabpanel";
 import TabView from "primevue/tabview";
 import Toast from "primevue/toast";
 
-import EditorTab from "./components/EditorTab.vue";
+import WriteTab from "./components/WriteTab.vue";
 import ShareTab from "./components/ShareTab.vue";
 
 import { useGlobalStore } from "./stores/GlobalStore";
@@ -27,7 +27,7 @@ globalStore.init();
         <i class="pi pi-file-edit mr-2"></i>
         <span>Write</span>
       </template>
-      <EditorTab />
+      <WriteTab />
     </TabPanel>
     <TabPanel>
       <template #header>
