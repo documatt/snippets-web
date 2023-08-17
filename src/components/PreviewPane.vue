@@ -27,12 +27,14 @@ const toBlurry = computed(
         <div v-html="previewStore.body" :class="{ blurry: toBlurry }"></div>
       </template>
       <div v-else-if="previewStore.isInError">
+        <!-- TODO: Vycentrovat vertikálně i horizontálně -->
         TODO: Je nám líto, ale náhled se nepovedl
         <button @click.prevent="previewStore.refreshPreview">
           Refresh preview
         </button>
       </div>
       <div v-else>
+        <!-- TODO: Vycentrovat vertikálně i horizontálně -->
         <i class="pi pi-spin pi-cog" style="font-size: 4rem"></i>
       </div>
     </div>
