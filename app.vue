@@ -1,5 +1,7 @@
 <template>
   <div>
-    <NuxtWelcome />
+
+    <Button label="Submit" />
+
   </div>
 </template>

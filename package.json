@@ -10,6 +10,14 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
-    "nuxt": "^3.7.1"
+    "nuxt": "^3.7.1",
+    "sass": "^1.66.1"
+  },
+  "dependencies": {
+    "@vueuse/core": "^10.4.1",
+    "file-extension": "^4.0.5",
+    "primeflex": "^3.3.1",
+    "primeicons": "^6.0.1",
+    "primevue": "^3.34.0"
   }
 }
