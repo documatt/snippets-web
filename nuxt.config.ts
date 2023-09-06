@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   build: {
     transpile: ["primevue"],
   },
-  modules: ["@vueuse/nuxt"],
+  modules: ["@vueuse/nuxt", "@pinia/nuxt"],
   vite: {
     // Inclusion of primeflex.scss this way allows [reusing classes](https://primeflex.org/installation#reuseclasses) with `@include stylecass` in both SFC and `assets/css/.scss`.
     // See https://nuxt.com/docs/getting-started/styling#using-preprocessors

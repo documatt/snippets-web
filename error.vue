@@ -19,10 +19,13 @@ const heading = computed(() => {
 })
 
 const details = computed(() => {
-  let msg = `Status code: ${error.value.statusCode} - Status message: ${error.value.statusMessage}`
+  let msg = `Status code: ${error.value.statusCode}`
 
-  if (error.statusMessage !== error.message)
-    msg += `- ${error.value.message}`
+  if (error.value.statusMessage)
+    msg += `- Status message: ${error.value.statusMessage}`
+
+  if (error.value.message)
+    msg += `- Message: ${error.value.message}`
 
   return msg
 })

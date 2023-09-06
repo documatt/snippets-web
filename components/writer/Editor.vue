@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Codemirror } from "vue-codemirror";
 
-import { useDocStore } from "../stores/DocStore";
+import { useDocStore } from "@/stores/DocStore";
 import { ref } from "vue";
 import { useDebounceFn } from '@vueuse/core'
 

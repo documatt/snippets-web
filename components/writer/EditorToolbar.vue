@@ -4,7 +4,6 @@ import { computed } from "vue";
 import { useDocStore } from "@/stores/DocStore";
 import { useGlobalStore } from "@/stores/GlobalStore";
 import Toolbar from "primevue/toolbar";
-import Button from "primevue/button";
 import { useConfirm } from "primevue/useconfirm";
 import SplitButton from "primevue/splitbutton";
 

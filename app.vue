@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import TabPanel from "primevue/tabpanel";
 import TabView from "primevue/tabview";
+import ConfirmDialog from "primevue/confirmdialog";
+import ScrollTop from "primevue/scrolltop";
+import Toast from "primevue/toast";
 
 const { texts } = useAppConfig();
 
@@ -57,7 +60,7 @@ useSeoMeta({
           </template>
           <div class="grid">
             <div class="col-12 xl:col-8 xl:col-offset-2">
-              <ShareTab />
+              <!-- <ShareTab /> -->
             </div>
           </div>
         </TabPanel>
@@ -78,6 +81,7 @@ useSeoMeta({
     <LayoutFooter />
 
     <ScrollTop />
+
     <!-- DOM placeholder for rendering toast popups -->
     <Toast />
 
