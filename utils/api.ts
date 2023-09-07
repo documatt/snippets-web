@@ -1,72 +1,11 @@
-// Snippets REST API client
-// https://github.com/documatt/snippets-api/blob/dev/docs/rest-api.md
-
-import type { AxiosHeaders, AxiosInstance, AxiosRequestConfig } from "axios";
-import Axios from "axios";
+import { $Fetch, FetchOptions } from "ofetch";
+import { consola } from "consola";
 import NProgress from "nprogress";
-import type { ToastServiceMethods } from "primevue/toastservice";
-import { MIMEType } from "./files";
 
-// ###### Why cannot use PrimeVue Toast here to announce API error? #####
-// The problem is to obtain toast service since the following
-//    import { useToast } from 'primevue/usetoast';
-//    const toast = useToast();
-// will complain
-//    [Vue warn]: inject() can only be used inside setup() or functional components.
-//    usetoast.esm.js:7 Uncaught Error: No PrimeVue Toast provided!
-// Solution might be wrapping API client as renderless component or
-// as functional component.
-// https://vuejs.org/guide/components/slots.html#renderless-components
-// https://vuejs.org/guide/extras/render-function.html#functional-components
-// However, if this would be component, can it be used from Pinia actions?
-// What about wrapping into composable?
-// Update 1: useToast() cannot be used from composable
-// Update 2: functional components are too complex (don't understand them)
-// Update 3: also renderless components aren't the way - cannot be used from
-//    Pinia actions.
-// Update 4: Store for `toad` (from `useToad()`) is no solution too because
-//    also Pinia is not available here
-//
-// --> The only solution how to notify in toast is from store actions. E.g.,:
-//    export const useBookStore = defineStore("book", () => {
-//        const toast = useToast();
-//        async function createAndSetBook() {
-//            const newBookId = "some-book";
-//            const bookApi = new BookApi(newBookId);
-//            try {
-//                await bookApi.create("SPHINX_530");
-//            catch (err) {
-//                toast.value.add({"summary": "very bad"})
-//            }
-//        }
-//    }
-// --> Or, Maybe notify API errors via some kind of event bus?
-
-// Create Axios instance with some defaults
-const axios: AxiosInstance = Axios.create({
-  baseURL: "http://localhost:8000"
-});
-
-/**
- * Centralize all Axios calls here to have unified NProgress and logging.
- */
-async function send(config: AxiosRequestConfig) {
-  if (!config.method) config.method = "get";
-  const header = `${config.method?.toUpperCase()} ${config.url}`;
-
-  try {
-    console.log(`Sending API request ${header}`);
-    NProgress.start();
-    return await axios(config);
-  } catch (err) {
-    console.log(
-      `API request ${config.method?.toUpperCase()} ${config.url} failed`
-    );
-    throw err;
-  } finally {
-    NProgress.done();
-  }
-}
+export type BookId = string;
+export type DocId = string;
+export type Engine = "SPHINX_530";
+export type Body = string;
 
 export interface Book {
   id: BookId;
@@ -83,151 +22,160 @@ export interface Job {
   job_status: "queued" | "started" | "deferred" | "finished" | "failed";
 }
 
-export type BookId = string;
-export type DocId = string;
-export type Engine = "SPHINX_530";
-export type Body = string;
+class ApiBase {
+  private fetcher: $Fetch;
 
-export class BookApi {
-  constructor(public bookId: BookId) {}
+  constructor(fetcher: $Fetch) {
+    this.fetcher = fetcher;
+  }
 
+  protected async send<T>(
+    url: string,
+    fetchOptions?: FetchOptions
+  ): Promise<T> {
+    const header = `${fetchOptions?.method || "GET"} ${url}`;
+
+    try {
+      consola.info(`Sending API request ${header}`);
+      NProgress.start();
+
+      // TODO: Without wrapping to useAsynData(), it is not SSR-friendly. The same request is executed twice on server and client.
+      // Issue request with passed ofetch instance.
+      return await this.fetcher<T>(url, fetchOptions);
+    } catch (err) {
+      consola.error(`API request ${header} failed`);
+      // Go to Nuxt error page with message for users
+      showError("It is not your fault. Our API has some troubles.");
+    } finally {
+      NProgress.done();
+    }
+  }
+}
+
+export type EnginesInfo = {
+  [engine: string]: {
+    name: string;
+    markup: "md" | "rst" | "rst+md";
+    root_doc: string;
+    output: string[];
+  };
+};
+
+class QueryApi extends ApiBase {
+  async engines(): Promise<EnginesInfo> {
+    return await this.send<EnginesInfo>("/query/engine");
+  }
+}
+
+class BookApi extends ApiBase {
   /**
    * Get all existing books.
    */
-  static async getAll(): Promise<Book[]> {
-    return (
-      await send({
-        url: "/book"
-      })
-    ).data;
+  async getAll(): Promise<Book[]> {
+    return await this.send<Book[]>("/book", {
+      method: "POST",
+    });
   }
 
   /**
    * Get single book.
    */
-  async get(): Promise<Book> {
-    return (
-      await send({
-        url: `/book/${this.bookId}`
-      })
-    ).data;
+  async get(bookId: BookId): Promise<Book> {
+    return await this.send<Book>(`/book/${bookId}`);
   }
 
   /**
    * Return all docs of the current book.
    */
-  async getDocs(): Promise<Doc[]> {
-    return (
-      await send({
-        method: "post",
-        url: `/book/${this.bookId}/doc`
-      })
-    ).data;
+  async getDocs(bookId: BookId): Promise<Doc[]> {
+    return await this.send<Doc[]>(`/book/${bookId}/doc`);
   }
 
   /**
    * Create the book if it not exist yet.
    */
-  async create(engine: Engine) {
-    await send({
-      method: "post",
-      url: `/book/${this.bookId}`,
-      data: { engine }
+  async create(bookId: BookId, engine: Engine) {
+    await this.send<Doc[]>(`/book/${bookId}`, {
+      method: "POST",
+      body: { engine },
     });
   }
 
   /**
    * Update the current book metadata.
    */
-  async update(engine: Engine) {
-    await send({
-      method: "patch",
-      url: `/book/${this.bookId}`,
-      data: { engine }
+  async update(bookId: BookId, engine: Engine) {
+    await this.send(`/book/${bookId}`, {
+      method: "PATCH",
+      body: { engine },
     });
   }
 }
 
-export class DocApi {
-  constructor(
-    public bookId: BookId,
-    public docId: DocId
-  ) {}
-
-  async getBody(): Promise<Body> {
+class DocApi extends ApiBase {
+  async getBody(bookId: BookId, docId: DocId): Promise<Body> {
     // TODO: %-encode docId
-    // Axios will follow redirect to S3 automatically
-    return (
-      await send({
-        url: `/book/${this.bookId}/doc/${this.docId}`,
-        responseType: "text"
-      })
-    ).data;
-  }
-
-  async createDoc(body: Body) {
-    // TODO: %-encode docId
-    await send({
-      method: "post",
-      url: `book/${this.bookId}/doc/${this.docId}`,
-      data: body
+    // TODO: Will ofetch follow redirect to S3?
+    return await this.send<Body>(`/book/${bookId}/doc/${docId}`, {
+      // TODO: Later also "blob"
+      responseType: "text",
     });
   }
 
-  async updateMetadata(newId: DocId) {
+  async createDoc(bookId: BookId, docId: DocId, body: Body) {
+    // TODO: %-encode docId
+    await this.send(`book/${bookId}/doc/${docId}`, {
+      method: "POST",
+      body: body,
+    });
+  }
+
+  async updateMetadata(bookId: BookId, docId: DocId, newId: DocId) {
     // TODO: %-encode existing docId
-    await send({
-      method: "patch",
-      url: `/book/${this.bookId}/doc/${this.docId}`,
-      data: { id: newId }
+    await this.send(`/book/${bookId}/doc/${docId}`, {
+      method: "PATCH",
+      body: { id: newId },
     });
   }
 
-  async updateBody(body: Body) {
+  async updateBody(bookId: BookId, docId: DocId, body: Body) {
     // TODO: %-encode docId
-    await send({
-      method: "patch",
-      url: `/book/${this.bookId}/doc/${this.docId}/body`,
-      data: body,
-      headers: { "Content-Type": MIMEType.applicationOctedStream}
+    await this.send(`/book/${bookId}/doc/${docId}/body`, {
+      method: "PATCH",
+      body: body,
+      headers: { "Content-Type": MIMEType.applicationOctedStream },
     });
   }
 
-  async delete() {
+  async delete(bookId: BookId, docId: DocId) {
     // TODO: %-encode docId
-    await send({
-      method: "delete",
-      url: `/book/${this.bookId}/doc/${this.docId}`
+    await this.send(`/book/${bookId}/doc/${docId}`, {
+      method: "DELETE",
     });
   }
 
-  async enqueuePreview(): Promise<Job> {
+  async enqueuePreview(bookId: BookId, docId: DocId): Promise<Job> {
     // TODO: %-encode docId
-    return (
-      await send({
-        method: "post",
-        url: `/book/${this.bookId}/doc/${this.docId}/preview`
-      })
-    ).data;
+    return await this.send<Job>(`/book/${bookId}/doc/${docId}/preview`, {
+      method: "POST",
+    });
   }
 
-  async getPreviewBody(jobId: string): Promise<Body> {
+  async getPreviewBody(
+    bookId: BookId,
+    docId: DocId,
+    jobId: string
+  ): Promise<Body> {
     // TODO: %-encode docId
-    return (
-      await send({
-        url: `/book/${this.bookId}/doc/${this.docId}/preview/${jobId}`
-      })
-    ).data;
+    return await this.send<Body>(
+      `/book/${bookId}/doc/${docId}/preview/${jobId}`
+    );
   }
 }
 
-export class JobApi {
-  static async getStatus(jobId: string): Promise<Job> {
-    return (
-      await send({
-        url: `/job/${jobId}`
-      })
-    ).data;
+class JobApi extends ApiBase {
+  async getStatus(jobId: string): Promise<Job> {
+    return await this.send<Job>(`/job/${jobId}`);
   }
 }
 
@@ -249,64 +197,42 @@ interface ShareStatus {
   expire_at: string | null;
 }
 
-export class ShareApi {
-  static async start(bookId: BookId, expire: ShareExpireMode): Promise<Job> {
-    return (
-      await send({
-        method: "post",
-        url: `/book/${bookId}/share`,
-        data: { expire }
-      })
-    ).data;
+class ShareApi extends ApiBase {
+  async start(bookId: BookId, expire: ShareExpireMode): Promise<Job> {
+    return await this.send(`/book/${bookId}/share`, {
+      method: "POST",
+      body: { expire },
+    });
   }
 
-  static async query(bookId: BookId): Promise<ShareStatus> {
-    return (
-      await send({
-        url: `/book/${bookId}/share`
-      })
-    ).data;
+  async query(bookId: BookId): Promise<ShareStatus> {
+    return await this.send(`/book/${bookId}/share`);
   }
 
-  static async getFile(digest: string, path: string): Promise<Blob> {
-    // Axios follows redirects to S3 automatically
+  async getFile(digest: string, path: string): Promise<Blob> {
+    // TODO: Does ofetch follows redirects to S3 automatically?
     // TODO: %-encode path
-    return (
-      await send({
-        url: `/share/${digest}/${path}`,
-        responseType: "blob"
-      })
-    ).data;
+    return await this.send(`/share/${digest}/${path}`, {
+      responseType: "blob",
+    });
   }
 }
 
-export type EnginesInfo = {
-  [engine: string]: {
-    name: string;
-    markup: "md" | "rst" | "rst+md";
-    root_doc: string;
-    output: string[];
-  };
-};
+export class Api {
+  private fetcher: $Fetch;
 
-export class QueryApi {
-  static async engines(): Promise<EnginesInfo> {
-    return (
-      await send({
-        url: `/query/engine`
-      })
-    ).data;
+  public queryApi;
+  public bookApi;
+  public docApi;
+  public jobApi;
+  public shareApi;
+
+  constructor(fetcher: $Fetch) {
+    this.fetcher = fetcher;
+    this.queryApi = new QueryApi(this.fetcher);
+    this.bookApi = new BookApi(this.fetcher);
+    this.docApi = new DocApi(this.fetcher);
+    this.jobApi = new JobApi(this.fetcher);
+    this.shareApi = new ShareApi(this.fetcher);
   }
-}
-
-/**
- * Send unified API error message with PrimeVue Toast
- */
-export function toastApiError(toast: ToastServiceMethods) {
-  toast.add({
-    severity: "error",
-    summary: "API error",
-    detail:
-      "The application will not work as expected. See browser console log for details or try reload page."
-  });
 }

@@ -18,4 +18,14 @@ export default defineNuxtConfig({
     },
   },
   telemetry: false,
+  runtimeConfig: {
+    // Private keys are only available on the server
+
+    // Public keys that are exposed to the client too
+    // can be overridden by NUXT_PUBLIC_API_BASE_URL environment variable
+    public: {
+      // Default local Gunicorn port
+      apiBaseUrl: "http://localhost:8000"
+    }
+  }
 });

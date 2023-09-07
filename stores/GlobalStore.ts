@@ -1,4 +1,4 @@
-import { BookApi, toastApiError, type EnginesInfo, QueryApi } from "@/utils/api";
+import { type EnginesInfo } from "@/utils/api";
 import { defineStore } from "pinia";
 import { useToast } from "primevue/usetoast";
 import { v4 as uuidv4 } from "uuid";
@@ -7,6 +7,7 @@ import { useBookStore } from "@/stores/BookStore";
 import { useDocStore } from "@/stores/DocStore";
 
 export const useGlobalStore = defineStore("global", () => {
+  const { $api } = useNuxtApp()
   const toast = useToast();
   const bookStore = useBookStore();
   const docStore = useDocStore();
@@ -19,15 +20,8 @@ export const useGlobalStore = defineStore("global", () => {
    * Create initial state
    */
   async function init() {
-    // All API calls in try-catch block
-    try {
-      enginesInfo.value = await QueryApi.engines();
-
-      await createOrLoadBookAndDoc();
-    } catch {
-      // TODO: je zachycená chyba posílána do Sentry? Případně jak to udělat?
-      toastApiError(toast);
-    }
+    enginesInfo.value = await $api.queryApi.engines()
+    await createOrLoadBookAndDoc();
   }
 
   /**
@@ -46,7 +40,7 @@ export const useGlobalStore = defineStore("global", () => {
       const rootDocId = enginesInfo.value[engine].root_doc;
 
       // call api
-      await new BookApi(newBookId).create(engine);
+      await $api.bookApi.create(newBookId, engine);
 
       // set book and doc state
       await bookStore.loadAndSet(newBookId);

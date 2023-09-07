@@ -4,6 +4,7 @@ import TabView from "primevue/tabview";
 import ConfirmDialog from "primevue/confirmdialog";
 import ScrollTop from "primevue/scrolltop";
 import Toast from "primevue/toast";
+import { useGlobalStore } from "@/stores/GlobalStore";
 
 const { texts } = useAppConfig();
 
@@ -12,6 +13,10 @@ useSeoMeta({
   description:
     "Preview and edit reStructuredText files online with Sphinx and Docutils without installing it.",
 });
+
+const globalStore = useGlobalStore();
+
+globalStore.init();
 </script>
 
 <template>

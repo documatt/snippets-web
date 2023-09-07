@@ -1,4 +1,4 @@
-import { DocApi, toastApiError, type Body, type DocId } from "@/utils/api";
+import { type Body, type DocId } from "@/utils/api";
 import { useStorage } from "@vueuse/core";
 import fileExtension from "file-extension";
 import { defineStore } from "pinia";
@@ -15,6 +15,7 @@ export const useDocStore = defineStore("doc", () => {
   const toast = useToast();
   const bookStore = useBookStore();
   const previewStore = usePreviewStore();
+  const { $api } = useNuxtApp();
 
   // ***************************************************************************
   // State
@@ -39,7 +40,7 @@ export const useDocStore = defineStore("doc", () => {
   // ***************************************************************************
 
   async function loadAndSetBody() {
-    body.value = await new DocApi(bookStore.id, id.value).getBody();
+    body.value = await $api.docApi.getBody(bookStore.id, id.value)
     await previewStore.refreshPreview();
   }
 
@@ -48,15 +49,15 @@ export const useDocStore = defineStore("doc", () => {
       isSaving.value = true;
       isDirty.value = true;
 
-      await new DocApi(bookStore.id, id.value).updateBody(body.value);
+      await $api.docApi.updateBody(bookStore.id, id.value, body.value);
       await previewStore.refreshPreview();
 
       // turn off dirty
       isDirty.value = false;
+
     } catch {
-      // TODO: je zachycená chyba posílána do Sentry? Případně jak to udělat?
-      toastApiError(toast);
       // isDirty stays true
+
     } finally {
       isSaving.value = false;
       // isDirty stays true
