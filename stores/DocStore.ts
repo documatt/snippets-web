@@ -2,7 +2,6 @@ import { type Body, type DocId } from "@/utils/api";
 import { useStorage } from "@vueuse/core";
 import fileExtension from "file-extension";
 import { defineStore } from "pinia";
-import { useToast } from "primevue/usetoast";
 import { computed, ref } from "vue";
 import { useBookStore } from "./BookStore";
 import { usePreviewStore } from "./PreviewStore";
@@ -12,7 +11,6 @@ export const useDocStore = defineStore("doc", () => {
   // Setup
   // ***************************************************************************
 
-  const toast = useToast();
   const bookStore = useBookStore();
   const previewStore = usePreviewStore();
   const { $api } = useNuxtApp();
@@ -40,7 +38,7 @@ export const useDocStore = defineStore("doc", () => {
   // ***************************************************************************
 
   async function loadAndSetBody() {
-    body.value = await $api.docApi.getBody(bookStore.id, id.value)
+    body.value = await $api.docApi.getBody(bookStore.id, id.value);
     await previewStore.refreshPreview();
   }
 
@@ -54,15 +52,17 @@ export const useDocStore = defineStore("doc", () => {
 
       // turn off dirty
       isDirty.value = false;
-
     } catch {
       // isDirty stays true
-
     } finally {
       isSaving.value = false;
       // isDirty stays true
     }
   }
+
+  // ***************************************************************************
+  // Expose
+  // ***************************************************************************
 
   return {
     id,
@@ -71,6 +71,6 @@ export const useDocStore = defineStore("doc", () => {
     isSaving,
     isDirty,
     loadAndSetBody,
-    save
+    save,
   };
 });

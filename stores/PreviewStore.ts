@@ -88,5 +88,9 @@ export const usePreviewStore = defineStore("preview", () => {
     );
   }
 
+  // ***************************************************************************
+  // Expose
+  // ***************************************************************************
+
   return { body, isInProgress, isInError, refreshPreview };
 });

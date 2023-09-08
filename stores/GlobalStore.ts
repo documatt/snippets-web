@@ -1,26 +1,36 @@
 import { type EnginesInfo } from "@/utils/api";
 import { defineStore } from "pinia";
-import { useToast } from "primevue/usetoast";
 import { v4 as uuidv4 } from "uuid";
 import { ref } from "vue";
 import { useBookStore } from "@/stores/BookStore";
 import { useDocStore } from "@/stores/DocStore";
 
 export const useGlobalStore = defineStore("global", () => {
-  const { $api } = useNuxtApp()
-  const toast = useToast();
+  // ***************************************************************************
+  // Setup
+  // ***************************************************************************
+
+  const { $api } = useNuxtApp();
   const bookStore = useBookStore();
   const docStore = useDocStore();
+
+  // ***************************************************************************
+  // State
+  // ***************************************************************************
 
   const enginesInfo = ref<EnginesInfo>();
 
   const isPreviewPaneVisible = ref(false);
 
+  // ***************************************************************************
+  // Actions
+  // ***************************************************************************
+
   /**
    * Create initial state
    */
   async function init() {
-    enginesInfo.value = await $api.queryApi.engines()
+    enginesInfo.value = await $api.queryApi.engines();
     await createOrLoadBookAndDoc();
   }
 
@@ -48,6 +58,10 @@ export const useGlobalStore = defineStore("global", () => {
       await docStore.loadAndSetBody();
     }
   }
+
+  // ***************************************************************************
+  // Expose
+  // ***************************************************************************
 
   return { enginesInfo, isPreviewPaneVisible, init };
 });
