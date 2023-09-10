@@ -1,5 +1,4 @@
 import { $Fetch, FetchOptions } from "ofetch";
-import { consola } from "consola";
 import NProgress from "nprogress";
 
 export type BookId = string;
@@ -36,14 +35,14 @@ class ApiBase {
     const header = `${fetchOptions?.method || "GET"} ${url}`;
 
     try {
-      consola.info(`Sending API request ${header}`);
+      logger.debug(`Sending API request ${header}`);
       NProgress.start();
 
       // TODO: Without wrapping to useAsynData(), it is not SSR-friendly. The same request is executed twice on server and client.
       // Issue request with passed ofetch instance.
       return await this.fetcher<T>(url, fetchOptions);
     } catch (err) {
-      consola.error(`API request ${header} failed`);
+      logger.error(`API request ${header} failed`);
       // Go to Nuxt error page with message for users
       showError("It is not your fault. We have some troubles.");
     } finally {

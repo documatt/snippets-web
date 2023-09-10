@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { ref } from "vue";
 import { useBookStore } from "@/stores/BookStore";
 import { useDocStore } from "@/stores/DocStore";
+import { logger } from "~/utils/logger";
 
 export const useGlobalStore = defineStore("global", () => {
   // ***************************************************************************
@@ -36,16 +37,22 @@ export const useGlobalStore = defineStore("global", () => {
    * Decides whether to load+set the existing. Or, create+set a new book.
    */
   async function createOrLoadBookAndDoc() {
-    if (bookStore.id && docStore.id) {
+    const bookId = bookStore.id
+    const docId = docStore.id
+
+    if (bookId && docId) {
       // *** Load the existing one ***
-      await bookStore.loadAndSet(bookStore.id);
+      logger.info(`Loading existing book '${bookId}', doc '${docId}'`)
+      await bookStore.loadAndSet(bookId);
       await docStore.loadAndSetBody();
+
     } else {
       // *** Create a new one ***
       // generate new UUID as bookId
       const newBookId = uuidv4();
       const engine = "SPHINX_530";
       const rootDocId = enginesInfo.value[engine].root_doc;
+      logger.info(`Creating new book '${newBookId}', doc '${rootDocId}'`)
 
       // call api
       await $api.bookApi.create(newBookId, engine);

@@ -6,7 +6,6 @@ import { useToast } from "primevue/usetoast";
 import { ref } from "vue";
 import { useBookStore } from "./BookStore";
 import { useDocStore } from "./DocStore";
-import { consola } from "consola";
 
 export const usePreviewStore = defineStore("preview", () => {
   // ***************************************************************************
@@ -57,28 +56,28 @@ export const usePreviewStore = defineStore("preview", () => {
         attempts++;
 
         const job_status = (await $api.jobApi.getStatus(jobId)).job_status;
-        consola.info(`preview attempt ${attempts}: with status ${job_status}`);
+        logger.debug(`preview attempt ${attempts}: with status ${job_status}`);
 
         if (job_status == "failed") {
-          consola.info(`preview attempt ${attempts}: preview error`);
+          logger.warn(`preview attempt ${attempts}: preview error`);
           isInProgress.value = false;
           isInError.value = true;
           pause();
           return;
         } else if (job_status == "finished") {
-          consola.info(`preview attempt ${attempts}: preview succeeded`);
+          logger.info(`preview attempt ${attempts}: preview succeeded`);
           body.value = await $api.docApi.getPreviewBody(bookStore.id, docStore.id, jobId);
           isInProgress.value = false;
           isInError.value = false;
           pause();
           return;
         } else {
-          consola.info(`preview attempt ${attempts}: will try again`);
+          logger.debug(`preview attempt ${attempts}: will try again`);
         }
 
         if (attempts > 3) {
           // stop polling (also throwing will break the loop but with uncaught)
-          consola.warn(
+          logger.warn(
             `preview attempt ${attempts}: Won't try again. Max attemps exceeded`
           );
           pause();

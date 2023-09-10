@@ -25,7 +25,15 @@ Requires Node 18 LTS.
 
 ## Settings
 
+### Build-time settings
+
 např. NUXT_PUBLIC_API_BASE_URL = "https://snippets-dev.documatt.com"
+
+### Runtime settings
+
+#### Log level
+
+Controlled by `snippets.loglevel` key in Local Storage. By default `3` = info and above. Set to `4` for debug or `999` to everything. See [Consola log levels](https://github.com/unjs/consola#log-level).
 
 ## Developer notes
 
