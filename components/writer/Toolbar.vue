@@ -6,7 +6,6 @@ import SplitButton from "primevue/splitbutton";
 import Toolbar from "primevue/toolbar";
 import { useConfirm } from "primevue/useconfirm";
 import { useUIStore } from "~/stores/UIStore";
-import { explorerEditorPreviewLayout } from "~/utils/ui";
 
 const uiStore = useUIStore();
 const docStore = useDocStore();
@@ -54,64 +53,43 @@ function onNewDocumentClick(event) {
   });
 }
 
-async function onSaveBody() {
-  await docStore.save();
-}
-
 // *** Layout ******************************************************************
 
 const layoutBtnLabel = ref(defaultLayout.label);
 const layoutBtnIcon = ref(defaultLayout.icon);
 
-/** Toggle between editorPreview and explorerEditor layouts. */
+/** Toggle between preview and explorer layouts. */
 function toggleLayout() {
-  if (JSON.stringify(uiStore.layout) == JSON.stringify(explorerEditorLayout)) {
-    switchLayout(editorPreviewLayout);
+  if (JSON.stringify(uiStore.layout) == JSON.stringify(explorerLayout)) {
+    switchLayout(previewLayout);
   } else {
-    switchLayout(explorerEditorLayout);
+    switchLayout(explorerLayout);
   }
-};
+}
 
 /** Perform actual layout switching */
-function switchLayout(layout: typeof explorerEditorLayout) {
+function switchLayout(layout: Layout) {
   // Layout button
   layoutBtnLabel.value = layout.label;
   layoutBtnIcon.value = layout.icon;
 
   // UI state
   uiStore.layout = layout;
-};
+}
 
-// const layoutBtnItems2 = ...
-
-const layoutBtnItems = [
-  {
-    label: explorerEditorLayout.label,
-    icon: explorerEditorLayout.icon,
-    command: () => switchLayout(explorerEditorLayout),
-  },
-  {
-    label: editorPreviewLayout.label,
-    icon: editorPreviewLayout.icon,
-    command: () => switchLayout(editorPreviewLayout),
-  },
-  {
-    label: explorerEditorPreviewLayout.label,
-    icon: explorerEditorPreviewLayout.icon,
-    command: () => switchLayout(explorerEditorPreviewLayout),
-  },
-  {
-    label: editorOnlyLayout.label,
-    icon: editorOnlyLayout.icon,
-    command: () => switchLayout(editorOnlyLayout),
-  },
-];
+const layoutBtnItems = allLayouts.map((layout) => {
+  return {
+    label: layout.label,
+    icon: layout.icon,
+    command: () => switchLayout(layout),
+  };
+});
 </script>
 
 <template>
   <Toolbar>
     <template #start>
-      <Button label="Save" icon="pi pi-check" outlined @click="onSaveBody" />
+      <Button label="Something" icon="pi pi-check" outlined />
       <Button label="More buttons" icon="pi pi-trash" outlined disabled />
       <Button label="are just for" icon="pi pi-trash" outlined disabled />
     </template>
@@ -130,11 +108,11 @@ const layoutBtnItems = [
       ></Button>
 
       <SplitButton
-        :label="layoutBtnLabel"
+        label="Preview"
+        v-tooltip.bottom="'Change view layout'"
         :icon="layoutBtnIcon"
         :model="layoutBtnItems"
         @click="toggleLayout"
-        v-tooltip.bottom="'Change view layout'"
       />
     </template>
   </Toolbar>

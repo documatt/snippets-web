@@ -45,7 +45,7 @@ class ApiBase {
     } catch (err) {
       consola.error(`API request ${header} failed`);
       // Go to Nuxt error page with message for users
-      showError("It is not your fault. Our API has some troubles.");
+      showError("It is not your fault. We have some troubles.");
     } finally {
       NProgress.done();
     }

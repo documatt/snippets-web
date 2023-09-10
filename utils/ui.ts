@@ -9,43 +9,49 @@
 export interface Layout {
   label: string;
   icon: string;
-  showExplorer: boolean;
-  showPreview: boolean;
+  // Total width should be 100
+  explorerSize: number,
+  editorSize: number,
+  previewSize: number,
 }
 
-export const explorerEditorLayout: Layout = {
+export const explorerLayout: Layout = {
   label: "Explorer on the left",
   icon: "pi pi-arrow-left",
-  showExplorer: true,
-  showPreview: false,
+  explorerSize: 25,
+  editorSize: 75,
+  previewSize: 0,
 };
 
-export const editorPreviewLayout: Layout = {
+export const previewLayout: Layout = {
   label: "Preview on the right",
   icon: "pi pi-arrow-right",
-  showExplorer: false,
-  showPreview: true,
+  explorerSize: 0,
+  editorSize: 70,
+  previewSize: 30,
 };
 
-export const explorerEditorPreviewLayout: Layout = {
+export const threeColumnLayout: Layout = {
   label: "Three column",
   icon: "pi pi-table",
-  showExplorer: true,
-  showPreview: true,
+  explorerSize: 20,
+  editorSize: 60,
+  previewSize: 20,
 };
 
 export const editorOnlyLayout: Layout = {
   label: "Editor only",
   icon: "pi pi-stop",
-  showExplorer: false,
-  showPreview: false,
+  explorerSize: 0,
+  editorSize: 100,
+  previewSize: 0,
 };
 
-export const layouts = [
-  explorerEditorLayout,
-  editorPreviewLayout,
-  explorerEditorPreviewLayout,
+export const allLayouts = [
+  explorerLayout,
+  previewLayout,
+  threeColumnLayout,
   editorOnlyLayout,
 ];
 
-export const defaultLayout = explorerEditorLayout;
+export const defaultLayout = explorerLayout;

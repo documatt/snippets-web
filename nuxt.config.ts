@@ -1,5 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  // Only because SSR-incompatible nprogress.
+  // https://nuxt.com/docs/guide/concepts/rendering#client-side-rendering
+  // TODO: Find SSR-friendly alternative to nprogress
+  ssr: false,
   devtools: { enabled: true },
   css: ["~/assets/css/main.scss"],
   build: {

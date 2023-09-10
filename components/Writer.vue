@@ -3,7 +3,8 @@
 <template>
   <div>
     <WriterToolbar />
-    <WriterSplitPanes />
+    <WriterOfferSampleDoc />
+    <WriterPanes />
   </div>
 </template>
 
