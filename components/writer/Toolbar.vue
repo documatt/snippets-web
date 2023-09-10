@@ -2,12 +2,12 @@
 import { computed } from "vue";
 
 import { useDocStore } from "@/stores/DocStore";
-import { useGlobalStore } from "@/stores/GlobalStore";
 import Toolbar from "primevue/toolbar";
+import ToggleButton from "primevue/togglebutton";
 import { useConfirm } from "primevue/useconfirm";
-import SplitButton from "primevue/splitbutton";
+import { useUIStore } from "~/stores/UIStore";
 
-const globalStore = useGlobalStore();
+const uiStore = useUIStore();
 const docStore = useDocStore();
 
 const isDirtyAndNotSaved = computed(() => {
@@ -49,7 +49,7 @@ function onNewDocumentClick(event) {
     icon: "pi pi-exclamation-triangle",
     accept: () => {
       docStore.body = "";
-    }
+    },
   });
 }
 
@@ -57,9 +57,11 @@ async function onSaveBody() {
   await docStore.save();
 }
 
-function togglePreviewPaneVisibility() {
-  globalStore.isPreviewPaneVisible = !globalStore.isPreviewPaneVisible
-}
+// *** Preview pane ************************************************************
+
+const togglePreviewPaneVisibility = () => {
+  globalStore.isPreviewPaneVisible = !globalStore.isPreviewPaneVisible;
+};
 </script>
 
 <template>
@@ -73,16 +75,18 @@ function togglePreviewPaneVisibility() {
       <i
         class="pi ml-3"
         :class="saveStatusIcons"
-        v-tooltip.left="saveStatusTooltip"
+        v-tooltip.bottom="saveStatusTooltip"
       ></i>
 
       <Button label="New" @click="onNewDocumentClick($event)"></Button>
 
-      <Button
-        label="Preview"
-        icon="pi pi-arrow-up-right"
-        outlined
-        @click="togglePreviewPaneVisibility"
+      <ToggleButton
+        v-model="uiStore.previewVisible"
+        on-label="Explorer"
+        on-icon="pi pi-arrow-left"
+        off-label="Preview"
+        off-icon="pi pi-arrow-right"
+        v-tooltip.bottom="'Show or hide preview'"
       />
     </template>
   </Toolbar>

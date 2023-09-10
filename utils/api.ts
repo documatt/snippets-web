@@ -72,9 +72,7 @@ class BookApi extends ApiBase {
    * Get all existing books.
    */
   async getAll(): Promise<Book[]> {
-    return await this.send<Book[]>("/book", {
-      method: "POST",
-    });
+    return await this.send<Book[]>("/book");
   }
 
   /**

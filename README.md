@@ -39,6 +39,21 @@ Uses [Consola](https://github.com/unjs/consola).
 
 Nepoužívat nižší level, než info(). Nižší nejsou vidět v browser consoli.
 
+### Vue SFC style
+
+Follow the order script - template - style.
+
+```
+<script setup lang="ts">
+</script>
+
+<template>
+</template>
+
+<style scroped>
+</style>
+```
+
 #### Pinia
 
 NPM could cause `ERESOLVE could not resolve` error when installing Pinia. [Pinia docs](https://pinia.vuejs.org/ssr/nuxt.html#Installation) recommends adding the following to package.json:

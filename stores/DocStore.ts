@@ -28,6 +28,10 @@ export const useDocStore = defineStore("doc", () => {
   // Body has unsaved changes
   const isDirty = ref(false);
 
+  // ***************************************************************************
+  // Getters
+  // ***************************************************************************
+
   const extension = computed<string>(() => {
     // https://www.npmjs.com/package/file-extension
     return fileExtension(id.value);
