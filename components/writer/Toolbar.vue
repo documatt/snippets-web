@@ -2,10 +2,11 @@
 import { computed } from "vue";
 
 import { useDocStore } from "@/stores/DocStore";
+import SplitButton from "primevue/splitbutton";
 import Toolbar from "primevue/toolbar";
-import ToggleButton from "primevue/togglebutton";
 import { useConfirm } from "primevue/useconfirm";
 import { useUIStore } from "~/stores/UIStore";
+import { explorerEditorPreviewLayout } from "~/utils/ui";
 
 const uiStore = useUIStore();
 const docStore = useDocStore();
@@ -57,11 +58,54 @@ async function onSaveBody() {
   await docStore.save();
 }
 
-// *** Preview pane ************************************************************
+// *** Layout ******************************************************************
 
-const togglePreviewPaneVisibility = () => {
-  globalStore.isPreviewPaneVisible = !globalStore.isPreviewPaneVisible;
+const layoutBtnLabel = ref(defaultLayout.label);
+const layoutBtnIcon = ref(defaultLayout.icon);
+
+/** Toggle between editorPreview and explorerEditor layouts. */
+function toggleLayout() {
+  if (JSON.stringify(uiStore.layout) == JSON.stringify(explorerEditorLayout)) {
+    switchLayout(editorPreviewLayout);
+  } else {
+    switchLayout(explorerEditorLayout);
+  }
 };
+
+/** Perform actual layout switching */
+function switchLayout(layout: typeof explorerEditorLayout) {
+  // Layout button
+  layoutBtnLabel.value = layout.label;
+  layoutBtnIcon.value = layout.icon;
+
+  // UI state
+  uiStore.layout = layout;
+};
+
+// const layoutBtnItems2 = ...
+
+const layoutBtnItems = [
+  {
+    label: explorerEditorLayout.label,
+    icon: explorerEditorLayout.icon,
+    command: () => switchLayout(explorerEditorLayout),
+  },
+  {
+    label: editorPreviewLayout.label,
+    icon: editorPreviewLayout.icon,
+    command: () => switchLayout(editorPreviewLayout),
+  },
+  {
+    label: explorerEditorPreviewLayout.label,
+    icon: explorerEditorPreviewLayout.icon,
+    command: () => switchLayout(explorerEditorPreviewLayout),
+  },
+  {
+    label: editorOnlyLayout.label,
+    icon: editorOnlyLayout.icon,
+    command: () => switchLayout(editorOnlyLayout),
+  },
+];
 </script>
 
 <template>
@@ -73,20 +117,24 @@ const togglePreviewPaneVisibility = () => {
     </template>
     <template #end>
       <i
-        class="pi ml-3"
+        class="pi mr-2"
         :class="saveStatusIcons"
         v-tooltip.bottom="saveStatusTooltip"
       ></i>
 
-      <Button label="New" @click="onNewDocumentClick($event)"></Button>
+      <Button
+        label="New"
+        @click="onNewDocumentClick($event)"
+        class="mr-2"
+        outlined
+      ></Button>
 
-      <ToggleButton
-        v-model="uiStore.previewVisible"
-        on-label="Explorer"
-        on-icon="pi pi-arrow-left"
-        off-label="Preview"
-        off-icon="pi pi-arrow-right"
-        v-tooltip.bottom="'Show or hide preview'"
+      <SplitButton
+        :label="layoutBtnLabel"
+        :icon="layoutBtnIcon"
+        :model="layoutBtnItems"
+        @click="toggleLayout"
+        v-tooltip.bottom="'Change view layout'"
       />
     </template>
   </Toolbar>

@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import TabPanel from "primevue/tabpanel";
-import TabView from "primevue/tabview";
-import ConfirmDialog from "primevue/confirmdialog";
 import ScrollTop from "primevue/scrolltop";
 import Toast from "primevue/toast";
+import ConfirmDialog from 'primevue/confirmdialog';
 import { useGlobalStore } from "@/stores/GlobalStore";
-
-const { texts } = useAppConfig();
 
 useSeoMeta({
   title: "Documatt Snippets, reStructuredText online preview and editor",
@@ -14,22 +10,22 @@ useSeoMeta({
     "Preview and edit reStructuredText files online with Sphinx and Docutils without installing it.",
 });
 
+// Init GlobalStore
 const globalStore = useGlobalStore();
-
 globalStore.init();
 </script>
 
 <template>
   <div>
-    <header class="bottom-shadow">
+    <!-- <header class="bottom-shadow">
       <LayoutHeader/>
-    </header>
+    </header> -->
 
-    <main class="container">
-      <Writer2/>
-    </main>
+    <!-- <main class="container"> -->
+      <Writer/>
+    <!-- </main> -->
 
-    <LayoutFooter />
+    <!-- <LayoutFooter /> -->
 
     <ScrollTop />
 

@@ -34,6 +34,7 @@ export const usePreviewStore = defineStore("preview", () => {
 
   // for external users. Debounce and handle errors.
   async function refreshPreview() {
+    // TODO: Ignore if preview not displayed? But trigger when is.
     _debouncedRefreshPreviewFn();
   }
 
