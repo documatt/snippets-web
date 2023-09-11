@@ -1,13 +1,19 @@
 <template>
-  <Splitpanes class="default-theme">
+  <Splitpanes class="default-theme h-screen">
     <Pane :size="uiStore.layout.explorerSize">
-      <WriterExplorer />
+      <WriterScrollPanel>
+        <WriterExplorer />
+      </WriterScrollPanel>
     </Pane>
     <Pane :size="uiStore.layout.editorSize">
-      <WriterEditor />
+      <WriterScrollPanel>
+        <WriterEditor />
+      </WriterScrollPanel>
     </Pane>
     <Pane :size="uiStore.layout.previewSize">
-      <WriterPreviewUI />
+      <WriterScrollPanel>
+        <WriterPreview />
+      </WriterScrollPanel>
     </Pane>
   </Splitpanes>
 </template>

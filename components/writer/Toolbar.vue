@@ -14,7 +14,7 @@
       ></Button>
 
       <SplitButton
-        label="Preview"
+        label="Toggle preview"
         v-tooltip.bottom="'Change view layout'"
         :icon="layoutBtnIcon"
         :model="layoutBtnItems"
