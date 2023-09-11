@@ -1,5 +1,5 @@
 <template>
-  <Splitpanes class="default-theme h-screen">
+  <Splitpanes class="default-theme">
     <Pane :size="uiStore.layout.explorerSize">
       <WriterScrollPanel>
         <WriterExplorer />
@@ -7,9 +7,7 @@
     </Pane>
     <Pane :size="uiStore.layout.editorSize">
       <WriterBreadcrumb />
-
       <WriterOfferSampleDoc />
-
       <WriterScrollPanel>
         <WriterEditor />
       </WriterScrollPanel>

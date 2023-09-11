@@ -1,7 +1,7 @@
 <template>
   <div>
     <Tree
-      :value="docsStore.treeNodes"
+      :value="treeNodes"
       v-model:selection-keys="selectedKey"
       selection-mode="single"
       @node-select="nodeSelected"
@@ -15,23 +15,35 @@ import { ref } from "vue";
 import { useDocStore } from "~/stores/DocStore";
 import { useDocsStore } from "~/stores/DocsStore";
 
-const docStore = useDocStore()
-const docsStore = useDocsStore()
+const docStore = useDocStore();
+const docsStore = useDocsStore();
+
+/**  Array of TreeNodes as expected by Tree component */
+  // https://primevue.org/tree/#api.tree.interfaces.TreeNode
+const treeNodes: Ref<TreeNode[]> = computed(() => {
+  return docsStore.docs.map((doc) => {
+    return<TreeNode> {
+      key: doc.id,
+      label: doc.id,
+      icon: "pi pi-file",
+    }
+  })
+})
 
 // To control the currently selected node.
 // Because Tree is single selection mode, it will contain an object with single
 // member, where name will be "key" from treeNodes, and value always `true` (as
 // selected). E.g., `{ "index.rst": true }`.
 const selectedKey = ref({
-  [docStore.id]: true
+  [docStore.id]: true,
 });
 
 // Handler when an node has been selected (may be the same).
 async function nodeSelected(node: TreeNode) {
   // node.key is doc ID, e.g., "index.rst"
-  const docId = node.key
-  logger.info(`Switching to the '${docId}' doc`)
-  await docStore.loadAndSetBody(docId)
+  const docId = node.key!;
+  logger.info(`Switching to the '${docId}' doc`);
+  await docStore.loadAndSetBody(docId);
 }
 </script>
 
@@ -39,6 +51,7 @@ async function nodeSelected(node: TreeNode) {
 /* More dense display */
 :deep(.p-tree) {
   margin: 0rem 0.1rem;
+  padding: 0;
   border: none;
 }
 :deep(.p-treenode-content) {

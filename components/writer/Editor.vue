@@ -37,3 +37,22 @@ function onChange() {
   debouncedSave()
 }
 </script>
+
+<style>
+/* Styles needs to be at least as specific as the builtin. */
+/* https://codemirror.net/examples/styling/ */
+.cm-editor .cm-gutters {
+  background: none;
+  border-right: 0;
+  color: var(--surface-400);
+}
+
+.cm-editor .cm-activeLine {
+  border-radius: 0.5rem;
+}
+
+/* No gutter bg for active line */
+.cm-editor .cm-activeLineGutter {
+  background: none;
+}
+</style>

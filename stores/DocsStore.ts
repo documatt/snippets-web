@@ -26,17 +26,6 @@ export const useDocsStore = defineStore("docs", () => {
   // Getters
   // ***************************************************************************
 
-  /**  Array of TreeNodes as expected by Tree component */
-  // https://primevue.org/tree/#api.tree.interfaces.TreeNode
-  const treeNodes: Ref<TreeNode[]> = computed(() => {
-    return docs.value.map((doc) => {
-      return<TreeNode> {
-        key: doc.id,
-        label: doc.id,
-        icon: "pi pi-file",
-      }
-    })
-  })
 
   // ***************************************************************************
   // Actions
@@ -52,6 +41,6 @@ export const useDocsStore = defineStore("docs", () => {
   // ***************************************************************************
 
   return {
-    docs, loadAndSet, treeNodes
+    docs, loadAndSet
   };
 });

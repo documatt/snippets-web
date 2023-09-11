@@ -1,5 +1,5 @@
 <template>
-  <Toolbar>
+  <Toolbar class="bottom-shadow">
     <template #start>
       <Button label="Something" icon="pi pi-check" outlined />
       <Button label="More buttons" icon="pi pi-trash" outlined disabled />
@@ -14,7 +14,7 @@
       ></Button>
 
       <SplitButton
-        label="Toggle preview"
+        :label="layoutBtnLabel"
         v-tooltip.bottom="'Change view layout'"
         :icon="layoutBtnIcon"
         :model="layoutBtnItems"
@@ -88,15 +88,19 @@ function onNewDocumentClick(event) {
 
 // *** Layout ******************************************************************
 
-const layoutBtnLabel = ref(defaultLayout.label);
-const layoutBtnIcon = ref(defaultLayout.icon);
+const layoutBtnLabel = ref(previewLayout.label);
+const layoutBtnIcon = ref(previewLayout.icon);
 
 /** Toggle between preview and explorer layouts. */
 function toggleLayout() {
   if (JSON.stringify(uiStore.layout) == JSON.stringify(explorerLayout)) {
     switchLayout(previewLayout);
+    layoutBtnLabel.value = explorerLayout.label;
+    layoutBtnIcon.value = explorerLayout.icon;
   } else {
     switchLayout(explorerLayout);
+    layoutBtnLabel.value = previewLayout.label;
+    layoutBtnIcon.value = previewLayout.icon;
   }
 }
 
