@@ -1,8 +1,6 @@
 <template>
   <div>
     <WriterToolbar />
-    <WriterBreadcrumb />
-    <WriterOfferSampleDoc />
     <WriterPanes />
   </div>
 </template>

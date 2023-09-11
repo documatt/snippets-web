@@ -38,7 +38,8 @@ async function nodeSelected(node: TreeNode) {
 <style scoped>
 /* More dense display */
 :deep(.p-tree) {
-  padding: 1rem 0;
+  margin: 0rem 0.1rem;
+  border: none;
 }
 :deep(.p-treenode-content) {
   padding: 0.5rem 0;
