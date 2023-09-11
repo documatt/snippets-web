@@ -1,3 +1,7 @@
+/**
+ * Current document store.
+ */
+
 import { type Body, type DocId } from "@/utils/api";
 import { useStorage } from "@vueuse/core";
 import fileExtension from "file-extension";
@@ -41,8 +45,9 @@ export const useDocStore = defineStore("doc", () => {
   // Actions
   // ***************************************************************************
 
-  async function loadAndSetBody() {
-    body.value = await $api.docApi.getBody(bookStore.id, id.value);
+  async function loadAndSetBody(docId: DocId) {
+    id.value = docId
+    body.value = await $api.docApi.getBody(bookStore.id, docId);
     await previewStore.refreshPreview();
   }
 

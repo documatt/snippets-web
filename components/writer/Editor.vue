@@ -7,16 +7,17 @@
     :tab-size="4"
     @change="onChange"
     @blur="onBlur"
+    :extensions="extensions"
   />
 </template>
 
 <script setup lang="ts">
 import { Codemirror } from "vue-codemirror";
-
 import { useDocStore } from "@/stores/DocStore";
-import { ref } from "vue";
-import { useDebounceFn } from '@vueuse/core'
+import { useDebounceFn } from '@vueuse/core';
+import { EditorView } from "codemirror";
 
+const extensions = [EditorView.lineWrapping]
 
 const docStore = useDocStore();
 

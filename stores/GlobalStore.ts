@@ -5,6 +5,7 @@ import { ref } from "vue";
 import { useBookStore } from "@/stores/BookStore";
 import { useDocStore } from "@/stores/DocStore";
 import { logger } from "~/utils/logger";
+import { useDocsStore } from "@/stores/DocsStore";
 
 export const useGlobalStore = defineStore("global", () => {
   // ***************************************************************************
@@ -14,6 +15,7 @@ export const useGlobalStore = defineStore("global", () => {
   const { $api } = useNuxtApp();
   const bookStore = useBookStore();
   const docStore = useDocStore();
+  const docsStore = useDocsStore();
 
   // ***************************************************************************
   // State
@@ -31,6 +33,7 @@ export const useGlobalStore = defineStore("global", () => {
   async function init() {
     enginesInfo.value = await $api.queryApi.engines();
     await createOrLoadBookAndDoc();
+    await docsStore.loadAndSet();
   }
 
   /**
@@ -44,7 +47,7 @@ export const useGlobalStore = defineStore("global", () => {
       // *** Load the existing one ***
       logger.info(`Loading existing book '${bookId}', doc '${docId}'`)
       await bookStore.loadAndSet(bookId);
-      await docStore.loadAndSetBody();
+      await docStore.loadAndSetBody(docId);
 
     } else {
       // *** Create a new one ***
@@ -59,8 +62,7 @@ export const useGlobalStore = defineStore("global", () => {
 
       // set book and doc state
       await bookStore.loadAndSet(newBookId);
-      docStore.id = rootDocId;
-      await docStore.loadAndSetBody();
+      await docStore.loadAndSetBody(rootDocId);
     }
   }
 
