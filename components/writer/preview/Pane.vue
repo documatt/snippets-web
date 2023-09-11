@@ -1,23 +1,5 @@
 <!-- Preview HTML itself -->
 
-<script setup lang="ts">
-import { useDocStore } from "@/stores/DocStore";
-import { usePreviewStore } from "@/stores/PreviewStore";
-import { computed } from "vue";
-
-const docStore = useDocStore();
-const previewStore = usePreviewStore();
-
-const isPreviewBodyEmpty = computed(() => !previewStore.body);
-const toBlurry = computed(
-  () =>
-    docStore.isDirty ||
-    docStore.isSaving ||
-    previewStore.isInProgress ||
-    previewStore.isInError
-);
-</script>
-
 <template>
   <div>
     <template v-if="!isPreviewBodyEmpty">
@@ -36,6 +18,24 @@ const toBlurry = computed(
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { useDocStore } from "@/stores/DocStore";
+import { usePreviewStore } from "@/stores/PreviewStore";
+import { computed } from "vue";
+
+const docStore = useDocStore();
+const previewStore = usePreviewStore();
+
+const isPreviewBodyEmpty = computed(() => !previewStore.body);
+const toBlurry = computed(
+  () =>
+    docStore.isDirty ||
+    docStore.isSaving ||
+    previewStore.isInProgress ||
+    previewStore.isInError
+);
+</script>
 
 <style scoped>
 .blurry {

@@ -1,3 +1,14 @@
+<template>
+  <div>
+    <TransitionGroup name="p-message" tag="div">
+      <Message v-if="isBlank">
+        Wanna start with
+        <a @click.prevent="setSampleDocument">sample document</a>?
+      </Message>
+    </TransitionGroup>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { useDocStore } from "@/stores/DocStore";
 import Message from "primevue/message";
@@ -18,14 +29,3 @@ async function setSampleDocument() {
   await docStore.save()
 }
 </script>
-
-<template>
-  <div>
-    <TransitionGroup name="p-message" tag="div">
-      <Message v-if="isBlank">
-        Wanna start with
-        <a @click.prevent="setSampleDocument">sample document</a>?
-      </Message>
-    </TransitionGroup>
-  </div>
-</template>

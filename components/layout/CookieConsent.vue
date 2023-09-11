@@ -1,26 +1,3 @@
-<script setup lang="ts">
-import { useToast } from "primevue/usetoast";
-
-const { texts } = useAppConfig();
-
-const toast = useToast();
-const name = "cookieConsent";
-import { useStorage } from "@vueuse/core";
-
-onMounted(() => {
-  toast.add({
-    severity: "info",
-    group: name,
-  });
-});
-
-const cookie = useStorage(name, false);
-
-function onClose() {
-  cookie.value = true;
-}
-</script>
-
 <template>
   <div>
     <!-- Display only if we haven't consent or is missing -->
@@ -50,3 +27,26 @@ function onClose() {
     </Toast>
   </div>
 </template>
+
+<script setup lang="ts">
+import { useToast } from "primevue/usetoast";
+
+const { texts } = useAppConfig();
+
+const toast = useToast();
+const name = "cookieConsent";
+import { useStorage } from "@vueuse/core";
+
+onMounted(() => {
+  toast.add({
+    severity: "info",
+    group: name,
+  });
+});
+
+const cookie = useStorage(name, false);
+
+function onClose() {
+  cookie.value = true;
+}
+</script>

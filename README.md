@@ -49,14 +49,14 @@ Nepoužívat nižší level, než info(). Nižší nejsou vidět v browser conso
 
 ### Vue SFC style
 
-Follow the order script - template - style.
+Follow the order template - script - style.
 
 ```
-<script setup lang="ts">
-</script>
-
 <template>
 </template>
+
+<script setup lang="ts">
+</script>
 
 <style scroped>
 </style>

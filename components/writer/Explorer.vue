@@ -1,3 +1,7 @@
+<template>
+  <Tree :value="nodes"></Tree>
+</template>
+
 <script setup lang="ts">
 import Tree from "primevue/tree";
 import { onMounted, ref } from "vue";
@@ -23,6 +27,3 @@ const nodes = ref([
   }
 ]);
 </script>
-<template>
-  <Tree :value="nodes"></Tree>
-</template>

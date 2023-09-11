@@ -1,3 +1,35 @@
+<template>
+  <Toolbar>
+    <template #start>
+      <Button label="Something" icon="pi pi-check" outlined />
+      <Button label="More buttons" icon="pi pi-trash" outlined disabled />
+      <Button label="are just for" icon="pi pi-trash" outlined disabled />
+    </template>
+    <template #end>
+      <i
+        class="pi mr-2"
+        :class="saveStatusIcons"
+        v-tooltip.bottom="saveStatusTooltip"
+      ></i>
+
+      <Button
+        label="New"
+        @click="onNewDocumentClick($event)"
+        class="mr-2"
+        outlined
+      ></Button>
+
+      <SplitButton
+        label="Preview"
+        v-tooltip.bottom="'Change view layout'"
+        :icon="layoutBtnIcon"
+        :model="layoutBtnItems"
+        @click="toggleLayout"
+      />
+    </template>
+  </Toolbar>
+</template>
+
 <script setup lang="ts">
 import { computed } from "vue";
 
@@ -85,38 +117,6 @@ const layoutBtnItems = allLayouts.map((layout) => {
   };
 });
 </script>
-
-<template>
-  <Toolbar>
-    <template #start>
-      <Button label="Something" icon="pi pi-check" outlined />
-      <Button label="More buttons" icon="pi pi-trash" outlined disabled />
-      <Button label="are just for" icon="pi pi-trash" outlined disabled />
-    </template>
-    <template #end>
-      <i
-        class="pi mr-2"
-        :class="saveStatusIcons"
-        v-tooltip.bottom="saveStatusTooltip"
-      ></i>
-
-      <Button
-        label="New"
-        @click="onNewDocumentClick($event)"
-        class="mr-2"
-        outlined
-      ></Button>
-
-      <SplitButton
-        label="Preview"
-        v-tooltip.bottom="'Change view layout'"
-        :icon="layoutBtnIcon"
-        :model="layoutBtnItems"
-        @click="toggleLayout"
-      />
-    </template>
-  </Toolbar>
-</template>
 
 <style scoped>
 :deep(.p-menubar) {

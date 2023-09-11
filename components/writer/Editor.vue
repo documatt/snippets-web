@@ -1,3 +1,15 @@
+<template>
+  <codemirror
+    v-model="docStore.body"
+    placeholder="Every journey begins with a first step."
+    :autofocus="true"
+    :indent-with-tab="true"
+    :tab-size="4"
+    @change="onChange"
+    @blur="onBlur"
+  />
+</template>
+
 <script setup lang="ts">
 import { Codemirror } from "vue-codemirror";
 
@@ -24,14 +36,3 @@ function onChange() {
   debouncedSave()
 }
 </script>
-<template>
-  <codemirror
-    v-model="docStore.body"
-    placeholder="Every journey begins with a first step."
-    :autofocus="true"
-    :indent-with-tab="true"
-    :tab-size="4"
-    @change="onChange"
-    @blur="onBlur"
-  />
-</template>

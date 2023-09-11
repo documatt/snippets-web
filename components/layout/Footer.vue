@@ -1,10 +1,3 @@
-<script setup lang="ts">
-const { texts } = useAppConfig();
-
-// Current year automatically updated
-const year = useDateFormat(useNow(), "YYYY");
-</script>
-
 <template>
   <footer class="upper-shadow bg-dm-mocca">
     <div class="container">
@@ -65,6 +58,13 @@ const year = useDateFormat(useNow(), "YYYY");
     </div>
   </footer>
 </template>
+
+<script setup lang="ts">
+const { texts } = useAppConfig();
+
+// Current year automatically updated
+const year = useDateFormat(useNow(), "YYYY");
+</script>
 
 <style scoped lang="scss">
 a {
