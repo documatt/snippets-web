@@ -10,7 +10,7 @@ const uiStore = useUIStore();
 </script>
 
 <template>
-  <Splitpanes class="default-theme h-screen">
+  <Splitpanes class="default-theme">
     <Pane :size="uiStore.layout.explorerSize">
       <WriterExplorer />
     </Pane>

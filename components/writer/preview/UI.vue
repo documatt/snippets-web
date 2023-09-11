@@ -10,7 +10,7 @@ const uiStore = useUIStore();
 </script>
 
 <template>
-  <ScrollPanel class="h-screen">
+  <ScrollPanel>
     <WriterPreviewPane />
   </ScrollPanel>
 </template>
