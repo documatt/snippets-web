@@ -6,12 +6,6 @@
       <Button label="are just for" icon="pi pi-trash" outlined disabled />
     </template>
     <template #end>
-      <i
-        class="pi mr-2"
-        :class="saveStatusIcons"
-        v-tooltip.bottom="saveStatusTooltip"
-      ></i>
-
       <Button
         label="New"
         @click="onNewDocumentClick($event)"
@@ -25,7 +19,14 @@
         :icon="layoutBtnIcon"
         :model="layoutBtnItems"
         @click="toggleLayout"
+        class="mr-2"
       />
+
+      <i
+        class="pi"
+        :class="saveStatusIcons"
+        v-tooltip.bottom="saveStatusTooltip"
+      ></i>
     </template>
   </Toolbar>
 </template>
