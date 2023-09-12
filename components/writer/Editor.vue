@@ -1,5 +1,27 @@
 <!--
 CodeMirror 5 on-page editor based on [codemirror-editor-vue3](https://www.npmjs.com/package/codemirror-editor-vue3) package.
+
+## Potíže se scrollbary
+
+CM 5 nelze zabalit do PrimeVue ScrollPanelu. CM nedává správnou výšku a ScrollPanel scrollbary se nikdy neaktivují.
+
+To se dá obejít tímto stylopisem:
+
+```
+.codemirror-container.height-auto {
+   Disables CM's own scrollbars (was `100%`). Now CM is as
+   height as its content. It trigger PrimeVue <ScrollPanel>'s
+   scrollbars instead.
+   height: max-content !important;
+}
+```
+
+Bohužel to však rozbije dvě věci
+
+- Klepnutí někde na konci textu a konci řádku nenastaví správně kurzor. Ten se nastaví někam nahoru.
+- Editor nescrolluje dolů. Je možné psát "mimo obrazovku" dolů, aniž by se odscrolovalo dolů.
+
+Proto pro tuto komponentu nepoužívejte ScrollPanell. Pomocí [simplescrollbars addonu](https://codemirror.net/5/demo/simplescrollbars.html) nastavujeme CM non-native scrollbary, které dále stylujeme co nejpodobněji těm ze ScrollPanelu.
  -->
 
 <template>
@@ -15,7 +37,12 @@ CodeMirror 5 on-page editor based on [codemirror-editor-vue3](https://www.npmjs.
 
 <script setup lang="ts">
 import Codemirror from "codemirror-editor-vue3";
+
 import "codemirror/addon/display/placeholder.js";
+
+import "codemirror/addon/scroll/simplescrollbars.js";
+import "codemirror/addon/scroll/simplescrollbars.css";
+
 import "codemirror/mode/rst/rst.js";
 
 import { useDocStore } from "@/stores/DocStore";
@@ -29,7 +56,8 @@ const cmOptions = computed(() => ({
   // mode: docStore.extension; // Language mode
   mode: "text/x-rst",
   theme: "deo",
-  lineWrapping: true
+  lineWrapping: true,
+  scrollbarStyle: "simple"
 }));
 
 /**
@@ -54,13 +82,6 @@ function onChanges() {
 </script>
 
 <style lang="scss">
-.codemirror-container.height-auto {
-  // Disables CM's own scrollbars (was `100%`). Now CM is as
-  // height as its content. It trigger PrimeVue <ScrollPanel>'s
-  // scrollbars instead.
-  height: max-content !important;
-}
-
 .CodeMirror-code {
   // Larger than default
   font-size: 1rem;
@@ -70,10 +91,31 @@ function onChanges() {
   height: auto;
 }
 
-/*
- * Documatt CodeMirror theme "deo".
- * Roughly based on builtin neo (https://codemirror.net/theme/neo.css)
- */
+// *****************************************************************************
+// Mimics the look of PrimeVue ScrollPanel scrollbars
+// *****************************************************************************
+
+.CodeMirror-simplescroll-horizontal, .CodeMirror-simplescroll-vertical {
+  background: none;
+  width: 10px;
+}
+.CodeMirror-simplescroll-vertical {
+  width: 10px;
+}
+.CodeMirror-simplescroll-horizontal {
+  height: 10px;
+}
+.CodeMirror-simplescroll-horizontal div, .CodeMirror-simplescroll-vertical div {
+  border: none;
+  border-radius: 3px;
+  background: var(--surface-300);
+}
+
+// *****************************************************************************
+// Documatt CodeMirror theme "deo".
+// Roughly based on builtin neo (https://codemirror.net/theme/neo.css)
+// *****************************************************************************
+
 .cm-s-deo {
   /* Color scheme */
   &.CodeMirror {

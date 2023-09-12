@@ -5,8 +5,8 @@
     class="w-full h-full"
     :pt="{
       // Clearly visible scrollbars
-      barY: { class: 'bg-primary' },
-      barX: { class: 'bg-primary' },
+      barY: { class: 'surface-400' },
+      barX: { class: 'surface-400' },
     }"
   >
     <slot></slot>

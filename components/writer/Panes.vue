@@ -10,9 +10,10 @@
 
       <WriterOfferSampleDoc />
 
-      <WriterScrollPanel>
-        <WriterEditor />
-      </WriterScrollPanel>
+      <!-- No ScrollPanel due to problematic CM behaviour. See component for details. -->
+      <!-- <WriterScrollPanel> -->
+      <WriterEditor />
+      <!-- </WriterScrollPanel> -->
     </Pane>
     <Pane :size="uiStore.layout.previewSize">
       <WriterScrollPanel>
