@@ -1,58 +1,167 @@
+<!--
+CodeMirror 5 on-page editor based on [codemirror-editor-vue3](https://www.npmjs.com/package/codemirror-editor-vue3) package.
+ -->
+
 <template>
-  <codemirror
-    v-model="docStore.body"
+  <Codemirror
+    v-model:value="docStore.body"
+    :options="cmOptions"
     placeholder="Every journey begins with a first step."
-    :autofocus="true"
-    :indent-with-tab="true"
-    :tab-size="4"
-    @change="onChange"
+    @changes="onChanges"
     @blur="onBlur"
-    :extensions="extensions"
+    original-style
   />
 </template>
 
 <script setup lang="ts">
-import { Codemirror } from "vue-codemirror";
-import { useDocStore } from "@/stores/DocStore";
-import { useDebounceFn } from '@vueuse/core';
-import { EditorView } from "codemirror";
+import Codemirror from "codemirror-editor-vue3";
+import "codemirror/addon/display/placeholder.js";
+import "codemirror/mode/rst/rst.js";
 
-const extensions = [EditorView.lineWrapping]
+import { useDocStore } from "@/stores/DocStore";
 
 const docStore = useDocStore();
+
+// https://codemirror.net/5/doc/manual.html#config
+const cmOptions = computed(() => ({
+  // Language mode
+  // TODO reaktivně mód, bohužel přípona (např. "rst") není validní mód, nastavuje se pomocí MIME typů, tzn. text/x-rst
+  // mode: docStore.extension; // Language mode
+  mode: "text/x-rst",
+  theme: "deo",
+  lineWrapping: true
+}));
 
 /**
  * Trigger save after 2500 ms after last request OR each 5000 ms at max.
  */
-const debouncedSave = useDebounceFn(async () => {
-  await docStore.save()
-}, 2500, { maxWait: 5000})
+const debouncedSave = useDebounceFn(
+  async () => {
+    await docStore.save();
+  },
+  2500,
+  { maxWait: 5000 }
+);
 
 async function onBlur() {
   if (docStore.isDirty) debouncedSave();
 }
 
-function onChange() {
+function onChanges() {
   docStore.isDirty = true;
-  debouncedSave()
+  debouncedSave();
 }
 </script>
 
-<style>
-/* Styles needs to be at least as specific as the builtin. */
-/* https://codemirror.net/examples/styling/ */
-.cm-editor .cm-gutters {
-  background: none;
-  border-right: 0;
-  color: var(--surface-400);
+<style lang="scss">
+.codemirror-container.height-auto {
+  // Disables CM's own scrollbars (was `100%`). Now CM is as
+  // height as its content. It trigger PrimeVue <ScrollPanel>'s
+  // scrollbars instead.
+  height: max-content !important;
 }
 
-.cm-editor .cm-activeLine {
-  border-radius: 0.5rem;
+.CodeMirror-code {
+  // Larger than default
+  font-size: 1rem;
 }
 
-/* No gutter bg for active line */
-.cm-editor .cm-activeLineGutter {
-  background: none;
+.CodeMirror {
+  height: auto;
+}
+
+/*
+ * Documatt CodeMirror theme "deo".
+ * Roughly based on builtin neo (https://codemirror.net/theme/neo.css)
+ */
+.cm-s-deo {
+  /* Color scheme */
+  &.CodeMirror {
+    background-color: #ffffff;
+    color: #2e383c;
+    line-height: 1.4375;
+  }
+
+  .cm-comment {
+    color: green;
+    font-style: italic;
+  }
+
+  .cm-keyword, .cm-s-neo .cm-property {
+    color: #1d75b3;
+  }
+
+  .cm-atom, .cm-s-neo .cm-number {
+    color: #75438a;
+  }
+
+  .cm-node, .cm-s-neo .cm-tag {
+    color: #9c3328;
+  }
+
+  .cm-string {
+    color: #b35e14;
+  }
+
+  .cm-variable, .cm-s-neo .cm-qualifier {
+    color: #047d65;
+  }
+
+  .cm-string-2 { // inline literal
+    color: #ff3860;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    padding: 2px;
+  }
+
+  .cm-header {
+    color: #1d75b3;
+  }
+
+  .cm-header-1 { font-size: 150%; }
+  .cm-header-2 { font-size: 130%; }
+  .cm-header-3 { font-size: 120%; }
+  .cm-header-4 { font-size: 110%; }
+  .cm-header-5 { font-size: 100%; }
+  .cm-header-6 { font-size: 90%; }
+
+  .cm-link {
+    color: darkgrey;
+    text-decoration-color: darkgrey;
+
+    &::after {
+      //content: url("/icons/icons8-external-link-16.png");
+      //display: inline-block;
+    }
+  }
+
+  /* Editor styling */
+  pre {
+    padding: 0;
+    font-size: larger;
+  }
+
+  .CodeMirror-gutters {
+    border: none;
+    border-right: 10px solid transparent;
+    background-color: transparent;
+  }
+
+  .CodeMirror-linenumber {
+    padding: 0;
+    color: #e0e2e5;
+  }
+
+  .CodeMirror-guttermarker {
+    color: #1d75b3;
+  }
+
+  .CodeMirror-guttermarker-subtle {
+    color: #e0e2e5;
+  }
+
+  &.CodeMirror-empty {
+    color: #999;
+  }
 }
 </style>
