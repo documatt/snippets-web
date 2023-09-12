@@ -6,7 +6,8 @@
       </WriterScrollPanel>
     </Pane>
     <Pane :size="uiStore.layout.editorSize">
-      <WriterBreadcrumb />
+      <!-- <WriterBreadcrumb /> -->
+
       <WriterOfferSampleDoc />
 
       <WriterScrollPanel>
