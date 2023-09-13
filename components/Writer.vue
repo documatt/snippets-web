@@ -1,42 +1,45 @@
 <template>
-  <div class="fullscreen">
-    <div class="toolbar mb-3">
+  <Splitpanes class="default-theme">
+    <Pane :size="uiStore.layout.explorerSize">
+      <ScrollPanel>
+        <WriterPanesExplorer />
+      </ScrollPanel>
+    </Pane>
+    <Pane :size="uiStore.layout.editorSize">
+      <!-- <WriterBreadcrumb /> -->
 
-    </div>
-    <div class="panes mb-3">
-      <WriterPanes/>
-    </div>
-    <div class="footer">
-      <LayoutFooter/>
-    </div>
-  </div>
+      <WriterToolbar/>
+
+      <WriterOfferSampleDoc />
+
+      <!-- No ScrollPanel due to problematic CM behaviour. See component for details. -->
+      <!-- <ScrollPanel> -->
+      <WriterPanesEditor />
+      <!-- </ScrollPanel> -->
+    </Pane>
+    <Pane :size="uiStore.layout.previewSize">
+      <ScrollPanel>
+        <WriterPanesPreview />
+      </ScrollPanel>
+    </Pane>
+  </Splitpanes>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useUIStore } from "~/stores/UIStore";
 
-<style scoped>
-/* Grid-based variant from https://codyloyd.com/2021/full-screen/ */
-.fullscreen {
-  /* Hack for iOS*/
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+// We tried but [PrimeVue Splitter](https://primevue.org/splitter/) is very
+// buggy, this is alternative
+import { Splitpanes, Pane } from "splitpanes";
+import "splitpanes/dist/splitpanes.css";
 
-  display: flex;
-  flex-direction: column;
-}
-.panes {
-  flex-grow: 1;
-  overflow: auto;
-}
-.toolbar {
-  height: max-content;
-  flex-shrink: 0;
-}
-.footer {
-  height: max-content;
-  flex-shrink: 0;
+const uiStore = useUIStore();
+</script>
+
+<style scroped>
+/* Customize default Splitpanes theme */
+.splitpanes.default-theme .splitpanes__pane {
+  /* Reset default theme gray background */
+  background: none;
 }
 </style>
