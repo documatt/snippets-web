@@ -1,16 +1,31 @@
 <template>
-  <Toolbar class="bottom-shadow bg-dm-mocca">
+  <Toolbar :pt="{
+    root: {
+      class: 'py-1 px-3',
+      style: 'background: none; border: none;'
+    }
+  }">
     <template #start>
-      <Button label="Something" icon="pi pi-check" outlined />
-      <Button label="More buttons" icon="pi pi-trash" outlined disabled />
-      <Button label="are just for" icon="pi pi-trash" outlined disabled />
+      <span class="p-buttonset mr-3">
+        <Button icon="pi pi-check" outlined size="small" />
+        <Button icon="pi pi-bars" outlined size="small"/>
+        <Button icon="pi pi-calendar" outlined size="small"/>
+      </span>
+
+      <span class="p-buttonset mr-3">
+        <Button icon="pi pi-trash" outlined size="small"/>
+        <Button icon="pi pi-inbox" outlined size="small"/>
+        <Button icon="pi pi-table" outlined size="small"/>
+      </span>
+
     </template>
     <template #end>
       <Button
         label="New"
         @click="onNewDocumentClick($event)"
-        class="mr-2"
+        class="mr-1"
         outlined
+         size="small"
       ></Button>
 
       <SplitButton
@@ -19,7 +34,8 @@
         :icon="layoutBtnIcon"
         :model="layoutBtnItems"
         @click="toggleLayout"
-        class="mr-2"
+        class="mr-1"
+         size="small"
       />
 
       <i
@@ -124,7 +140,8 @@ const layoutBtnItems = allLayouts.map((layout) => {
 </script>
 
 <style scoped>
-:deep(.p-menubar) {
-  background: none;
+:deep(.p-button.p-button-outlined) {
+  color: var(--surface-600);
+  border-color: var(--surface-300);
 }
 </style>

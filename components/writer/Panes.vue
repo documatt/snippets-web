@@ -8,6 +8,8 @@
     <Pane :size="uiStore.layout.editorSize">
       <!-- <WriterBreadcrumb /> -->
 
+      <WriterToolbar/>
+
       <WriterPanesOfferSampleDoc />
 
       <!-- No ScrollPanel due to problematic CM behaviour. See component for details. -->

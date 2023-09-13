@@ -1,7 +1,7 @@
 <template>
   <div class="fullscreen">
     <div class="toolbar mb-3">
-      <WriterToolbar/>
+
     </div>
     <div class="panes mb-3">
       <WriterPanes/>
