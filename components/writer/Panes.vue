@@ -1,24 +1,24 @@
 <template>
   <Splitpanes class="default-theme">
     <Pane :size="uiStore.layout.explorerSize">
-      <WriterScrollPanel>
-        <WriterExplorer />
-      </WriterScrollPanel>
+      <ScrollPanel>
+        <WriterPanesExplorer />
+      </ScrollPanel>
     </Pane>
     <Pane :size="uiStore.layout.editorSize">
       <!-- <WriterBreadcrumb /> -->
 
-      <WriterOfferSampleDoc />
+      <WriterPanesOfferSampleDoc />
 
       <!-- No ScrollPanel due to problematic CM behaviour. See component for details. -->
-      <!-- <WriterScrollPanel> -->
-      <WriterEditor />
-      <!-- </WriterScrollPanel> -->
+      <!-- <ScrollPanel> -->
+      <WriterPanesEditor />
+      <!-- </ScrollPanel> -->
     </Pane>
     <Pane :size="uiStore.layout.previewSize">
-      <WriterScrollPanel>
-        <WriterPreview />
-      </WriterScrollPanel>
+      <ScrollPanel>
+        <WriterPanesPreview />
+      </ScrollPanel>
     </Pane>
   </Splitpanes>
 </template>
