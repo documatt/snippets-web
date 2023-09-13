@@ -1,5 +1,5 @@
 <template>
-  <Toolbar class="bottom-shadow">
+  <Toolbar class="bottom-shadow bg-dm-mocca">
     <template #start>
       <Button label="Something" icon="pi pi-check" outlined />
       <Button label="More buttons" icon="pi pi-trash" outlined disabled />

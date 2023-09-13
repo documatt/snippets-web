@@ -44,6 +44,7 @@ import "codemirror/addon/scroll/simplescrollbars.js";
 import "codemirror/addon/scroll/simplescrollbars.css";
 
 import "codemirror/mode/rst/rst.js";
+// importovat další módy?
 
 import { useDocStore } from "@/stores/DocStore";
 
@@ -51,14 +52,35 @@ const docStore = useDocStore();
 
 // https://codemirror.net/5/doc/manual.html#config
 const cmOptions = computed(() => ({
-  // Language mode
-  // TODO reaktivně mód, bohužel přípona (např. "rst") není validní mód, nastavuje se pomocí MIME typů, tzn. text/x-rst
-  // mode: docStore.extension; // Language mode
-  mode: "text/x-rst",
+  mode: docMime.value,
   theme: "deo",
   lineWrapping: true,
   scrollbarStyle: "simple"
 }));
+
+// Maps file extension to MIME type. CM sets syntax highlighting and other features using MIME types.
+const docMime = computed(() => {
+  // Return MIME type corresponding to the CM mode
+  // https://codemirror.net/5/mode/index.html
+  switch (docStore.extension) {
+    case "rst":
+      return "text/x-rst"
+    case "md":
+      return "text/x-markdown"
+    case "py":
+      return "text/x-python"
+    case "json":
+      return "application/json"
+    case "html":
+      return "text/html"
+    case "css":
+      return "text/css"
+    case "js":
+      return "text/javascript"
+    default:
+      showError(new Error("Unknown file extension. Cannot return MIME."))
+  }
+})
 
 /**
  * Trigger save after 2500 ms after last request OR each 5000 ms at max.
