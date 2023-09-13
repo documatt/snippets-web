@@ -17,15 +17,9 @@ globalStore.init();
 
 <template>
   <div>
-    <!-- <header class="bottom-shadow">
-      <LayoutHeader/>
-    </header> -->
-
-    <!-- <main class="container"> -->
+    <LayoutWrapper>
       <Writer/>
-    <!-- </main> -->
-
-    <!-- <LayoutFooter /> -->
+    </LayoutWrapper>
 
     <ScrollTop />
 
