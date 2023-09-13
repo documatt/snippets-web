@@ -6,7 +6,7 @@
     >
       <div class="flex flex-column h-full">
         <div
-          class="flex align-items-center justify-content-center flex-shrink-0 pt-3"
+          class="flex align-items-center justify-content-center flex-shrink-0 pt-4"
         >
           <img
             src="/icon.svg"
