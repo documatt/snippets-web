@@ -1,16 +1,16 @@
 <template>
   <footer
-    class="upper-shadow bg-dm-mocca text-sm flex align-items-center justify-content-between p-2"
+    class="upper-shadow bg-dm-mocca text-sm flex p-2 grid grid-nogutter"
   >
-    <div class="text-600">
+    <div class="col-12 lg:col-3 text-600">
       &copy; {{ year }}, {{ texts.companyName }}
       &mdash;
       <NuxtLink :to="texts.legalUrl" target="_blank">Legal</NuxtLink>
     </div>
 
-    <div class="dm-blue">{{ texts.motto }}</div>
+    <div class="col-12 lg:col-6 dm-blue">{{ texts.motto }}</div>
 
-    <div class="text-500 flex align-items-center justify-content-start">
+    <div class="col-12 lg:col-3 text-500 flex align-items-center justify-content-start">
       <NuxtLink to="https://twitter.com/documattcom" target="_blank">
         <i class="pi pi-twitter text-xl mr-2"></i>
       </NuxtLink>

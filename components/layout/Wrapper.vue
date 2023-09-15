@@ -2,21 +2,21 @@
   <div class="min-h-screen flex relative lg:static bg-dm-mocca">
     <div
       id="app-sidebar-9"
-      class="h-screen surface-section hidden lg:block flex-shrink-0 absolute lg:static left-0 top-0 z-1 border-right-1 surface-border w-18rem lg:w-4rem select-none"
+      class="h-screen surface-section hidden lg:block flex-shrink-0 absolute lg:static left-0 top-0 z-5 border-right-1 surface-border w-18rem lg:w-4rem select-none"
     >
       <div class="flex flex-column h-full">
         <div
-          class="flex align-items-center justify-content-center flex-shrink-0 pt-4"
+          class="flex align-items-center justify-content-center flex-shrink-0 mt-3"
         >
           <img
             src="/icon.svg"
             alt="Documatt logo"
-            height="30"
+            height="40"
           />
         </div>
-
-        <!-- Left upper icons -->
         <div class="mt-3">
+
+          <!-- Leftbar upper menu -->
           <ul class="list-none p-0 m-0">
             <li>
               <a
@@ -143,33 +143,37 @@
               </a>
             </li>
           </ul>
-        </div>
-        <!-- Left upper icons END -->
 
-        <!-- Left bottom icons -->
+        </div>
         <div class="mt-auto">
           <hr class="mx-3 border-top-1 border-none surface-border" />
+
+          <!-- Leftbar bottom menu -->
           <a
             v-ripple
             class="my-3 flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center text-600 border-left-2 border-transparent hover:border-300 transition-duration-150 transition-colors p-ripple"
           >
             <i
-              class="pi pi-sign-out mr-2 lg:mr-0 text-base lg:text-2xl text-pink-500"
+              class="pi pi-sign-out mr-2 lg:mr-0 text-base lg:text-1xl text-pink-500"
             ></i>
             <span class="font-medium inline lg:hidden">Sign Out</span>
           </a>
-        </div>
-        <!-- Left bottom icons END -->
 
+        </div>
       </div>
     </div>
-    <div class="min-h-screen flex flex-column relative flex-auto">
+
+    <!-- Right part - topbar, main stage and footer -->
+    <div class="min-h-screen h-screen flex flex-column relative flex-auto section-width">
+
+      <!-- Topbar -->
       <div
         class="flex justify-content-between align-items-center px-5 relative lg:static border-bottom-1 surface-border bg-dm-mocca"
         style="height: 10vh"
       >
-        <!-- Search -->
-        <!-- <div class="flex">
+        <div class="flex">
+
+          <!-- Burger menu for leftbar (hidden on < LG)-->
           <a
             v-ripple
             class="cursor-pointer block lg:hidden text-700 mr-3 mt-1 p-ripple"
@@ -184,17 +188,20 @@
           >
             <i class="pi pi-bars text-4xl"></i>
           </a>
-          <span class="p-input-icon-left">
+
+          <!-- Search field -->
+          <!-- <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
             <InputText
               type="text"
               class="border-none w-8rem sm:w-20rem"
               placeholder="Search"
             />
-          </span>
-        </div> -->
+          </span> -->
 
-        <!-- "three dots" button to show topbar on < LG -->
+        </div>
+
+        <!-- Three dots button for topbar (hidden on < LG) -->
         <a
           v-ripple
           class="cursor-pointer block lg:hidden text-700 ml-auto p-ripple"
@@ -209,12 +216,11 @@
         >
           <i class="pi pi-ellipsis-v text-2xl"></i>
         </a>
-        <!-- "three dots" button to show topbar on < LG END -->
 
-        <!-- Topbar icons -->
+        <!-- Topbar menu -->
         <ul
           id="topbarmenu"
-          class="list-none p-0 m-0 hidden lg:flex lg:align-items-center select-none lg:flex-row lg:ml-auto border-1 lg:border-none surface-border right-0 top-100 z-1 shadow-2 lg:shadow-none absolute lg:static"
+          class="list-none p-0 m-0 hidden lg:flex lg:align-items-center select-none lg:flex-row lg:ml-auto border-1 lg:border-none surface-border right-0 top-100 z-5 shadow-2 lg:shadow-none absolute lg:static bg-dm-mocca"
         >
           <li>
             <a
@@ -256,21 +262,21 @@
             </a>
           </li>
         </ul>
-        <!-- Topbar icons END -->
 
       </div>
-      <div class="p-0 flex flex-auto">
-        <div
-          class="bg-white flex-auto"
-          style="width: 85vw; height: 89vh"
-        >
-        <!-- Main stage -->
 
+      <!-- Main content -->
+      <div class="p-2 flex flex-auto bg-white"
+           style="height: 85vh;">
         <slot></slot>
-
-        <!-- Main stage END -->
-        </div>
       </div>
+
+      <!-- Status bar / footer -->
+      <div class="p-0"
+           style="height: min-content;">
+        <LayoutFooter/>
+      </div>
+
     </div>
   </div>
 </template>
@@ -279,4 +285,13 @@
 const { texts } = useAppConfig();
 </script>
 
-<style scroped></style>
+<style scoped lang="scss">
+// 95vw on < LG, 100vw otherwise
+.section-width {
+  width: 95vw;
+
+  @media screen and (max-width: $lg) {
+    width: 100vw;
+  }
+}
+</style>
