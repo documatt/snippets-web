@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import ScrollTop from "primevue/scrolltop";
 import Toast from "primevue/toast";
 import ConfirmDialog from 'primevue/confirmdialog';
 import { useGlobalStore } from "@/stores/GlobalStore";
@@ -20,8 +19,6 @@ globalStore.init();
     <LayoutWrapper>
       <Writer/>
     </LayoutWrapper>
-
-    <ScrollTop />
 
     <!-- DOM placeholder for rendering toast popups -->
     <Toast />
