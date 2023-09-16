@@ -25,7 +25,8 @@ Requires Node 18 LTS.
 
 ### Testing
 
-`npm run test` will run all tests and stay in foreground watching for changes.
+- `npm run test` will run all tests and stay in foreground watching for changes.- Test of `foo.js` or `foo.vue` are in the same directory as `foo.test.ts`.
+- Use `test()`, not `it()` alias.
 
 ## Settings
 

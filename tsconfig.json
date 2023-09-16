@@ -1,4 +1,10 @@
 {
   // https://nuxt.com/docs/guide/concepts/typescript
-  "extends": "./.nuxt/tsconfig.json"
+  "extends": "./.nuxt/tsconfig.json",
+
+  // Recommended Vitest settings from
+  // https://vuejs.org/guide/scaling-up/testing.html#adding-vitest-to-a-project
+  "compilerOptions": {
+    "types": ["vitest/globals"]
+  }
 }

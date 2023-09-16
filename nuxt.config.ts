@@ -20,6 +20,14 @@ export default defineNuxtConfig({
         },
       },
     },
+    // Recommended Vitest settings from
+    // https://vuejs.org/guide/scaling-up/testing.html#adding-vitest-to-a-project
+    test: {
+      // enable jest-like global test APIs
+      globals: true,
+      // simulate DOM with JSDOM
+      environment: "jsdom"
+    }
   },
   telemetry: false,
   runtimeConfig: {

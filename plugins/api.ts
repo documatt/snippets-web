@@ -9,6 +9,9 @@
  * const { $api } = useNuxtApp()
  * const bookApi = new $api.BookApi("id").get()
  * ```
+ *
+ * Plugin creates fetcher based on runtime config and inject it to the
+ * `utils/api.ts`.
  */
 
 import { Api } from "~/utils/api";

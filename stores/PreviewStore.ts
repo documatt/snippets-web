@@ -2,7 +2,6 @@ import { type Body } from "@/utils/api";
 import { useDebounceFn, useTimeoutPoll } from "@vueuse/core";
 import { promiseTimeout } from "@vueuse/shared";
 import { defineStore } from "pinia";
-import { useToast } from "primevue/usetoast";
 import { ref } from "vue";
 import { useBookStore } from "./BookStore";
 import { useDocStore } from "./DocStore";
@@ -12,7 +11,6 @@ export const usePreviewStore = defineStore("preview", () => {
   // Setup
   // ***************************************************************************
 
-  const toast = useToast();
   const bookStore = useBookStore();
   const docStore = useDocStore();
   const { $api } = useNuxtApp();
