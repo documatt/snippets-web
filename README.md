@@ -23,6 +23,10 @@ Requires Node 18 LTS.
 3. If needed, create `.env` file with the settings bellow. But the defaults expect local running snippets-api.
 4. `npm run dev` for hot deploy or `npm run generate` to build static app into `.output/public/` folder.
 
+### Testing
+
+`npm run test` will run all tests and stay in foreground watching for changes.
+
 ## Settings
 
 ### Build-time settings
