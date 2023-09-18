@@ -1,16 +1,19 @@
 <template>
   <footer
-    class="upper-shadow bg-dm-mocca text-sm flex p-2 grid grid-nogutter"
+    class="upper-shadow bg-dm-mocca text-sm p-2 flex justify-content-between"
   >
-    <div class="col-12 lg:col-3 text-600">
+    <div class="text-600 flex gap-2">
+      <NuxtLink to="https://documatt.com" target="_blank"><img src="/logo.svg" class="w-4rem" alt="Documatt logo"></NuxtLink>
+
       &copy; {{ year }}, {{ texts.companyName }}
-      &mdash;
+
       <NuxtLink :to="texts.legalUrl" target="_blank">Legal</NuxtLink>
     </div>
 
-    <div class="col-12 lg:col-6 dm-blue">{{ texts.motto }}</div>
+    <!-- Hidden on < LG -->
+    <div class="dm-blue hidden lg:block">{{ texts.motto }}</div>
 
-    <div class="col-12 lg:col-3 text-500 flex align-items-center justify-content-start">
+    <div class="text-500">
       <NuxtLink to="https://twitter.com/documattcom" target="_blank">
         <i class="pi pi-twitter text-xl mr-2"></i>
       </NuxtLink>

@@ -24,24 +24,28 @@ export const usePreviewStore = defineStore("preview", () => {
   const isInError = ref(false);
 
   // ***************************************************************************
+  // Getters
+  // ***************************************************************************
+
+  const isPreviewable = ref(false);
+
+  // ***************************************************************************
   // Actions
   // ***************************************************************************
 
   // *** Refresh actions *******************************************************
 
-  // for external users. Debounce and handle errors.
-  async function refreshPreview() {
-    // TODO: Ignore if preview not displayed? But trigger when is.
-    _debouncedRefreshPreviewFn();
-  }
-
-  // Prevens multiple executing
-  const _debouncedRefreshPreviewFn = useDebounceFn(async () => {
-    await _doPreview();
+  /**
+   * For external users. Debounced (preventing multiple executing).
+   */
+  const refreshPreview = useDebounceFn(async () => {
+    await _preview();
   }, 1000);
 
-  // Raw preview. Doesn't handle error nor debounce.
-  async function _doPreview() {
+  /**
+   * Raw preview. Doesn't debounce. Sets body and flags.
+   */
+  async function _preview() {
     isInProgress.value = true;
     const first = await $api.docApi.enqueuePreview(bookStore.id, docStore.id)
     const jobId = first.job_id;

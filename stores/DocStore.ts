@@ -48,7 +48,7 @@ export const useDocStore = defineStore("doc", () => {
   async function loadAndSetBody(docId: DocId) {
     id.value = docId
     body.value = await $api.docApi.getBody(bookStore.id, docId);
-    await previewStore.refreshPreview();
+    await previewStore.refreshPreview()
   }
 
   async function save() {
@@ -57,7 +57,7 @@ export const useDocStore = defineStore("doc", () => {
       isDirty.value = true;
 
       await $api.docApi.updateBody(bookStore.id, id.value, body.value);
-      await previewStore.refreshPreview();
+      await previewStore.refreshPreview()
 
       // turn off dirty
       isDirty.value = false;

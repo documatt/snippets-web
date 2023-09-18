@@ -1,7 +1,7 @@
 <template>
   <Toolbar :pt="{
     root: {
-      class: 'py-1 px-3',
+      class: 'py-1 pl-0 pr-2',
       style: 'background: none; border: none;'
     }
   }">

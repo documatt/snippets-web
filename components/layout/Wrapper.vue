@@ -8,148 +8,26 @@
         <div
           class="flex align-items-center justify-content-center flex-shrink-0 mt-3"
         >
-          <img
-            src="/icon.svg"
-            alt="Documatt logo"
-            height="40"
-          />
+          <NuxtLink to="https://documatt.com" target="_blank">
+            <img src="/icon.svg" alt="Documatt logo" height="40" />
+          </NuxtLink>
         </div>
         <div class="mt-3">
-
           <!-- Leftbar upper menu -->
-          <ul class="list-none p-0 m-0">
-            <li>
-              <a
-                v-ripple
-                class="flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center text-cyan-600 border-left-2 border-cyan-600 hover:border-300 transition-duration-150 transition-colors p-ripple"
-              >
-                <i class="pi pi-home mr-2 lg:mr-0 text-base lg:text-2xl"></i>
-                <span class="font-medium inline text-base lg:text-xs lg:hidden"
-                  >Home</span
-                >
-              </a>
-            </li>
-            <li>
-              <a
-                v-ripple
-                class="flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center text-600 border-left-2 border-transparent hover:border-300 transition-duration-150 transition-colors p-ripple"
-              >
-                <i class="pi pi-search mr-2 lg:mr-0 text-base lg:text-2xl"></i>
-                <span class="font-medium inline text-base lg:text-xs lg:hidden"
-                  >Search</span
-                >
-              </a>
-            </li>
-            <li>
-              <a
-                v-ripple
-                class="flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center text-600 border-left-2 border-transparent hover:border-300 transition-duration-150 transition-colors p-ripple"
-              >
-                <i class="pi pi-users mr-2 lg:mr-0 text-base lg:text-2xl"></i>
-                <span class="font-medium inline text-base lg:text-xs lg:hidden"
-                  >Team</span
-                >
-              </a>
-            </li>
-            <li class="relative">
-              <a
-                v-ripple
-                class="flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center text-600 border-left-2 border-transparent hover:border-300 transition-duration-150 transition-colors p-ripple"
-                v-styleclass="{
-                  selector: '@next',
-                  enterClass: 'hidden',
-                  leaveToClass: 'hidden',
-                  hideOnOutsideClick: true,
-                }"
-              >
-                <i
-                  class="pi pi-chart-line mr-2 lg:mr-0 text-base lg:text-2xl"
-                  v-badge.danger
-                ></i>
-                <span class="font-medium inline text-base lg:text-xs lg:hidden"
-                  >Reports</span
-                >
-                <i class="pi pi-chevron-down ml-auto lg:hidden"></i>
-              </a>
-              <ul
-                class="list-none pl-3 pr-0 py-0 lg:p-3 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out static border-round-right lg:absolute left-100 top-0 z-1 surface-overlay shadow-none lg:shadow-2 w-full lg:w-15rem"
-              >
-                <li>
-                  <a
-                    v-ripple
-                    class="flex align-items-center cursor-pointer p-3 hover:surface-100 hover:text-900 border-round text-600 hover:text-700 transition-duration-150 transition-colors p-ripple"
-                    v-styleclass="{ selector: '@next', toggleClass: 'hidden' }"
-                  >
-                    <i class="pi pi-chart-line mr-2"></i>
-                    <span class="font-medium">Revenue</span>
-                    <i class="pi pi-chevron-down ml-auto"></i>
-                  </a>
-                  <ul
-                    class="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out"
-                  >
-                    <li>
-                      <a
-                        v-ripple
-                        class="flex align-items-center cursor-pointer p-3 hover:surface-100 hover:text-900 border-round text-600 hover:text-700 transition-duration-150 transition-colors p-ripple"
-                      >
-                        <i class="pi pi-table mr-2"></i>
-                        <span class="font-medium">View</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        v-ripple
-                        class="flex align-items-center cursor-pointer p-3 hover:surface-100 hover:text-900 border-round text-600 hover:text-700 transition-duration-150 transition-colors p-ripple"
-                      >
-                        <i class="pi pi-search mr-2"></i>
-                        <span class="font-medium">Search</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a
-                    v-ripple
-                    class="flex align-items-center cursor-pointer p-3 hover:surface-100 hover:text-900 border-round text-600 hover:text-700 transition-duration-150 transition-colors p-ripple"
-                  >
-                    <i class="pi pi-chart-line mr-2"></i>
-                    <span class="font-medium">Expenses</span>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a
-                v-ripple
-                class="flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center text-600 border-left-2 border-transparent hover:border-300 transition-duration-150 transition-colors p-ripple"
-              >
-                <i
-                  class="pi pi-calendar mr-2 lg:mr-0 text-base lg:text-2xl"
-                ></i>
-                <span class="font-medium inline text-base lg:text-xs lg:hidden"
-                  >Events</span
-                >
-              </a>
-            </li>
-            <li>
-              <a
-                v-ripple
-                class="flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center text-600 border-left-2 border-transparent hover:border-300 transition-duration-150 transition-colors p-ripple"
-              >
-                <i class="pi pi-cog mr-2 lg:mr-0 text-base lg:text-2xl"></i>
-                <span class="font-medium inline text-base lg:text-xs lg:hidden"
-                  >Options</span
-                >
+          <ul id="leftbar-upper-menu">
+            <li v-for="item in leftbarUpperMenu">
+              <a v-ripple v-tooltip="item.label" :class="{ active: item.active}">
+                <i :class="item.icon"></i>
+                <span>{{ item.label }}</span>
               </a>
             </li>
           </ul>
-
         </div>
         <div class="mt-auto">
           <hr class="mx-3 border-top-1 border-none surface-border" />
 
           <!-- Leftbar bottom menu -->
-          <a
+          <!-- <a
             v-ripple
             class="my-3 flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center text-600 border-left-2 border-transparent hover:border-300 transition-duration-150 transition-colors p-ripple"
           >
@@ -157,22 +35,20 @@
               class="pi pi-sign-out mr-2 lg:mr-0 text-base lg:text-1xl text-pink-500"
             ></i>
             <span class="font-medium inline lg:hidden">Sign Out</span>
-          </a>
-
+          </a> -->
         </div>
       </div>
     </div>
 
     <!-- Right part - topbar, main stage and footer -->
-    <div class="min-h-screen h-screen flex flex-column relative flex-auto section-width">
-
-      <!-- Topbar -->
+    <div
+      class="min-h-screen h-screen flex flex-column relative flex-auto section-width"
+    >
+      <!-- Topbar (hidden on < LG)-->
       <div
-        class="flex justify-content-between align-items-center px-5 relative lg:static border-bottom-1 surface-border bg-dm-mocca"
-        style="height: 10vh"
+        class="flex justify-content-between align-items-center px-4 py-2 relative lg:static border-bottom-1 surface-border bg-dm-mocca block lg:hidden"
       >
         <div class="flex">
-
           <!-- Burger menu for leftbar (hidden on < LG)-->
           <a
             v-ripple
@@ -198,15 +74,14 @@
               placeholder="Search"
             />
           </span> -->
-
         </div>
 
         <!-- Three dots button for topbar (hidden on < LG) -->
-        <a
+        <!-- <a
           v-ripple
           class="cursor-pointer block lg:hidden text-700 ml-auto p-ripple"
           v-styleclass="{
-            selector: '#topbarmenu',
+            selector: '#topbar-menu',
             enterClass: 'hidden',
             enterActiveClass: 'fadein',
             leaveToClass: 'hidden',
@@ -215,13 +90,10 @@
           }"
         >
           <i class="pi pi-ellipsis-v text-2xl"></i>
-        </a>
+        </a> -->
 
         <!-- Topbar menu -->
-        <ul
-          id="topbarmenu"
-          class="list-none p-0 m-0 hidden lg:flex lg:align-items-center select-none lg:flex-row lg:ml-auto border-1 lg:border-none surface-border right-0 top-100 z-5 shadow-2 lg:shadow-none absolute lg:static bg-dm-mocca"
-        >
+        <!-- <ul id="topbar-menu">
           <li>
             <a
               v-ripple
@@ -261,28 +133,31 @@
               </div>
             </a>
           </li>
-        </ul>
-
+        </ul> -->
       </div>
 
       <!-- Main content -->
-      <div class="p-2 flex flex-auto bg-white"
-           style="height: 85vh;">
+      <div class="p-2 flex flex-auto bg-white" style="height: 85vh">
         <slot></slot>
       </div>
 
       <!-- Status bar / footer -->
-      <div class="p-0"
-           style="height: min-content;">
-        <LayoutFooter/>
+      <div class="p-0" style="height: min-content">
+        <LayoutFooter />
       </div>
-
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 const { texts } = useAppConfig();
+
+const leftbarUpperMenu = ref([
+  { label: "Home", icon: "pi pi-home" },
+  { label: "Write", icon: "pi pi-file-edit", active: true },
+  { label: "Share", icon: "pi pi-share-alt" },
+  { label: "Help", icon: "pi pi-question-circle" },
+])
 </script>
 
 <style scoped lang="scss">
@@ -293,5 +168,34 @@ const { texts } = useAppConfig();
   @media screen and (max-width: $lg) {
     width: 100vw;
   }
+}
+
+ul#leftbar-upper-menu {
+  @include styleclass("list-none p-0 m-0");
+
+  a {
+    @include styleclass(
+      "flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center text-600 border-left-2 border-transparent hover:border-300 transition-duration-150 transition-colors p-ripple"
+    );
+
+    &.active {
+      @include styleclass(
+        "text-blue-600 border-blue-600 surface-100"
+      );
+    }
+
+    // Icons
+    i {
+      @include styleclass("mr-2 lg:mr-0 text-base lg:text-2xl");
+    }
+    // Label on > LG
+    span {
+      @include styleclass("font-medium inline text-base lg:text-xs lg:hidden");
+    }
+  }
+}
+
+ul#topbar-menu {
+  @include styleclass("list-none p-0 m-0 hidden lg:flex lg:align-items-center select-none lg:flex-row lg:ml-auto border-1 lg:border-none surface-border right-0 top-100 z-5 shadow-2 lg:shadow-none absolute lg:static bg-dm-mocca");
 }
 </style>
