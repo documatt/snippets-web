@@ -7,6 +7,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    // Required for Vitest `globals: true` option
+    // https://vitest.dev/config/#globals
+    "types": ["vitest/globals"]
   }
 }

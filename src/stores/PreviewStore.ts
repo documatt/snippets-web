@@ -1,34 +1,44 @@
-import { type Body } from "@/utils/snippetsApi";
-import { useDebounceFn, useTimeoutPoll } from "@vueuse/core";
-import { promiseTimeout } from "@vueuse/shared";
-import { defineStore } from "pinia";
-import { inject, ref } from "vue";
-import { useBookStore } from "./BookStore";
-import { useDocStore } from "./DocStore";
-import type { Api } from "@/plugins/api";
+import { type Body } from '@/utils/snippetsApi'
+import { useDebounceFn, useTimeoutPoll } from '@vueuse/core'
+import { promiseTimeout } from '@vueuse/shared'
+import { defineStore } from 'pinia'
+import { computed, inject, ref } from 'vue'
+import { useBookStore } from './BookStore'
+import { useDocStore } from './DocStore'
+import type { Api } from '@/plugins/api'
+import { logger } from '@/utils/logger'
 
-export const usePreviewStore = defineStore("preview", () => {
+export const usePreviewStore = defineStore('preview', () => {
   // ***************************************************************************
   // Setup
   // ***************************************************************************
 
-  const bookStore = useBookStore();
-  const docStore = useDocStore();
-  const $api = inject("api") as Api
+  const bookStore = useBookStore()
+  const docStore = useDocStore()
+  const $api = inject('api') as Api
 
   // ***************************************************************************
   // State
   // ***************************************************************************
 
-  const body = ref<Body>();
-  const isInProgress = ref(false);
-  const isInError = ref(false);
+  const body = ref<Body>()
+  const isInProgress = ref(false)
+  const isInError = ref(false)
 
   // ***************************************************************************
   // Getters
   // ***************************************************************************
 
-  const isPreviewable = ref(false);
+  const isPreviewable = computed(() => {
+    switch (docStore.extension) {
+      case 'rst':
+      case 'md':
+        return true
+
+      default:
+        return false
+    }
+  })
 
   // ***************************************************************************
   // Actions
@@ -39,61 +49,69 @@ export const usePreviewStore = defineStore("preview", () => {
   /**
    * For external users. Debounced (preventing multiple executing).
    */
-  const refreshPreview = useDebounceFn(async () => {
-    await _preview();
-  }, 1000);
+  const refresh = async () => {
+    if (!isPreviewable.value) {
+      logger.debug(`Preview for file extension '${docStore.extension}' is not supported`)
+      return
+    }
+
+    await _debouncedRefresh()
+  }
+
+  const _debouncedRefresh = useDebounceFn(async () => {
+    console.log("_debouncedRefresh()");
+    await _refresh()
+  }, 1000)
 
   /**
    * Raw preview. Doesn't debounce. Sets body and flags.
    */
-  async function _preview() {
-    isInProgress.value = true;
+  async function _refresh() {
+    isInProgress.value = true
     const first = await $api.docApi.enqueuePreview(bookStore.id, docStore.id)
-    const jobId = first.job_id;
-    let attempts = 0;
+    const jobId = first.job_id
+    let attempts = 0
 
     const { pause } = useTimeoutPoll(
       async () => {
         // wait before first attempt
-        await promiseTimeout(500);
-        attempts++;
+        await promiseTimeout(500)
+        attempts++
 
-        const job_status = (await $api.jobApi.getStatus(jobId)).job_status;
-        logger.debug(`preview attempt ${attempts}: with status ${job_status}`);
+        const job_status = (await $api.jobApi.getStatus(jobId)).job_status
+        logger.debug(`preview attempt ${attempts}: with status ${job_status}`)
 
-        if (job_status == "failed") {
-          logger.warn(`preview attempt ${attempts}: preview error`);
-          isInProgress.value = false;
-          isInError.value = true;
-          pause();
-          return;
-        } else if (job_status == "finished") {
-          logger.info(`preview attempt ${attempts}: preview succeeded`);
-          body.value = await $api.docApi.getPreviewBody(bookStore.id, docStore.id, jobId);
-          isInProgress.value = false;
-          isInError.value = false;
-          pause();
-          return;
+        if (job_status == 'failed') {
+          logger.warn(`preview attempt ${attempts}: preview error`)
+          isInProgress.value = false
+          isInError.value = true
+          pause()
+          return
+        } else if (job_status == 'finished') {
+          logger.info(`preview attempt ${attempts}: preview succeeded`)
+          body.value = await $api.docApi.getPreviewBody(bookStore.id, docStore.id, jobId)
+          isInProgress.value = false
+          isInError.value = false
+          pause()
+          return
         } else {
-          logger.debug(`preview attempt ${attempts}: will try again`);
+          logger.debug(`preview attempt ${attempts}: will try again`)
         }
 
         if (attempts > 3) {
           // stop polling (also throwing will break the loop but with uncaught)
-          logger.warn(
-            `preview attempt ${attempts}: Won't try again. Max attemps exceeded`
-          );
-          pause();
+          logger.warn(`preview attempt ${attempts}: Won't try again. Max attemps exceeded`)
+          pause()
         }
       },
       1500,
       { immediate: true }
-    );
+    )
   }
 
   // ***************************************************************************
   // Expose
   // ***************************************************************************
 
-  return { body, isInProgress, isInError, refreshPreview };
-});
+  return { body, isInProgress, isInError, isPreviewable, refresh }
+})
