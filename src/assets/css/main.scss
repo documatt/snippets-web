@@ -1,0 +1,278 @@
+// *****************************************************************************
+// Fonts
+// *****************************************************************************
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+// *****************************************************************************
+// Colors and variables
+// *****************************************************************************
+
+$dm-mocca: rgb(245, 243, 240);
+$dm-blue: #0c7cba;
+$dm-font-family: "Playfair Display", serif;
+$dm-sans-serif: 'Roboto', sans-serif;
+
+:root {
+  // made them available also outside SASS
+  --dm-mocca: $dm-mocca;
+  --dm-blue: $dm-blue;
+  --dm-font-family: $dm-font-family;
+  --dm-sans-serif: $dm-sans-serif;
+}
+
+.dm-blue {
+  color: $dm-blue;
+}
+
+.bg-dm-mocca {
+  background-color: $dm-mocca;
+}
+
+.dm-sans-serif {
+  font-family: $dm-sans-serif;
+}
+
+// *****************************************************************************
+// Body
+// *****************************************************************************
+
+body {
+  font-family: $dm-font-family;
+  margin: 0;
+}
+
+// *****************************************************************************
+// Include 3rd party libs
+// *****************************************************************************
+
+// *** Prime *******************************************************************
+// primeflex.scss is injected in with in `nuxt.config.ts`
+@import "primeicons/primeicons.css";
+@import "primevue/resources/primevue.min.css";
+@import "primevue/resources/themes/lara-light-blue/theme.css";
+
+// Change component font
+.p-component {
+  font-family: $dm-sans-serif;
+  font-size: 1rem;
+}
+
+// Button
+.p-button {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+// *** NProgress ***************************************************************
+
+@import "nprogress/nprogress.css";
+
+// *****************************************************************************
+// Common
+// *****************************************************************************
+
+// *** Layout ******************************************************************
+
+%wide-limited-container {
+  // X-padding
+  @include styleclass("px-4 lg:px-8");
+
+  // center
+  flex-grow: 1;
+  margin: 0 auto;
+  position: relative;
+  width: auto;
+
+  // limit width on XL or above
+  @media screen and (min-width: $xl) {
+    max-width: 1344px;
+  }
+}
+
+// Container adding Y-padding (as container in Bulma)
+.container {
+  @extend %wide-limited-container;
+  @include styleclass("py-4 lg:py-6");
+}
+
+// Container but no Y-padding
+.container-no-py {
+  @extend %wide-limited-container;
+}
+
+// Like Primeflex w-full but applied only on < LG
+.w-full-on-md {
+  @media screen and (max-width: $lg) {
+    width: 100%;
+  }
+}
+
+// *** Shaddows ****************************************************************
+
+.upper-shadow {
+  box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.1), 0 -1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.bottom-shadow {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+// *****************************************************************************
+// Page (main content)
+// *****************************************************************************
+
+$page-text-color: #4a4a4a;
+
+.page {
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: $page-text-color;
+
+  // Excerpt
+  .excerpt,
+  h1 + p {
+    font-weight: bold;
+    color: var(--surface-700);
+    font-size: 1.5rem;
+  }
+
+  h1 {
+    // Bigger H1
+    font-size: 3rem;
+    // Move little above the normal position
+    margin-top: -0.3em;
+    margin-bottom: 0em;
+  }
+
+  // All headings in dm-blue
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $dm-blue;
+  }
+
+  // Links but not in headings
+  :not(h1) > a,
+  :not(h2) > a,
+  :not(h3) > a,
+  :not(h4) > a,
+  :not(h5) > a,
+  :not(h6) > a {
+    color: var(--surface-600);
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--surface-400);
+      transition-duration: 150ms;
+    }
+
+    // External links
+    // https://phuoc.ng/collection/tips/add-an-icon-to-external-links/
+    // https://codepen.io/heydon/pen/pgBBdR
+    &:not([href*="documatt.com"]):not([href^="#"]):not([href^="/"]):after {
+      content: "(external link)";
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      text-indent: 1rem;
+      white-space: nowrap;
+      overflow: hidden;
+      background-image: url("primeicons/raw-svg/external-link.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 75% auto;
+    }
+  }
+
+  // Links in headings
+  h1 > a,
+  h2 > a,
+  h3 > a,
+  h4 > a,
+  h5 > a,
+  h6 > a {
+    color: $dm-blue;
+    text-decoration: none;
+
+    &:hover {
+      color: lighten($dm-blue, 15%);
+      transition-duration: 150ms;
+
+      // Add "#" on hover
+      &::after {
+        content: "#";
+        padding-left: 0.5rem;
+      }
+    }
+  }
+
+  // Address is normally italic
+  address {
+    font-style: normal;
+  }
+
+  // Not so dense list items
+  li {
+    margin-bottom: 0.5rem;
+  }
+
+  // *** Code examples *********************************************************
+
+  $code-color: #D73A49;
+
+  // both
+  code,
+  pre {
+    color: $code-color;
+    background-color: whitesmoke;
+    border-radius: 0.5rem;
+  }
+
+  // inline only
+  :not(pre) > code {
+    padding: 0.25rem 0.5rem 0.25rem;
+    font-size: 75%;
+  }
+
+  // block only
+  pre {
+    padding: 0.5rem 0.75rem;
+    font-size: 75%;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  // links
+  // target <a> that precedens before <code>
+  a:has(> code) {
+    text-decoration-color: $code-color;
+  }
+
+  // *** Blog post *************************************************************
+
+  .blog-post {
+    img {
+      max-width: 100%;
+    }
+
+    // Admonitions
+    .topic, .note, .tip, .caution, .warning {
+      margin-left: 2rem;
+      margin-right: 2rem;
+      background-color: #f5faff;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      border-left: 5px solid #dbdbdb;
+      border-right: 5px solid #dbdbdb;
+
+      p:first-of-type {
+        margin-top: 0;
+      }
+    }
+  }
+}
