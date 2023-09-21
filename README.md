@@ -114,10 +114,14 @@ Requires Node 18 LTS.
 3. If needed, create `.env` file with the settings bellow. But the defaults expect local running snippets-api.
 4. `npm run dev` for hot deploy or `npm run generate` to build static app into `.output/public/` folder.
 
-### Testing
+## Testing
+
+### Unit tests
 
 - `npm run test` will run all tests and stay in foreground watching for changes.- Test of `foo.js` or `foo.vue` are in the same directory as `foo.test.ts`.
 - Use `test()`, not `it()` alias.
+
+### E2E tests with Playwright
 
 ## Settings
 

@@ -51,18 +51,18 @@ const config: PlaywrightTestConfig = {
         ...devices['Desktop Chrome']
       }
     },
-    {
-      name: 'firefox',
-      use: {
-        ...devices['Desktop Firefox']
-      }
-    },
-    {
-      name: 'webkit',
-      use: {
-        ...devices['Desktop Safari']
-      }
-    }
+    // {
+    //   name: 'firefox',
+    //   use: {
+    //     ...devices['Desktop Firefox']
+    //   }
+    // },
+    // {
+    //   name: 'webkit',
+    //   use: {
+    //     ...devices['Desktop Safari']
+    //   }
+    // }
 
     /* Test against mobile viewports. */
     // {
@@ -97,16 +97,21 @@ const config: PlaywrightTestConfig = {
   // outputDir: 'test-results/',
 
   /* Run your local dev server before starting the tests */
-  webServer: {
+  webServer: [{
     /**
      * Use the dev server by default for faster feedback loop.
      * Use the preview server on CI for more realistic testing.
     Playwright will re-use the local server if there is already a dev-server running.
      */
-    command: process.env.CI ? 'vite preview --port 5173' : 'vite dev',
+    command: process.env.CI ? 'npm run preview --port 5173' : 'npm run dev',
     port: 5173,
     reuseExistingServer: !process.env.CI
-  }
+  },
+  // TODO: Launch snippets-dev server (likely from Docker for easiest usage)
+  // {
+
+  // }
+  ]
 }
 
 export default config
