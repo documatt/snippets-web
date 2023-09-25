@@ -10,6 +10,7 @@ import { computed, inject, ref } from "vue";
 import { useBookStore } from "./BookStore";
 import { usePreviewStore } from "./PreviewStore";
 import type { Api } from "@/plugins/api";
+import { logger } from "@/utils/logger";
 
 export const useDocStore = defineStore("doc", () => {
   // ***************************************************************************
@@ -24,9 +25,9 @@ export const useDocStore = defineStore("doc", () => {
   // State
   // ***************************************************************************
 
-  // Store and automatically update doc ID and body in LocalStorage
+  // Store and automatically update doc ID in LocalStorage
   const id = useStorage<DocId>("snippets.doc.id", null);
-  const body = useStorage<Body>("snippets.doc.body", null);
+  const body = ref<Body>();
 
   const isSaving = ref(false);
 
@@ -47,6 +48,12 @@ export const useDocStore = defineStore("doc", () => {
   // ***************************************************************************
 
   async function loadAndSetBody(docId: DocId) {
+    // ignore except for the initial call that will set body
+    if ((docId === id.value) && (body.value)) {
+      logger.trace("Ignoring attempt to DocStore.loadAndSetBody() for the same doc")
+      return
+    }
+
     id.value = docId
     body.value = await $api.docApi.getBody(bookStore.id, docId);
     await previewStore.refresh()
