@@ -105,14 +105,27 @@ Při commitu do dev větve, se automaticky spustí `npm run generate` a vystaví
 
 Při commitu do master, totéž a vystaví jako https://snippets.documatt.com.
 
+### Releasing a version
+
+In package.json, update the version
+
 ## Local development
 
-Requires Node 18 LTS.
+### Requirements
+
+* Node 18 LTS.
+
+### First time setup
 
 1. Clone Git to your computer.
 2. `cd snippets-web` and `npm init`.
-3. If needed, create `.env` file with the settings bellow. But the defaults expect local running snippets-api.
-4. `npm run dev` for hot deploy or `npm run generate` to build static app into `.output/public/` folder.
+3. Open `.env.local.sample` and save as `.env.local`. Customize settings bellow, mainly `VITE_SENTRY_ENV`.
+
+### Tasks
+
+#### Disable Sentry
+
+In `.env.local` set `VITE_SENTRY_ENABLED=false`.
 
 ## Testing
 
@@ -123,7 +136,12 @@ Requires Node 18 LTS.
 
 ### E2E tests with Playwright
 
+For better testability the markup is often augmented with [test id `data-testid` attribute](https://playwright.dev/docs/locators#locate-by-test-id) that is expected by the test.
+
 ## Settings
+
+* VITE_SENTRY_ENV - Sentry environment (`local-yourname`, `dev` or `prod`)
+
 
 ### Build-time settings
 

@@ -9,11 +9,48 @@ import StyleClass from 'primevue/styleclass'
 import ToastService from 'primevue/toastservice'
 import Tooltip from 'primevue/tooltip'
 import { createApp } from 'vue'
+import * as Sentry from "@sentry/vue";
+
 
 import App from './App.vue'
+import { logger } from './utils/logger'
+import conf from './utils/conf'
 import { router } from './router'
 
 const app = createApp(App)
+
+logger.debug("Snippets-web starting. Envs:", JSON.stringify(conf))
+
+// *****************************************************************************
+// Error reporting
+// *****************************************************************************
+
+Sentry.init({
+  app,
+  dsn: "https://9b2af326a0bf40539512abad9615e9e1@o4505595116650496.ingest.sentry.io/4505601347026944",
+  integrations: [
+    new Sentry.BrowserTracing({
+      routingInstrumentation: Sentry.vueRouterInstrumentation(router),
+    }),
+    new Sentry.Replay(),
+  ],
+  environment: conf.SENTRY_ENV,
+  enabled: conf.SENTRY_ENABLED,
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+
+  // Set `tracePropagationTargets` to control for which URLs distributed tracing should be enabled
+  tracePropagationTargets: ["localhost", /^https:\/\/yourserver\.io\/api/],
+
+  // Capture Replay for 10% of all sessions,
+  // plus for 100% of sessions with an error
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1.0,
+});
+
 
 // *****************************************************************************
 // Official stuff
@@ -44,28 +81,6 @@ app.directive('tooltip', Tooltip)
 
 // Inject API
 app.use(api)
-
-// *** Error handling **********************************************************
-
-// Vue errors (template, watcher, ...)
-// app.config.errorHandler = (err, instance, info) => {
-//   alert(`${err}, ${instance}, ${info}`)
-// }
-
-// Runtime non-Promise errors
-// window.onerror = (message, source, lineno, colno, error) => {
-//   // alert(`${event} ${source} ${lineno} ${colno} ${error}`)
-//   // console.log(`${event} ${source} ${lineno} ${colno} ${error}`)
-//   location.href = "/error.html"
-// }
-
-// // Unhandled rejected promises
-// window.onunhandledrejection = (event) => {
-//   //event.promise contains the promise object
-//   //event.reason contains the reason for the rejection
-//   // alert(`Rejected promise ${event.promise} and reason ${event.reason}`)
-//   // location.href = "/error.html"
-// }
 
 // *****************************************************************************
 // Bang

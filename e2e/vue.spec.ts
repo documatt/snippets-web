@@ -14,11 +14,13 @@ test('visits the app root url', async ({ page }) => {
 
 // test chybové obrazovky, když API vrátí chybu
 test("error page if API is down", async({ page }) => {
-  await page.goto("/");
-  await page.
+  await page.goto('/');
+  await expect(page.getByTestId("error-title")).toContainText("Error :-(")
+})
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
+test("not found page", async ({ page }) => {
+  await page.goto('/nonexisting');
+  await expect(page.getByTestId("error-title")).toContainText("Not Found :-(")
 })
 
 
