@@ -56,7 +56,7 @@ export default {
         return await fetcher<T>(url, fetchOptions)
       } catch (err) {
         logger.error(`API request ${header} failed`)
-        throw Error('It is not your fault. Our API has some troubles.')
+        throw Error('Our API has some troubles. It is not your fault.')
       } finally {
         NProgress.done()
       }

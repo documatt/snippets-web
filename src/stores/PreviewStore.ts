@@ -59,7 +59,6 @@ export const usePreviewStore = defineStore('preview', () => {
   }
 
   const _debouncedRefresh = useDebounceFn(async () => {
-    console.log("_debouncedRefresh()");
     await _refresh()
   }, 1000)
 

@@ -1,7 +1,7 @@
 <template>
-  <Wrapper>
-    <Writer/>
-  </Wrapper>
+  <TheFrame>
+    <RouterView/>
+  </TheFrame>
 
   <!-- DOM placeholder for rendering toast popups -->
   <Toast />
@@ -13,13 +13,12 @@
 </template>
 
 <script setup lang="ts">
-import Wrapper from "@/components/layout/Wrapper.vue"
+import TheFrame from "@/components/layout/TheFrame.vue"
 import CookieConsent from "@/components/layout/CookieConsent.vue"
 
 import Toast from 'primevue/toast'
 import ConfirmDialog from 'primevue/confirmdialog'
 import { useGlobalStore } from '@/stores/GlobalStore'
-import Writer from "./components/Writer.vue"
 
 // Init GlobalStore
 const globalStore = useGlobalStore()

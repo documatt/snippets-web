@@ -14,18 +14,10 @@
         </div>
         <div class="mt-3">
           <!-- Leftbar upper menu -->
-          <ul id="leftbar-upper-menu">
-            <li v-for="item in leftbarUpperMenu">
-              <a v-ripple v-tooltip="item.label" :class="{ active: item.active}">
-                <i :class="item.icon"></i>
-                <span>{{ item.label }}</span>
-              </a>
-            </li>
-          </ul>
+          <LeftbarNav/>
         </div>
         <div class="mt-auto">
           <hr class="mx-3 border-top-1 border-none surface-border" />
-
           <!-- Leftbar bottom menu -->
           <!-- <a
             v-ripple
@@ -143,56 +135,23 @@
 
       <!-- Status bar / footer -->
       <div class="p-0" style="height: min-content">
-        <Footer />
+        <TheFooter />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import Footer from "@/components/layout/Footer.vue"
-import { ref } from "vue";
-
-const leftbarUpperMenu = ref([
-  { label: "Home", icon: "pi pi-home" },
-  { label: "Write", icon: "pi pi-file-edit", active: true },
-  { label: "Share", icon: "pi pi-share-alt" },
-  { label: "Help", icon: "pi pi-question-circle" },
-])
+import TheFooter from "@/components/layout/TheFooter.vue"
+import LeftbarNav from "@/components/layout/LeftbarNav.vue"
 </script>
 
 <style scoped lang="scss">
 // 95vw on < LG, 100vw otherwise
 .section-width {
   width: 95vw;
-
   @media screen and (max-width: $lg) {
     width: 100vw;
-  }
-}
-
-ul#leftbar-upper-menu {
-  @include styleclass("list-none p-0 m-0");
-
-  a {
-    @include styleclass(
-      "flex flex-row lg:flex-column align-items-center cursor-pointer p-3 lg:justify-content-center text-600 border-left-2 border-transparent hover:border-300 transition-duration-150 transition-colors p-ripple"
-    );
-
-    &.active {
-      @include styleclass(
-        "text-blue-600 border-blue-600 surface-100"
-      );
-    }
-
-    // Icons
-    i {
-      @include styleclass("mr-2 lg:mr-0 text-base lg:text-2xl");
-    }
-    // Label on > LG
-    span {
-      @include styleclass("font-medium inline text-base lg:text-xs lg:hidden");
-    }
   }
 }
 
