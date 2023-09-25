@@ -51,7 +51,7 @@ export const usePreviewStore = defineStore('preview', () => {
    */
   const refresh = async () => {
     if (!isPreviewable.value) {
-      logger.debug(`Preview for file extension '${docStore.extension}' is not supported`)
+      logger.info(`File extension '${docStore.extension}' is not previewable`)
       return
     }
 

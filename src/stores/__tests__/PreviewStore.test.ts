@@ -3,8 +3,8 @@ import { createTestingPinia } from '@pinia/testing'
 import { flushPromises, mount } from '@vue/test-utils'
 import { expect, test } from 'vitest'
 import { defineComponent } from 'vue'
-import { useDocStore } from './DocStore'
-import { usePreviewStore } from './PreviewStore'
+import { useDocStore } from '../DocStore'
+import { usePreviewStore } from '../PreviewStore'
 
 test('refresh action called on body change in DocStore', () => {
   const TestComponent = defineComponent({
@@ -38,7 +38,34 @@ test('refresh action called on body change in DocStore', () => {
   })
 })
 
+test.each([
+  ['md', true],
+  ['rst', true],
+  ['py', false],
+  ['json', false],
+  ['txt', false],
+])(`extension %s is previewable %s`, (ext, previewable) => {
+  const TestComponent = defineComponent({
+    template: '<h1>nothing</h1>',
+    setup() {
+      const previewStore = usePreviewStore()
+      const docStore = useDocStore()
 
+      docStore.id = 'some.' + ext // docStore.extension will become "ext"
+
+      expect(previewStore.isPreviewable).toBe(previewable)
+    }
+  })
+  mount(TestComponent, {
+    global: {
+      plugins: [createTestingPinia()],
+      // inject("api") will got mockedApi
+      provide: {
+        api: mockedApi
+      }
+    }
+  })
+})
 
 // I cannot manage to replace previewStore._debouncedRefresh() with a mock.
 // Even, if I expose _debouncedRefresh() as regular action, it not gots

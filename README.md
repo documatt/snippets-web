@@ -131,8 +131,17 @@ In `.env.local` set `VITE_SENTRY_ENABLED=false`.
 
 ### Unit tests
 
-- `npm run test` will run all tests and stay in foreground watching for changes.- Test of `foo.js` or `foo.vue` are in the same directory as `foo.test.ts`.
+- `npm run test:unit` will run all tests and stay in foreground watching for changes.- Test of `foo.js` or `foo.vue` are in the `__tests__` subfolder in the `foo.test.ts` file.
 - Use `test()`, not `it()` alias.
+- Tag elements to test with `data-testid="error-message"` attribute (the `data-testid` is the same attributed expected also by Playwright)
+
+#### Run single test file
+
+(case sensitive)
+
+```
+npm run test:unit PreviewStore
+```
 
 ### E2E tests with Playwright
 
