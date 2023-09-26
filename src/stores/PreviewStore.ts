@@ -81,7 +81,7 @@ export const usePreviewStore = defineStore('preview', () => {
     const { pause } = useTimeoutPoll(
       async () => {
         // wait before first attempt
-        await promiseTimeout(500)
+        await promiseTimeout(1500)
         attempts++
 
         const job_status = (await $api.jobApi.getStatus(jobId)).job_status
