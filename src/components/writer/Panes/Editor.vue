@@ -47,8 +47,10 @@ import "codemirror/mode/rst/rst.js";
 // importovat další módy?
 
 import { useDocStore } from "@/stores/DocStore";
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
 import { useDebounceFn } from "@vueuse/core";
+import { logger } from "@/utils/logger";
+import { storeToRefs } from "pinia";
 
 const docStore = useDocStore();
 
@@ -80,14 +82,14 @@ const docMime = computed(() => {
     case "js":
       return "text/javascript"
     default:
-      throw new Error("Unknown file extension. Cannot return MIME.")
+      return "text/plain"
   }
 })
 
 /**
  * Trigger save after 2500 ms after last request OR each 5000 ms at max.
  */
-const debouncedSave = useDebounceFn(
+const _debouncedSave = useDebounceFn(
   async () => {
     await docStore.save();
   },
@@ -96,12 +98,34 @@ const debouncedSave = useDebounceFn(
 );
 
 async function onBlur() {
-  if (docStore.isDirty) debouncedSave();
+  logger.trace("Editor.vue onBlur")
+  if (docStore.isDirty) await _debouncedSave();
 }
 
-function onChanges() {
+// *** Document switching ******************************************************
+
+// Unfortunatelly, when CodeMirror v-model has changed, it triggers
+// onChanges(). This is the flag preventing calling save after an user
+// has switched to another doc.
+
+const docSwitchedFlag = ref(false)
+
+watch(() => docStore.id, (newId, oldId) => {
+  if (newId !== oldId)
+    docSwitchedFlag.value = !docSwitchedFlag.value
+})
+
+async function onChanges() {
+  logger.trace("Editor.vue onChange")
+
+  if (docSwitchedFlag.value) {
+    logger.trace("Ignoring editor onChanges between switching docs")
+    docSwitchedFlag.value = false    // null the flag
+    return
+  }
+
   docStore.isDirty = true;
-  debouncedSave();
+  await _debouncedSave();
 }
 </script>
 
