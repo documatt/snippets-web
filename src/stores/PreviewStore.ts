@@ -7,6 +7,7 @@ import { useBookStore } from './BookStore'
 import { useDocStore } from './DocStore'
 import type { Api } from '@/plugins/api'
 import { logger } from '@/utils/logger'
+import { useUIStore } from './UIStore'
 
 export const usePreviewStore = defineStore('preview', () => {
   // ***************************************************************************
@@ -15,6 +16,7 @@ export const usePreviewStore = defineStore('preview', () => {
 
   const bookStore = useBookStore()
   const docStore = useDocStore()
+  const uiStore = useUIStore()
   const $api = inject('api') as Api
 
   // ***************************************************************************
@@ -50,6 +52,11 @@ export const usePreviewStore = defineStore('preview', () => {
    * For external users. Debounced (preventing multiple executing).
    */
   const refresh = async () => {
+    if (!uiStore.previewIsVisible) {
+      logger.trace(`Ignoring attempt to refresh preview because preview pane is not visible`)
+      return
+    }
+
     if (!isPreviewable.value) {
       logger.info(`File extension '${docStore.extension}' is not previewable`)
       return

@@ -1,7 +1,7 @@
 <!-- Preview HTML itself -->
 
 <template>
-  <div class="root">
+  <div class="root" ref="targetRef">
     <!-- not previewable -->
     <template v-if="!previewStore.isPreviewable">
       <div class="error" data-testid="error-message">
@@ -54,8 +54,10 @@
 <script setup lang="ts">
 import { useDocStore } from '@/stores/DocStore'
 import { usePreviewStore } from '@/stores/PreviewStore'
-import { computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import Button from 'primevue/button'
+import { useElementSize, useElementVisibility } from '@vueuse/core'
+import { useUIStore } from '@/stores/UIStore'
 
 const docStore = useDocStore()
 const previewStore = usePreviewStore()
@@ -65,6 +67,20 @@ const toBlurry = computed(() => docStore.isDirty || docStore.isSaving || preview
 
 // adds CSS class like "preview-body-rst" for more precious styling
 const extensionClass = computed(() => 'preview-body-' + docStore.extension)
+
+// *** Tracking visibility *****************************************************
+
+// Template ref to component
+const targetRef = ref(null)
+
+// Reactively track this component width
+const { width } = useElementSize(targetRef)
+
+// Update UIStore
+const uiStore = useUIStore()
+watch(width, (newWidth)=>{
+  uiStore.previewIsVisible = newWidth > 0
+})
 </script>
 
 <style scoped lang="scss">

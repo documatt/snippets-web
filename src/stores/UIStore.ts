@@ -11,6 +11,8 @@ export const useUIStore = defineStore("ui", () => {
   // State
   // ***************************************************************************
 
+  const previewIsVisible = ref()
+
   // *** Layout ****************************************************************
 
   const layout = ref(defaultLayout)
@@ -24,6 +26,6 @@ export const useUIStore = defineStore("ui", () => {
   // ***************************************************************************
 
   return {
-    layout
+    layout, previewIsVisible
   };
 });
