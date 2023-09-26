@@ -18,6 +18,14 @@
       </div>
     </template>
 
+    <!-- very first preview attempt (blur empty markup has no sense) -->
+    <template v-else-if="isFirstTime">
+      <div class="error" data-testid="error-message">
+        Wait a sec
+        <i class="pi pi-clock"></i>
+      </div>
+    </template>
+
     <!-- failed -->
     <template v-else-if="previewStore.isInError">
       <div class="error" data-testid="error-message">
@@ -56,13 +64,14 @@ import { useDocStore } from '@/stores/DocStore'
 import { usePreviewStore } from '@/stores/PreviewStore'
 import { ref, computed, watch } from 'vue'
 import Button from 'primevue/button'
-import { useElementSize, useElementVisibility } from '@vueuse/core'
+import { useElementSize } from '@vueuse/core'
 import { useUIStore } from '@/stores/UIStore'
 
 const docStore = useDocStore()
 const previewStore = usePreviewStore()
 
-const isBlank = computed(() => !docStore.body || !previewStore.body)
+const isBlank = computed(() => (!docStore.body || !previewStore.body) && !previewStore.isInProgress)
+const isFirstTime = computed(() => (!docStore.body || !previewStore.body) && previewStore.isInProgress)
 const toBlurry = computed(() => docStore.isDirty || docStore.isSaving || previewStore.isInProgress)
 
 // adds CSS class like "preview-body-rst" for more precious styling
@@ -78,7 +87,7 @@ const { width } = useElementSize(targetRef)
 
 // Update UIStore
 const uiStore = useUIStore()
-watch(width, (newWidth)=>{
+watch(width, (newWidth) => {
   uiStore.previewIsVisible = newWidth > 0
 })
 </script>
