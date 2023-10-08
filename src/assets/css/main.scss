@@ -46,6 +46,8 @@ body {
 // Include 3rd party libs
 // *****************************************************************************
 
+@import "./iconify.css";
+
 // *** Prime *******************************************************************
 // primeflex.scss is injected in with in `nuxt.config.ts`
 @import "primeicons/primeicons.css";

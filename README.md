@@ -93,6 +93,12 @@ Follow the order template - script - style.
 </style>
 ```
 
+### Icons
+
+If possible, prefer PrimeIcons.
+
+The remaining icons Iconify CSS icons in `assets/css/iconify.css` generated according to guide at https://iconify.design/docs/usage/css/no-code/.
+
 ## Deployment
 
 ### Creating

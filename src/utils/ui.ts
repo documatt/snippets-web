@@ -33,7 +33,7 @@ export const previewLayout: Layout = {
 
 export const threeColumnLayout: Layout = {
   label: "Three column",
-  icon: "pi pi-table",
+  icon: "icon--bi icon--bi--layout-three-columns",
   explorerSize: 20,
   editorSize: 60,
   previewSize: 20,
