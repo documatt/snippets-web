@@ -40,6 +40,7 @@
     "@types/node": "^18.17.15",
     "@types/nprogress": "^0.2.0",
     "@types/splitpanes": "^2.2.1",
+    "@types/uuid": "^9.0.5",
     "@vitejs/plugin-vue": "^4.3.4",
     "@vue/eslint-config-prettier": "^8.0.0",
     "@vue/eslint-config-typescript": "^12.0.0",

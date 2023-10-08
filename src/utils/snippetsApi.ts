@@ -116,7 +116,7 @@ export class DocApi extends ApiBase {
     });
   }
 
-  async updateBody(bookId: BookId, docId: DocId, body: Body) {
+  async updateBody(bookId: BookId, docId: DocId, body?: Body) {
     // TODO: %-encode docId
     await this.send(`/book/${bookId}/doc/${docId}/body`, {
       method: "PATCH",

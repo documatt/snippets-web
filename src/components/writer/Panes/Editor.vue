@@ -36,6 +36,7 @@ Proto pro tuto komponentu nepoužívejte ScrollPanell. Pomocí [simplescrollbars
 </template>
 
 <script setup lang="ts">
+// @ts-ignore
 import Codemirror from "codemirror-editor-vue3";
 
 import "codemirror/addon/display/placeholder.js";
@@ -50,7 +51,6 @@ import { useDocStore } from "@/stores/DocStore";
 import { computed, ref, watch } from "vue";
 import { useDebounceFn } from "@vueuse/core";
 import { logger } from "@/utils/logger";
-import { storeToRefs } from "pinia";
 
 const docStore = useDocStore();
 

@@ -4,6 +4,7 @@
 
 import { type Body, type DocId } from "@/utils/snippetsApi";
 import { useStorage } from "@vueuse/core";
+// @ts-ignore
 import fileExtension from "file-extension";
 import { defineStore } from "pinia";
 import { computed, inject, ref } from "vue";

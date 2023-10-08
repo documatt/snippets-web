@@ -17,6 +17,7 @@ test('blank doc error', () => {
 
   // Previewable
   const previewStore = usePreviewStore(pinia)
+  // @ts-ignore
   previewStore.isPreviewable = true
 
   // but empty
@@ -37,9 +38,10 @@ test('not previewable error', () => {
     }
   })
   const previewStore = usePreviewStore(pinia)
+  // @ts-ignore
   previewStore.isPreviewable = true
 
   const msg = wrapper.get('[data-testid="error-message"]')
 
-  expect(msg.text()).toBe('This file is not previewable')
+  expect(msg.text()).toBe('This file type is not previewable')
 })

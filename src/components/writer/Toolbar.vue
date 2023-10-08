@@ -22,7 +22,7 @@
     <template #end>
       <Button
         label="New"
-        @click="onNewDocumentClick($event)"
+        @click="onNewDocumentClick()"
         class="mr-1"
         outlined
          size="small"
@@ -91,9 +91,8 @@ const saveStatusTooltip = computed(() => {
 
 // New document button
 const confirm = useConfirm();
-function onNewDocumentClick(event) {
+function onNewDocumentClick() {
   confirm.require({
-    target: event.currentTarget,
     header: "New document",
     message: "Discard existing document and start with the new one?",
     icon: "pi pi-exclamation-triangle",

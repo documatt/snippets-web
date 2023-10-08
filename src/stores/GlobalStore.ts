@@ -55,7 +55,8 @@ export const useGlobalStore = defineStore("global", () => {
       // generate new UUID as bookId
       const newBookId = uuidv4();
       const engine = "SPHINX_530";
-      const rootDocId = enginesInfo.value[engine].root_doc;
+      // Not-null assertion operator (!) is safe here because at the time of calling this action, it is already set by init action() that has been called from App.vue
+      const rootDocId = enginesInfo.value![engine].root_doc;
       logger.info(`Creating new book '${newBookId}', doc '${rootDocId}'`)
 
       // call api
