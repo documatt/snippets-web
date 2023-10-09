@@ -12,6 +12,7 @@ import { type SendFn, BookApi, DocApi, JobApi, QueryApi, ShareApi } from '@/util
 import NProgress from 'nprogress'
 import { $fetch, type FetchOptions } from 'ofetch'
 import type { App } from 'vue'
+import conf from '@/utils/conf'
 
 export class Api {
   public queryApi
@@ -39,8 +40,7 @@ export const mockedApi = new Api(mockSendFn)
 export default {
   install: (app: App) => {
     const fetcher = $fetch.create({
-      // TODO: brát z prom prostředí (process.env.VUE_APP_*?)
-      baseURL: 'http://localhost:8000'
+      baseURL: conf.API_BASE_URL
     })
 
     /**

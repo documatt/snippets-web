@@ -156,11 +156,7 @@ For better testability the markup is often augmented with [test id `data-testid`
 ## Settings
 
 * VITE_SENTRY_ENV - Sentry environment (`local-yourname`, `dev` or `prod`)
-
-
-### Build-time settings
-
-např. NUXT_PUBLIC_API_BASE_URL = "https://snippets-dev.documatt.com"
+* VITE_API_BASE_URL = "https://snippets-dev.documatt.com"
 
 ### Runtime settings
 
