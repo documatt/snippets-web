@@ -10,22 +10,21 @@
     <template #start>
       <div data-testid="formatting-buttons" v-if="previewStore.isPreviewable">
         <span class="p-buttonset mr-3">
-          <Button icon="icon--mdi icon--mdi--format-header-1" outlined />
-          <Button icon="icon--mdi icon--mdi--format-bold" outlined />
-          <Button icon="icon--mdi icon--mdi--format-italic" outlined />
+          <HeadingButton />
+          <BoldButton />
+          <ItalicButton />
         </span>
         <span class="p-buttonset mr-3">
-          <Button icon="icon--mdi icon--mdi--link" outlined />
-          <Button icon="icon--mdi icon--mdi--image-outline" outlined />
-          <Button icon="icon--mdi icon--mdi--code-tags" outlined />
-          <Button icon="icon--mdi icon--mdi--format-list-bulleted" outlined />
-          <Button icon="icon--mdi icon--mdi--format-list-numbered" outlined />
+          <LinkButton />
+          <ImageButton />
+          <CodeButton />
+          <ListBulettedButton />
+          <ListNumberedButton />
         </span>
       </div>
 
       <span class="p-buttonset mr-3">
-        <Button icon="icon--mdi icon--mdi--undo" outlined />
-        <Button icon="icon--mdi icon--mdi--redo" outlined />
+        <UndoRedoButtons />
       </span>
 
       <div data-testid="help-button" v-if="previewStore.isPreviewable">
@@ -43,11 +42,20 @@
 
 <script setup lang="ts">
 import Toolbar from 'primevue/toolbar'
-import Button from 'primevue/button'
 import { usePreviewStore } from '@/stores/PreviewStore'
-import SaveStatusIcon from './Toolbar/SaveStatusIcon.vue'
-import ChangeLayoutButton from './Toolbar/ChangeLayoutButton.vue'
+
+import HeadingButton from './Toolbar/HeadingButton.vue'
+import BoldButton from './Toolbar/BoldButton.vue'
+import ItalicButton from './Toolbar/ItalicButton.vue'
+import LinkButton from './Toolbar/LinkButton.vue'
+import ImageButton from './Toolbar/ImageButton.vue'
+import CodeButton from './Toolbar/CodeButton.vue'
+import ListBulettedButton from './Toolbar/ListBulettedButton.vue'
+import ListNumberedButton from './Toolbar/ListNumberedButton.vue'
+import UndoRedoButtons from './Toolbar/UndoRedoButtons.vue'
 import HelpButton from './Toolbar/HelpButton.vue'
+import ChangeLayoutButton from './Toolbar/ChangeLayoutButton.vue'
+import SaveStatusIcon from './Toolbar/SaveStatusIcon.vue'
 
 const previewStore = usePreviewStore()
 </script>
