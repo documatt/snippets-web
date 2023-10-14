@@ -17,7 +17,7 @@ export interface Layout {
 
 export const explorerLayout: Layout = {
   label: "Explorer",
-  icon: "pi pi-arrow-left",
+  icon: "icon--ci icon--ci--bar-left",
   explorerSize: 25,
   editorSize: 75,
   previewSize: 0,
@@ -25,7 +25,7 @@ export const explorerLayout: Layout = {
 
 export const previewLayout: Layout = {
   label: "Preview",
-  icon: "pi pi-arrow-right",
+  icon: "icon--ci icon--ci--bar-right",
   explorerSize: 0,
   editorSize: 70,
   previewSize: 30,

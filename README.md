@@ -95,9 +95,17 @@ Follow the order template - script - style.
 
 ### Icons
 
-If possible, prefer PrimeIcons.
+If possible, prefer [PrimeIcons](https://primevue.org/icons/#list).
 
-The remaining icons Iconify CSS icons in `assets/css/iconify.css` generated according to guide at https://iconify.design/docs/usage/css/no-code/.
+If not, find icon at Iconify. Iconify CSS data-uri SVG icons defined in `assets/css/iconify.css`. This file is created according to [their guide](https://iconify.design/docs/usage/css/no-code/).
+
+For example:
+
+1. Browse for icons at https://icon-sets.iconify.design/
+2. You like https://icon-sets.iconify.design/mdi/format-italic/. Icon set name is *mdi*, icon name is *format-italic*. Also `format-bold`.
+3. Go to https://api.iconify.design/mdi.css?icons=format-italic,format-bold.
+4. It would generate CSS snippet to be appended to `assets/css/iconify.css`.
+5. Use as `<i class="icon--mdi icon--mdi--format-italic"></i>`.
 
 ## Deployment
 

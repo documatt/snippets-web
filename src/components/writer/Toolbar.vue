@@ -7,16 +7,25 @@
   }">
     <template #start>
       <span class="p-buttonset mr-3">
-        <Button icon="pi pi-check" outlined size="small" />
-        <Button icon="pi pi-bars" outlined size="small"/>
-        <Button icon="pi pi-calendar" outlined size="small"/>
+        <Button icon="icon--mdi icon--mdi--format-header-1" outlined />
+        <Button icon="icon--mdi icon--mdi--format-bold" outlined/>
+        <Button icon="icon--mdi icon--mdi--format-italic" outlined/>
       </span>
 
       <span class="p-buttonset mr-3">
-        <Button icon="pi pi-trash" outlined size="small"/>
-        <Button icon="pi pi-inbox" outlined size="small"/>
-        <Button icon="pi pi-table" outlined size="small"/>
+        <Button icon="icon--mdi icon--mdi--link" outlined/>
+        <Button icon="icon--mdi icon--mdi--image-outline" outlined/>
+        <Button icon="icon--mdi icon--mdi--code-tags" outlined/>
+        <Button icon="icon--mdi icon--mdi--format-list-bulleted" outlined/>
+        <Button icon="icon--mdi icon--mdi--format-list-numbered" outlined/>
       </span>
+
+      <span class="p-buttonset mr-3">
+        <Button icon="icon--mdi icon--mdi--undo" outlined/>
+        <Button icon="icon--mdi icon--mdi--redo" outlined/>
+      </span>
+
+      <Button icon="pi pi-question-circle" outlined/>
 
     </template>
     <template #end>
@@ -144,4 +153,19 @@ const layoutBtnItems = allLayouts.map((layout) => {
   color: var(--surface-600);
   border-color: var(--surface-300);
 }
+:deep(.p-button-icon) {
+  font-size: 1.5rem;
+}
+:deep(.p-button.p-button-icon-only) {
+  width: auto;
+}
+:deep(.p-button) {
+  padding: 0.5rem;
+}
+:deep(.p-button-label) {
+  font-weight: lighter;
+}
+/* :deep(.p-splitbutton .p-button-icon-left) {
+  font-size: 1rem;
+} */
 </style>
