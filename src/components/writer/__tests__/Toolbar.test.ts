@@ -6,6 +6,7 @@ import Toolbar from '../Toolbar.vue'
 
 const formattingButtons = '[data-testid="formatting-buttons"]'
 const changeLayoutButton = '[data-testid="change-layout-button"]'
+const helpButton = '[data-testid="help-button"]'
 
 describe('visibility depending on isPreviewable', () => {
   function _setPreviewable(isPreviewable: boolean) {
@@ -26,6 +27,7 @@ describe('visibility depending on isPreviewable', () => {
 
     expect(wrapper.find(formattingButtons).exists()).toBe(false)
     expect(wrapper.find(changeLayoutButton).exists()).toBe(false)
+    expect(wrapper.find(helpButton).exists()).toBe(false)
   })
 
   it('visible for previewable', () => {
@@ -33,5 +35,6 @@ describe('visibility depending on isPreviewable', () => {
 
     expect(wrapper.find(formattingButtons).exists()).toBe(true)
     expect(wrapper.find(changeLayoutButton).exists()).toBe(true)
+    expect(wrapper.find(helpButton).exists()).toBe(true)
   })
 })

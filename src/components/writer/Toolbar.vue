@@ -28,7 +28,9 @@
         <Button icon="icon--mdi icon--mdi--redo" outlined />
       </span>
 
-      <Button icon="pi pi-question-circle" outlined />
+      <div data-testid="help-button" v-if="previewStore.isPreviewable">
+        <HelpButton />
+      </div>
     </template>
     <template #end>
       <div data-testid="change-layout-button" v-if="previewStore.isPreviewable">
@@ -45,6 +47,7 @@ import Button from 'primevue/button'
 import { usePreviewStore } from '@/stores/PreviewStore'
 import SaveStatusIcon from './Toolbar/SaveStatusIcon.vue'
 import ChangeLayoutButton from './Toolbar/ChangeLayoutButton.vue'
+import HelpButton from './Toolbar/HelpButton.vue'
 
 const previewStore = usePreviewStore()
 </script>
