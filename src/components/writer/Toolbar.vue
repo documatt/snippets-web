@@ -1,151 +1,50 @@
 <template>
-  <Toolbar :pt="{
-    root: {
-      class: 'py-1 pl-0 pr-2',
-      style: 'background: none; border: none;'
-    }
-  }">
+  <Toolbar
+    :pt="{
+      root: {
+        class: 'py-1 pl-0 pr-2',
+        style: 'background: none; border: none;'
+      }
+    }"
+  >
     <template #start>
-      <span class="p-buttonset mr-3">
-        <Button icon="icon--mdi icon--mdi--format-header-1" outlined />
-        <Button icon="icon--mdi icon--mdi--format-bold" outlined/>
-        <Button icon="icon--mdi icon--mdi--format-italic" outlined/>
-      </span>
+      <div data-testid="formatting-buttons" v-if="previewStore.isPreviewable">
+        <span class="p-buttonset mr-3">
+          <Button icon="icon--mdi icon--mdi--format-header-1" outlined />
+          <Button icon="icon--mdi icon--mdi--format-bold" outlined />
+          <Button icon="icon--mdi icon--mdi--format-italic" outlined />
+        </span>
+        <span class="p-buttonset mr-3">
+          <Button icon="icon--mdi icon--mdi--link" outlined />
+          <Button icon="icon--mdi icon--mdi--image-outline" outlined />
+          <Button icon="icon--mdi icon--mdi--code-tags" outlined />
+          <Button icon="icon--mdi icon--mdi--format-list-bulleted" outlined />
+          <Button icon="icon--mdi icon--mdi--format-list-numbered" outlined />
+        </span>
+      </div>
 
       <span class="p-buttonset mr-3">
-        <Button icon="icon--mdi icon--mdi--link" outlined/>
-        <Button icon="icon--mdi icon--mdi--image-outline" outlined/>
-        <Button icon="icon--mdi icon--mdi--code-tags" outlined/>
-        <Button icon="icon--mdi icon--mdi--format-list-bulleted" outlined/>
-        <Button icon="icon--mdi icon--mdi--format-list-numbered" outlined/>
+        <Button icon="icon--mdi icon--mdi--undo" outlined />
+        <Button icon="icon--mdi icon--mdi--redo" outlined />
       </span>
 
-      <span class="p-buttonset mr-3">
-        <Button icon="icon--mdi icon--mdi--undo" outlined/>
-        <Button icon="icon--mdi icon--mdi--redo" outlined/>
-      </span>
-
-      <Button icon="pi pi-question-circle" outlined/>
-
+      <Button icon="pi pi-question-circle" outlined />
     </template>
     <template #end>
-      <Button
-        label="New"
-        @click="onNewDocumentClick()"
-        class="mr-1"
-        outlined
-         size="small"
-      ></Button>
-
-      <SplitButton
-        :label="layoutBtnLabel"
-        v-tooltip.bottom="'Change view layout'"
-        :icon="layoutBtnIcon"
-        :model="layoutBtnItems"
-        @click="toggleLayout"
-        class="mr-1"
-         size="small"
-      />
-
-      <i
-        class="pi"
-        :class="saveStatusIcons"
-        v-tooltip.bottom="saveStatusTooltip"
-      ></i>
+      <ChangeLayoutButton />
+      <SaveStatusIcon />
     </template>
   </Toolbar>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import { useDocStore } from "@/stores/DocStore";
-import SplitButton from "primevue/splitbutton";
-import Toolbar from "primevue/toolbar";
-import Button from "primevue/button";
-import { useConfirm } from "primevue/useconfirm";
-import { useUIStore } from "@/stores/UIStore";
-import { explorerLayout, previewLayout, type Layout, allLayouts } from "@/utils/ui";
+import Toolbar from 'primevue/toolbar'
+import Button from 'primevue/button'
+import { usePreviewStore } from '@/stores/PreviewStore'
+import SaveStatusIcon from './Toolbar/SaveStatusIcon.vue'
+import ChangeLayoutButton from './Toolbar/ChangeLayoutButton.vue'
 
-const uiStore = useUIStore();
-const docStore = useDocStore();
-
-const isDirtyAndNotSaved = computed(() => {
-  return docStore.isDirty && !docStore.isSaving;
-});
-
-const isDirtyButSaving = computed(() => {
-  return docStore.isDirty && docStore.isSaving;
-});
-
-const isNotDirtyAndSaved = computed(() => {
-  return !docStore.isDirty && !docStore.isSaving;
-});
-
-const saveStatusIcons = computed(() => {
-  // adding "pi-spin" will animate an icon
-  if (isDirtyAndNotSaved.value) return ["pi-spinner"];
-  else if (isDirtyButSaving.value) return ["pi-spinner", "pi-spin"];
-  else if (isNotDirtyAndSaved.value) return ["pi-check-circle"];
-
-  throw Error("Unexpected document state");
-});
-
-const saveStatusTooltip = computed(() => {
-  if (isDirtyAndNotSaved.value) return "Pending changes";
-  else if (isDirtyButSaving.value) return "Saving changes";
-  else if (isNotDirtyAndSaved.value) return "All changes saved automatically";
-
-  throw Error("Unexpected document state");
-});
-
-// New document button
-const confirm = useConfirm();
-function onNewDocumentClick() {
-  confirm.require({
-    header: "New document",
-    message: "Discard existing document and start with the new one?",
-    icon: "pi pi-exclamation-triangle",
-    accept: () => {
-      docStore.body = "";
-    },
-  });
-}
-
-// *** Layout ******************************************************************
-
-const layoutBtnLabel = ref(previewLayout.label);
-const layoutBtnIcon = ref(previewLayout.icon);
-
-/** Toggle between preview and explorer layouts. */
-function toggleLayout() {
-  if (JSON.stringify(uiStore.layout) == JSON.stringify(explorerLayout)) {
-    switchLayout(previewLayout);
-    layoutBtnLabel.value = explorerLayout.label;
-    layoutBtnIcon.value = explorerLayout.icon;
-  } else {
-    switchLayout(explorerLayout);
-    layoutBtnLabel.value = previewLayout.label;
-    layoutBtnIcon.value = previewLayout.icon;
-  }
-}
-
-/** Perform actual layout switching */
-function switchLayout(layout: Layout) {
-  // Layout button
-  layoutBtnLabel.value = layout.label;
-  layoutBtnIcon.value = layout.icon;
-
-  // UI state
-  uiStore.layout = layout;
-}
-
-const layoutBtnItems = allLayouts.map((layout) => {
-  return {
-    label: layout.label,
-    icon: layout.icon,
-    command: () => switchLayout(layout),
-  };
-});
+const previewStore = usePreviewStore()
 </script>
 
 <style scoped>
@@ -162,10 +61,4 @@ const layoutBtnItems = allLayouts.map((layout) => {
 :deep(.p-button) {
   padding: 0.5rem;
 }
-:deep(.p-button-label) {
-  font-weight: lighter;
-}
-/* :deep(.p-splitbutton .p-button-icon-left) {
-  font-size: 1rem;
-} */
 </style>

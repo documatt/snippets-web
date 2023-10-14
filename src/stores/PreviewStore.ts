@@ -31,6 +31,7 @@ export const usePreviewStore = defineStore('preview', () => {
   // Getters
   // ***************************************************************************
 
+  // Previewable also hides/reveals toolbar accordingly
   const isPreviewable = computed(() => {
     switch (docStore.extension) {
       case 'rst':
