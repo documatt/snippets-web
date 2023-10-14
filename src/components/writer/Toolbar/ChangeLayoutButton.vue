@@ -6,7 +6,6 @@
     :model="layoutBtnItems"
     @click="toggleLayout"
     class="mr-1"
-    size="small"
   />
 </template>
 
@@ -17,7 +16,6 @@ import { explorerLayout, previewLayout, type Layout, allLayouts } from '@/utils/
 import { useUIStore } from '@/stores/UIStore'
 
 const uiStore = useUIStore()
-
 const layoutBtnLabel = ref(previewLayout.label)
 const layoutBtnIcon = ref(previewLayout.icon)
 
