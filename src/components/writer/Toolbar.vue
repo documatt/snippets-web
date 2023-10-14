@@ -31,7 +31,9 @@
       <Button icon="pi pi-question-circle" outlined />
     </template>
     <template #end>
-      <ChangeLayoutButton />
+      <div data-testid="change-layout-button" v-if="previewStore.isPreviewable">
+        <ChangeLayoutButton />
+      </div>
       <SaveStatusIcon />
     </template>
   </Toolbar>
