@@ -151,15 +151,23 @@ In `.env.local` set `VITE_SENTRY_ENABLED=false`.
 
 #### Run single test file
 
+Unit test:
+
 (case sensitive)
 
 ```
 npm run test:unit PreviewStore
 ```
 
-### E2E tests with Playwright
+Cypress component test:
 
-For better testability the markup is often augmented with [test id `data-testid` attribute](https://playwright.dev/docs/locators#locate-by-test-id) that is expected by the test.
+```
+npx cypress run --component --spec src/components/writer/Toolbar/UndoRedoButtons.cy.ts
+```
+
+### E2E tests with Cypress (TBD)
+
+For better testability the markup is often augmented with test id `data-testid` attribute that is expected by the test.
 
 ## Settings
 

@@ -32,6 +32,7 @@ Proto pro tuto komponentu nepoužívejte ScrollPanell. Pomocí [simplescrollbars
     @changes="onChanges"
     @blur="onBlur"
     original-style
+    data-testid="cm"
   />
 </template>
 

@@ -27,10 +27,4 @@ coverage
 *.sln
 *.sw?
 
-test-results/
-playwright-report/
-
 .my
-/test-results/
-/playwright-report/
-/playwright/.cache/
