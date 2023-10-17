@@ -31,6 +31,7 @@ Proto pro tuto komponentu nepoužívejte ScrollPanell. Pomocí [simplescrollbars
     placeholder="Every journey begins with a first step."
     @changes="onChanges"
     @blur="onBlur"
+    @ready="onReady"
     original-style
     data-testid="cm"
   />
@@ -52,6 +53,7 @@ import { useDocStore } from "@/stores/DocStore";
 import { computed, ref, watch } from "vue";
 import { useDebounceFn } from "@vueuse/core";
 import { logger } from "@/utils/logger";
+import type { Editor } from "codemirror";
 
 const docStore = useDocStore();
 
@@ -112,12 +114,22 @@ async function onBlur() {
 const docSwitchedFlag = ref(false)
 
 watch(() => docStore.id, (newId, oldId) => {
-  if (newId !== oldId)
+  if (newId !== oldId) {
+    logger.trace("Switching to another document")
+
+    // Switch flag
     docSwitchedFlag.value = !docSwitchedFlag.value
+
+    // Clear CM history to prevent undoing/redoing changes from previous doc
+    uiStore.clearCmHistory()
+  }
 })
 
 async function onChanges() {
-  logger.trace("Editor.vue onChange")
+  logger.trace("Editor.vue onChanges")
+
+  // On every change, update history used to disabling Undo/Redo buttons
+  uiStore.updateCmHistory()
 
   if (docSwitchedFlag.value) {
     logger.trace("Ignoring editor onChanges between switching docs")
@@ -127,6 +139,17 @@ async function onChanges() {
 
   docStore.isDirty = true;
   await _debouncedSave();
+}
+
+// *** Share CM instance *******************************************************
+// https://rennzhang.github.io/codemirror-editor-vue3/supplementary/instance#obtained-from-the-component-ref
+
+import { useUIStore } from "@/stores/UIStore";
+const uiStore = useUIStore()
+
+const onReady = (cm: Editor) => {
+  uiStore.cmInstance = cm;
+  uiStore.cmInstance.getDoc().clearHistory()
 }
 </script>
 
