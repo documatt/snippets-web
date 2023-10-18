@@ -33,6 +33,30 @@ export const MdHeadings: Headings = {
   h5: () => `\n\n##### $0\n\n`,
   h6: () => `\n\n###### $0\n\n`,
 }
+
+// *****************************************************************************
+// Bold, italic
+// *****************************************************************************
+
+export interface Bold {
+  bold: TemplateFn
+}
+export interface Italic {
+  italic: TemplateFn
+}
+
+export const RstBold: Bold = {
+  bold: () => `**$0**`
+}
+export const RstItalic: Italic = {
+  italic: () => `*$0*`
+}
+
+export const MdBold: Bold = {
+  bold: () => `**$0**`
+}
+export const MdItalic: Italic = {
+  italic: () => `*$0*`
 }
 
 // *****************************************************************************
@@ -40,13 +64,19 @@ export const MdHeadings: Headings = {
 // *****************************************************************************
 
 export interface Syntax {
-    headings: Headings
+    headings: Headings,
+    bold: Bold,
+    italic: Italic
 }
 
 export const RstSyntax: Syntax = {
     headings: RstHeadings,
+    bold: RstBold,
+    italic: RstItalic
 }
 
 export const MdSyntax: Syntax = {
     headings: MdHeadings,
+    bold: MdBold,
+    italic: MdItalic
 }

@@ -1,9 +1,19 @@
 <template>
-  <Button icon="icon--mdi icon--mdi--format-bold" outlined />
+  <Button icon="icon--mdi icon--mdi--format-bold" outlined @click="bold"/>
 </template>
 
 <script setup lang="ts">
 import Button from 'primevue/button'
+import { useDocStore } from '@/stores/DocStore';
+import { useUIStore } from '@/stores/UIStore';
+
+const uiStore = useUIStore()
+const docStore = useDocStore()
+
+function bold() {
+  if (docStore.editorSyntax)
+    uiStore.cmInsertText(docStore.editorSyntax.bold.bold, "two asterisk to **bold** text")
+}
 </script>
 
 <style scoped lang="scss"></style>
