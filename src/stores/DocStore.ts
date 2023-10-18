@@ -4,14 +4,15 @@
 
 import { type Body, type DocId } from "@/utils/snippetsApi";
 import { useStorage } from "@vueuse/core";
-// @ts-ignore
+import type { Api } from "@/plugins/api";
+import { logger } from "@/utils/logger";
+import { MdSyntax, RstSyntax, type Syntax } from "@/utils/editorSyntax";
+// @ts-expect-error
 import fileExtension from "file-extension";
 import { defineStore } from "pinia";
 import { computed, inject, ref } from "vue";
 import { useBookStore } from "./BookStore";
 import { usePreviewStore } from "./PreviewStore";
-import type { Api } from "@/plugins/api";
-import { logger } from "@/utils/logger";
 
 export const useDocStore = defineStore("doc", () => {
   // ***************************************************************************
@@ -79,6 +80,24 @@ export const useDocStore = defineStore("doc", () => {
   }
 
   // ***************************************************************************
+  // Editor syntax
+  // ***************************************************************************
+
+  /**
+   * If `undefined`, this extension doesn't support editor syntax.
+   */
+  const editorSyntax = computed<Syntax | undefined>(() => {
+    switch (extension.value) {
+      case "rst":
+        return RstSyntax
+      case "md":
+        return MdSyntax
+      default:
+        return undefined
+    }
+  })
+
+  // ***************************************************************************
   // Expose
   // ***************************************************************************
 
@@ -90,5 +109,6 @@ export const useDocStore = defineStore("doc", () => {
     isDirty,
     loadAndSetBody,
     save,
+    editorSyntax
   };
 });
