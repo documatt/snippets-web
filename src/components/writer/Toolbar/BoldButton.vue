@@ -1,5 +1,9 @@
 <template>
-  <Button icon="icon--mdi icon--mdi--format-bold" outlined @click="bold"/>
+  <Button icon="icon--mdi icon--mdi--format-bold" outlined @click="bold"
+  :pt="{
+    // Fix rounder corners within a button set
+    root: { style: { 'border-radius': 0 } }
+  }"/>
 </template>
 
 <script setup lang="ts">
@@ -15,5 +19,3 @@ function bold() {
     uiStore.cmInsertText(docStore.editorSyntax.bold.bold, "two asterisk to **bold** text")
 }
 </script>
-
-<style scoped lang="scss"></style>

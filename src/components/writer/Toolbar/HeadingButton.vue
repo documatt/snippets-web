@@ -70,4 +70,9 @@ const items: MenuItem[] = [
 ]
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+// Fix rounder corners within a button set
+:deep(.p-splitbutton-menubutton) {
+  border-radius: 0;
+}
+</style>
