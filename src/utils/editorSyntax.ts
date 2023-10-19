@@ -60,19 +60,106 @@ export const MdItalic: Italic = {
 }
 
 // *****************************************************************************
+// Links
+// *****************************************************************************
+
+export interface Links {
+  externalLink: TemplateFn
+}
+
+export const RstLinks: Links = {
+  externalLink: () => "`Syntax reference <https://documatt.com/restructuredtext-reference/>`_"
+}
+
+// *****************************************************************************
+// Images
+// *****************************************************************************
+
+export interface Images {
+  blockImage: TemplateFn
+}
+
+export const RstImages: Images = {
+  blockImage: () => `\n.. image:: https://documatt.com/pages/blog/open-doodles-clumsy.svg\n\n`
+}
+
+// *****************************************************************************
+// Code
+// *****************************************************************************
+
+export interface Codes {
+  plainBlock: TemplateFn
+  highlightedBlock: TemplateFn
+  plainInline: TemplateFn
+}
+
+export const RstCodes: Codes = {
+  plainBlock: () => `In almost any documentation you need to show examples like:
+
+::
+
+    $0
+
+`,
+  highlightedBlock: () => `.. code-block:: javascript
+
+   $0
+
+`,
+   plainInline: () => "``$0``"
+}
+
+// *****************************************************************************
+// Code
+// *****************************************************************************
+
+export interface Lists {
+  bulleted: TemplateFn,
+  numbered: TemplateFn
+}
+
+export const RstLists: Lists = {
+  bulleted: () =>
+`Unordered lists usually use \`\`*\`\` as bullet symbol:
+
+* A bullet list item
+* Second item
+* A sub item
+
+`,
+  numbered: () =>
+`
+Ordered (enumerated) lists that is auto-numbered starts with \`\`#.\`\`:
+
+#. one
+#. two
+#. three
+
+`,
+}
+
+// *****************************************************************************
 // Syntax definitions
 // *****************************************************************************
 
 export interface Syntax {
     headings: Headings,
     bold: Bold,
-    italic: Italic
+    italic: Italic,
+    links: Links,
+    images: Images,
+    codes: Codes
+    lists: Lists
 }
 
 export const RstSyntax: Syntax = {
     headings: RstHeadings,
     bold: RstBold,
-    italic: RstItalic
+    italic: RstItalic,
+    links: RstLinks,
+    images: RstImages,
+    codes: RstCodes,
+    lists: RstLists
 }
 
 export const MdSyntax: Syntax = {
