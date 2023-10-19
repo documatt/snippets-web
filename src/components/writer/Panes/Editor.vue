@@ -9,9 +9,9 @@ To se dá obejít tímto stylopisem:
 
 ```
 .codemirror-container.height-auto {
-   Disables CM's own scrollbars (was `100%`). Now CM is as
-   height as its content. It trigger PrimeVue <ScrollPanel>'s
-   scrollbars instead.
+   // Disables CM's own scrollbars (was `100%`). Now CM is as
+   // height as its content. It trigger PrimeVue <ScrollPanel>'s
+   // scrollbars instead.
    height: max-content !important;
 }
 ```
@@ -38,7 +38,7 @@ Proto pro tuto komponentu nepoužívejte ScrollPanell. Pomocí [simplescrollbars
 </template>
 
 <script setup lang="ts">
-// @ts-ignore
+// @ts-expect-error
 import Codemirror from "codemirror-editor-vue3";
 
 import "codemirror/addon/display/placeholder.js";
@@ -62,7 +62,8 @@ const cmOptions = computed(() => ({
   mode: docMime.value,
   theme: "deo",
   lineWrapping: true,
-  scrollbarStyle: "simple"
+  scrollbarStyle: "simple",
+  viewportMargin: Infinity
 }));
 
 // Maps file extension to MIME type. CM sets syntax highlighting and other features using MIME types.

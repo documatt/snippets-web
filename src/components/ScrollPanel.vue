@@ -2,7 +2,7 @@
 
 <template>
   <ScrollPanel
-    class="w-full h-full"
+    class="w-full max-w-full h-full max-h-full"
     :pt="{
       // Clearly visible scrollbars
       barY: { class: 'surface-400' },
