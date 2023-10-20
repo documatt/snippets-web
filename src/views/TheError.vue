@@ -2,13 +2,12 @@
 import { HOME, NOT_FOUND } from '@/utils/routeNames';
 import Button from 'primevue/button';
 import { computed } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
-const router = useRouter()
 const route = useRoute()
 
 function takeMeHome() {
-  router.push({ name: HOME })
+  window.location.replace("/")
 }
 
 const title = computed(()=>{
