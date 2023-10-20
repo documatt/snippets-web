@@ -16,7 +16,7 @@ Paragraphs may contain *emphasized*, **strongly emphasized** words. Links to ext
 Images
 ******
 
-.. image:: https://documatt.com/blog/_static/open-doodles-clumsy.svg
+.. image:: https://documatt.com/pages/blog/open-doodles-clumsy.svg
    :width: 50%
 
 *****
