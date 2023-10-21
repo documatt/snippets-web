@@ -3,7 +3,7 @@
     <TransitionGroup name="p-message" tag="div">
       <Message v-if="isBlank">
         Wanna start with
-        <a @click.prevent="setSampleDocument">sample document</a>?
+        <a @click.prevent="setSampleDocument" class="underline">sample document</a>?
       </Message>
     </TransitionGroup>
   </div>
