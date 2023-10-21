@@ -126,8 +126,19 @@ watch(() => docStore.id, (newId, oldId) => {
   }
 })
 
+// *** onChanges ***************************************************************
+
+// Ignore initial changes event (after very first mutation)
+let isThisFirstOnChanges = true
+
 async function onChanges() {
   logger.trace("Editor.vue onChanges")
+
+  if (isThisFirstOnChanges) {
+    logger.trace("Ignoring editor initial onChanges")
+    isThisFirstOnChanges = false
+    return
+  }
 
   // On every change, update history used to disabling Undo/Redo buttons
   uiStore.updateCmHistory()
