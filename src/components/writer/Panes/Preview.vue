@@ -62,15 +62,17 @@
 <script setup lang="ts">
 import { useDocStore } from '@/stores/DocStore'
 import { usePreviewStore } from '@/stores/PreviewStore'
-import { ref, computed, watch } from 'vue'
-import Button from 'primevue/button'
-import { useElementSize } from '@vueuse/core'
 import { useUIStore } from '@/stores/UIStore'
+import { logger } from '@/utils/logger'
+import Button from 'primevue/button'
+import { computed, ref, watch } from 'vue'
 
 const docStore = useDocStore()
 const previewStore = usePreviewStore()
 
-const isBlank = computed(() => (!docStore.body || !previewStore.body) && !previewStore.isInProgress)
+// Read "!expression" as non-empty (has a value other than JS falsies
+// like `null`, `undefined`, or `""`).
+const isBlank = computed(() => !docStore.body && !previewStore.isInProgress)
 const isFirstTime = computed(() => (!docStore.body || !previewStore.body) && previewStore.isInProgress)
 const toBlurry = computed(() => docStore.isDirty || docStore.isSaving || previewStore.isInProgress)
 
@@ -82,13 +84,12 @@ const extensionClass = computed(() => 'preview-body-' + docStore.extension)
 // Template ref to component
 const targetRef = ref(null)
 
-// Reactively track this component width
-const { width } = useElementSize(targetRef)
-
-// Update UIStore
+// Update UIStore.previewIsVisible
 const uiStore = useUIStore()
-watch(width, (newWidth) => {
-  uiStore.previewIsVisible = newWidth > 0
+watch(() => uiStore.layout.previewSize, (newWidth) => {
+  const val = newWidth > 0
+  logger.trace(`Setting uiStore.isPreviewVisible to ${val} because it is ${newWidth} wide`)
+  uiStore.previewIsVisible = val
 })
 </script>
 

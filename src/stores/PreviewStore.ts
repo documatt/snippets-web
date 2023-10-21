@@ -1,12 +1,12 @@
+import type { Api } from '@/plugins/api'
+import { logger } from '@/utils/logger'
 import { type Body } from '@/utils/snippetsApi'
 import { useDebounceFn, useTimeoutPoll } from '@vueuse/core'
 import { promiseTimeout } from '@vueuse/shared'
 import { defineStore } from 'pinia'
-import { computed, inject, ref } from 'vue'
+import { computed, inject, ref, watch } from 'vue'
 import { useBookStore } from './BookStore'
 import { useDocStore } from './DocStore'
-import type { Api } from '@/plugins/api'
-import { logger } from '@/utils/logger'
 import { useUIStore } from './UIStore'
 
 export const usePreviewStore = defineStore('preview', () => {
@@ -44,10 +44,8 @@ export const usePreviewStore = defineStore('preview', () => {
   })
 
   // ***************************************************************************
-  // Actions
+  // Refresh action
   // ***************************************************************************
-
-  // *** Refresh actions *******************************************************
 
   /**
    * For external users. Debounced (preventing multiple executing).
@@ -115,6 +113,15 @@ export const usePreviewStore = defineStore('preview', () => {
       { immediate: true }
     )
   }
+
+  // Create preview when preview pane appears (and was hidden before)
+  watch(() => uiStore.previewIsVisible, async (newVal) => {
+    if (newVal) {
+      logger.debug(`Requesting preview because the preview pane has been shown`)
+      await refresh()
+    }
+  })
+
 
   // ***************************************************************************
   // Expose
