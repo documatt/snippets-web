@@ -73,7 +73,9 @@ const previewStore = usePreviewStore()
 // Read "!expression" as non-empty (has a value other than JS falsies
 // like `null`, `undefined`, or `""`).
 const isBlank = computed(() => !docStore.body && !previewStore.isInProgress)
-const isFirstTime = computed(() => (!docStore.body || !previewStore.body) && previewStore.isInProgress)
+const isFirstTime = computed(
+  () => (!docStore.body || !previewStore.body) && previewStore.isInProgress
+)
 const toBlurry = computed(() => docStore.isDirty || docStore.isSaving || previewStore.isInProgress)
 
 // adds CSS class like "preview-body-rst" for more precious styling
@@ -86,39 +88,79 @@ const targetRef = ref(null)
 
 // Update UIStore.previewIsVisible
 const uiStore = useUIStore()
-watch(() => uiStore.layout.previewSize, (newWidth) => {
-  const val = newWidth > 0
-  logger.trace(`Setting uiStore.isPreviewVisible to ${val} because it is ${newWidth} wide`)
-  uiStore.previewIsVisible = val
-})
+watch(
+  () => uiStore.layout.previewSize,
+  (newWidth) => {
+    const val = newWidth > 0
+    logger.trace(`Setting uiStore.isPreviewVisible to ${val} because it is ${newWidth} wide`)
+    uiStore.previewIsVisible = val
+  }
+)
 </script>
 
-<style scoped lang="scss">
+<!-- Cannot be "scoped" because preview-body-* styles at not know at compile time -->
+<style lang="scss">
 div.root {
   font-family: 'Playfair Display', serif;
-}
-div.error {
-  @include styleclass(
-    'p-4 text-600 text-4xl h-screen flex justify-content-center align-items-center gap-3'
-  );
-  p {
-    text-align: center;
-  }
-  i.pi {
-    @include styleclass('text-3xl');
-  }
-}
-.blurry {
-  filter: blur(2px);
-}
 
-// *****************************************************************************
-// Preview body styles
-// *****************************************************************************
-// All file types
-.preview-body {
+  div.error {
+    @include styleclass(
+      'p-4 text-600 text-4xl h-screen flex justify-content-center align-items-center gap-3'
+    );
+    p {
+      text-align: center;
+    }
+    i.pi {
+      @include styleclass('text-3xl');
+    }
+  }
+
+  .blurry {
+    filter: blur(2px);
+  }
+
+  // *****************************************************************************
+  // Preview body styles
+  // *****************************************************************************
+  // All file types
+  .preview-body {
+  }
+
   // *** RST *******************************************************************
   .preview-body-rst {
+    // hide permalink anchor
+    a.headerlink {
+      visibility: hidden;
+    }
+
+    .epigraph {
+      font-size: larger;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .topic,
+    .admonition,
+    .sidebar {
+      background-color: whitesmoke;
+      border-left: 5px solid #dbdbdb;
+      padding: 1.25em 1.5em;
+      margin: 1em;
+    }
+
+    .admonition-title {
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    .sidebar {
+      float: right;
+    }
+
+    .topic-title,
+    .sidebar-title {
+      font-weight: bold;
+    }
   }
 
   // *** MD ********************************************************************
