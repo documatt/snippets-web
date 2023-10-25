@@ -109,15 +109,29 @@ For example:
 
 ## Deployment
 
+### Environments
+
 ### Creating
 
 Configured using environment variables described bellow.
 
-### Continous deployment
+### DEV environment
 
-Při commitu do dev větve, se automaticky spustí `npm run generate` a vystaví jako https://snippets-dev.documatt.com.
+#### HOWTO Create a dev
 
-Při commitu do master, totéž a vystaví jako https://snippets.documatt.com.
+Přes DO Control Panel. Appka. Static hosting. Potřebné je nastavení proměnných.
+
+#### HOWTO Deploy on dev
+
+Commit do dev větve hlídá DigitalOcean a spustí re-deploy - `npm run build` a vystaví jako https://snippets-dev.documatt.com.
+
+### PROD environment
+
+#### HOWTO Create a prod
+
+#### HOWTO Deploy on prod
+
+TODO
 
 ### Releasing a version
 
