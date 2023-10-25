@@ -162,6 +162,8 @@ export const RstSyntax: Syntax = {
     lists: RstLists
 }
 
+// TODO: Implement MdSyntax too
+// @ts-expect-error
 export const MdSyntax: Syntax = {
     headings: MdHeadings,
     bold: MdBold,

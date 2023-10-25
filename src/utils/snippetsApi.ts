@@ -96,6 +96,7 @@ export class DocApi extends ApiBase {
     // TODO: Will ofetch follow redirect to S3?
     return await this.send<Body>(`/book/${bookId}/doc/${docId}`, {
       // TODO: Later also "blob"
+      // @ts-ignore
       responseType: "text",
     });
   }
@@ -191,6 +192,7 @@ export class ShareApi extends ApiBase {
     // TODO: Does ofetch follows redirects to S3 automatically?
     // TODO: %-encode path
     return await this.send(`/share/${digest}/${path}`, {
+      // @ts-ignore
       responseType: "blob",
     });
   }
