@@ -1,0 +1,6 @@
+export const NOT_FOUND = "notFound"
+export const ERROR = "error"
+export const WRITER = "writer"
+export const HOME = "home"
+export const SHARE = "share"
+export const HELP = "help"
