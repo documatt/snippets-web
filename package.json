@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@sentry/vue": "^7.70.0",
+    "@unhead/vue": "^1.7.4",
     "codemirror": "^5.65.15",
     "codemirror-editor-vue3": "^2.3.0",
     "consola": "^3.2.3",

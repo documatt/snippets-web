@@ -187,6 +187,7 @@ For better testability the markup is often augmented with test id `data-testid` 
 
 * VITE_SENTRY_ENV - Sentry environment (`local-yourname`, `dev` or `prod`)
 * VITE_API_BASE_URL = "https://snippets-dev.documatt.com"
+* VITE_STATCOUNTER_PROJECT and VITE_STATCOUNTER_SECURITY configures Statcounter tracking code on dev and prod when running `npm run build`ed version. Statcounter is not insterted when running via `npm run dev`.
 
 ### Runtime settings
 

@@ -14,7 +14,7 @@ import ToastService from 'primevue/toastservice'
 import Tooltip from 'primevue/tooltip'
 import { createApp } from 'vue'
 import * as Sentry from "@sentry/vue";
-
+import { createHead } from '@unhead/vue'
 
 import App from './App.vue'
 import { logger } from './utils/logger'
@@ -62,6 +62,10 @@ Sentry.init({
 
 app.use(createPinia())
 app.use(router)
+
+// Unhead for managing <head>, <script>, etc.
+const head = createHead()
+app.use(head)
 
 // *****************************************************************************
 // Prime stuff

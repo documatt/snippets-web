@@ -10,11 +10,14 @@
   <ConfirmDialog />
 
   <CookieConsent />
+
+  <Statcounter />
 </template>
 
 <script setup lang="ts">
 import TheFrame from "@/components/layout/TheFrame.vue"
 import CookieConsent from "@/components/layout/CookieConsent.vue"
+import Statcounter from "@/components/layout/Statcounter.vue"
 
 import Toast from 'primevue/toast'
 import ConfirmDialog from 'primevue/confirmdialog'
