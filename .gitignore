@@ -14,9 +14,6 @@ dist-ssr
 coverage
 *.local
 
-/cypress/videos/
-/cypress/screenshots/
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -28,3 +25,12 @@ coverage
 *.sw?
 
 .my
+
+# Python
+.venv
+venv
+__pycache__
+.pytest_cache
+
+# Playwright tests
+test-results

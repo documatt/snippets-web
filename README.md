@@ -173,13 +173,9 @@ Unit test:
 npm run test:unit PreviewStore
 ```
 
-Cypress component test:
+### E2E tests with Playwright
 
-```
-npx cypress run --component --spec src/components/writer/Toolbar/UndoRedoButtons.cy.ts
-```
-
-### E2E tests with Cypress (TBD)
+Playwright E2E tests are written in Python.
 
 For better testability the markup is often augmented with test id `data-testid` attribute that is expected by the test.
 
