@@ -173,11 +173,25 @@ Unit test:
 npm run test:unit PreviewStore
 ```
 
-### E2E tests with Playwright
+### E2E tests (Pytest, Playwright)
 
-Playwright E2E tests are written in Python.
+E2E tests are written in Python's [Pytest](https://pytest.org). Most of them are Playwright tests.
+
+### Timeouts
+
+Generally E2E tests take a long time. However sometimes it might got stuck in infinite loop. We employ [pytest-timeout](https://pypi.org/project/pytest-timeout/) Pytest plugin to prevent individual tests from running infinitely.
+
+* global timeout - timeout of each test (if not overriden on the test) is in `pytest.ini`.
+
+* individual timeouts - tests could customize timeout with a marker, e.g. 5 seconds `@pytest.mark.timeout(5)`.
+
+### `data-testid`
 
 For better testability the markup is often augmented with test id `data-testid` attribute that is expected by the test.
+
+### HOWTO Run a single test file
+
+    pytest e2e/test_statcounter.py
 
 ## Settings
 

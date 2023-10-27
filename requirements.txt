@@ -10,6 +10,7 @@ pyee==11.0.1
 pytest==7.4.3
 pytest-base-url==2.0.0
 pytest-playwright==0.4.3
+pytest-timeout==2.2.0
 python-slugify==8.0.1
 requests==2.31.0
 text-unidecode==1.3
