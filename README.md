@@ -8,6 +8,14 @@ Vue 3 web app for snippets-api. Hosted as static website on DigitalOcean Apps.
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
+### Python tests
+
+Some tests, mainly E2E in Playwright, are written in Pytest.
+
+Python and Vitest tests will both appear in VSCode Test Explorer if you add to `.vscode/settings.json` the line `python.testing.pytestEnabled": true`.
+
+![](docs/vscode-both-vitest-pytest.png)
+
 ### Type Support for `.vue` Imports in TS
 
 TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
