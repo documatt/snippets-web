@@ -35,7 +35,11 @@ jobs:
       - name: Install Node dependencies
         run: npm ci
       - name: Build
-        run: npm run build
+        run: |
+          export NODE_OPTIONS=--openssl-legacy-provider
+          export VUE_APP_API_BASE_URL=https://snippets-api.documatt.com/api/v1
+          export VUE_APP_RUNNING_ENV=prod
+          npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2.0.0
         with:
