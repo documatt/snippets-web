@@ -12,21 +12,21 @@ Sentry.init({
   Vue,
   dsn:'https://9b2af326a0bf40539512abad9615e9e1@o4505595116650496.ingest.sentry.io/4505601347026944',
   integrations: [
-    new Sentry.Replay(),
+    // new Sentry.Replay(),
   ],
 
   // Set tracesSampleRate to 1.0 to capture 100%
   // of transactions for performance monitoring.
   // We recommend adjusting this value in production
-  tracesSampleRate: 1.0,
+  tracesSampleRate: 0.1,
 
   // Set `tracePropagationTargets` to control for which URLs distributed tracing should be enabled
   tracePropagationTargets: ["localhost", /^https:\/\/yourserver\.io\/api/],
 
   // Capture Replay for 10% of all sessions,
   // plus for 100% of sessions with an error
-  replaysSessionSampleRate: 0.1,
-  replaysOnErrorSampleRate: 1.0,
+  // replaysSessionSampleRate: 0.1,
+  // replaysOnErrorSampleRate: 1.0,
 
   // To distinguish among environments in Sentry (dev, prod, ...)
   environment: process.env.VUE_APP_RUNNING_ENV
