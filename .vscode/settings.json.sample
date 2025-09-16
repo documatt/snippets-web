@@ -1,0 +1,15 @@
+{
+  // Format on save
+  "editor.formatOnSave": true,
+
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  "files.associations": {
+    "**/app/assets/styles/*.css": "tailwindcss"
+  },
+
+  // Recommended by Tailwind CSS extension
+  "editor.quickSuggestions": {
+    "strings": "on"
+  }
+}

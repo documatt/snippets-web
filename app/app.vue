@@ -1,9 +1,10 @@
 <template>
   <div class="flex flex-col h-screen">
-    <!-- header -->
-    <div><Header /></div>
+    <!-- header, topbar -->
+    <Header />
+    <Topbar />
     <!-- editor, preview, console -->
-    <div class="border-b border-t border-slate-300 h-full overflow-y-auto">
+    <div class="h-full overflow-y-auto">
       <splitpanes vertical class="default-theme">
         <pane size="50" min-size="20" class="p-2">
           <EditorPane />
@@ -12,7 +13,7 @@
       </splitpanes>
     </div>
     <!-- Footer -->
-    <div><Footer /></div>
+    <Footer />
   </div>
 </template>
 

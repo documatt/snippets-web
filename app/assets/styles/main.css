@@ -1,9 +1,22 @@
+/* No font import from Google because Nuxt Fonts will download and cache it automatically */
+
+@theme {
+  --color-text: #2d4044;
+  --color-background: #faf8fc;
+  --color-primary: #0c7cba;
+  --color-secondary: #0072f5;
+  --color-accent: var(--color-sky-600);
+  --color-heading: var(--color-primary);
+  --font-text: Inter, sans-serif;
+  --font-heading: Rubik, sans-serif;
+  --font-mono: Roboto Mono, monospace;
+}
+
 @import "./sphinx-preview.css";
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @plugin "daisyui";
 
 :root {
-    /* No font import from Google because Nuxt Fonts will download and cache it automatically */
-    font-family: Rubik, sans-serif;
+  font-family: Rubik, sans-serif;
 }
