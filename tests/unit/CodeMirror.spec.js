@@ -1,5 +1,0 @@
-describe('CodeMirror.vue', () => {
-  test('', () => {
-
-  })
-})

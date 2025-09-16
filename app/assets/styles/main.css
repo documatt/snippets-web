@@ -1,0 +1,9 @@
+@import "./sphinx-preview.css";
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "daisyui";
+
+:root {
+    /* No font import from Google because Nuxt Fonts will download and cache it automatically */
+    font-family: Rubik, sans-serif;
+}
