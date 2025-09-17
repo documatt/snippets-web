@@ -10,6 +10,6 @@ export default defineNuxtPlugin((nuxtApp) => {
       j.async = true;
       j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
       f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-M548LX3N");
+    })(window, document, "script", "dataLayer", "GTM-TX8943Q8");
   }
 });
