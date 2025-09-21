@@ -1,6 +1,6 @@
 <template>
   <div
-    class="border-b border-slate-300 py-1 px-6 flex gap-2 items-center text-slate-700"
+    class="border-b border-slate-300 py-1 px-6 flex gap-2 items-center text-slate-700 dark:text-slate-300"
   >
     I want to preview
 

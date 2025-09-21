@@ -1,6 +1,6 @@
 <template>
   <header
-    class="bg-[#f8fafc] dark:bg-slate-800 py-1 px-6 flex gap-20 justify-between items-center border-b border-t border-slate-300 text-slate-500"
+    class="bg-[#f8fafc] dark:bg-slate-800 py-1 px-6 flex gap-20 justify-between items-center border-b border-t border-slate-300 text-slate-500 dark:text-slate-400"
   >
     <!-- Left-side logo and motto -->
     <div class="flex gap-2 items-center">
