@@ -1,10 +1,10 @@
 <template>
   <header
-    class="flex items-center justify-between gap-20 border-t border-b border-slate-300 bg-[#f8fafc] px-6 py-1 text-slate-500 dark:bg-slate-800 dark:text-slate-400"
+    class="flex flex-col items-center justify-between gap-4 border-t border-b border-slate-300 bg-[#f8fafc] px-6 py-1 text-slate-500 lg:flex-row dark:bg-slate-800 dark:text-slate-400"
   >
     <!-- Left-side logo and motto -->
-    <div class="flex items-center gap-2">
-      <a href="https://documatt.com">
+    <div class="flex items-center gap-4">
+      <a href="https://documatt.com" class="">
         <NuxtImg
           src="/images/documatt-logo.svg"
           alt="Documatt logo"

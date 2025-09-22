@@ -1,34 +1,38 @@
 <template>
   <div
-    class="flex items-center gap-2 border-b border-slate-300 px-6 py-1 text-slate-700 dark:text-slate-300"
+    class="flex flex-col items-center gap-2 border-b border-slate-300 px-6 py-1 text-slate-700 lg:flex-row dark:text-slate-300"
   >
-    I want to preview
+    <div>I want to preview</div>
 
-    <div class="tooltip tooltip-left" data-tip="Switch syntax">
-      <select
-        :value="previewStore.syntax"
-        class="select select-ghost text-base"
-        @change="onSyntaxChange"
-      >
-        <option :value="Syntax.RST" selected>reStructuredText</option>
-        <option :value="Syntax.MD">Markdown</option>
-      </select>
+    <div>
+      <div class="tooltip tooltip-left" data-tip="Switch syntax">
+        <select
+          :value="previewStore.syntax"
+          class="select select-ghost text-base"
+          @change="onSyntaxChange"
+        >
+          <option :value="Syntax.RST" selected>reStructuredText</option>
+          <option :value="Syntax.MD">Markdown</option>
+        </select>
+      </div>
     </div>
 
-    using
+    <div>
+      using
 
-    <NuxtImg
-      src="/images/sphinx-logo.svg"
-      alt="Sphinx logo"
-      class="inline h-[0.75lh] dark:hidden"
-    />
-    <NuxtImg
-      src="/images/sphinx-logo-dark.svg"
-      alt="Sphinx logo"
-      class="inline h-[0.75lh] not-dark:hidden"
-    />
+      <NuxtImg
+        src="/images/sphinx-logo.svg"
+        alt="Sphinx logo"
+        class="inline h-[0.75lh] dark:hidden"
+      />
+      <NuxtImg
+        src="/images/sphinx-logo-dark.svg"
+        alt="Sphinx logo"
+        class="inline h-[0.75lh] not-dark:hidden"
+      />
 
-    Sphinx 8.2.1
+      Sphinx 8.2.1
+    </div>
 
     <!-- More info -->
     <!--

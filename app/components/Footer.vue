@@ -1,6 +1,6 @@
 <template>
   <footer
-    class="flex justify-between gap-4 border-t border-slate-300 px-6 py-2 text-sm text-slate-500"
+    class="flex flex-col justify-between gap-4 border-t border-slate-300 px-6 py-2 text-sm text-slate-500 lg:flex-row"
   >
     <span
       >🚀 Do you want to try Sphinx as service?
