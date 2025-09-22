@@ -20,6 +20,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       link: [{ rel: "icon", href: "/images/snippets-icon.svg" }],
+      meta: [{ name: "itemprop", content: "**[[!!IAMUP!!]]**" }],
       // the rest SEO metas in app/app.vue
     },
   },
