@@ -23,7 +23,7 @@
       More functions?
       <a href="https://documatt.com" target="_blank">
         <button
-          class="btn btn-dash hover:bg-primary text-slate-500 hover:text-slate-200"
+          class="btn hover:bg-primary text-slate-500 hover:text-slate-200"
         >
           Try Documatt
           <Icon name="prime:arrow-right" />
