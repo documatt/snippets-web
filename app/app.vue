@@ -25,7 +25,7 @@ import "splitpanes/dist/splitpanes.css";
 if (import.meta.server) {
   useSeoMeta({
     title:
-      "Documatt Snippets - Sphinx reStucturedText and Markdown online preview and editor",
+      "Snippets - Sphinx reStucturedText and Markdown online preview and editor",
     ogTitle: "Sphinx reStucturedText and Markdown online preview and editor",
     description:
       "Preview and edit reStructuredText or Markdown (MyST) documents online with Sphinx and Docutils without installing it.",
