@@ -92,8 +92,8 @@
 
   /* // external links */
   /* a[href^="http"]::after { */
-    /* content: url("/icons/icons8-external-link-16.png"); */
-    /* display: inline-block; */
+  /* content: url("/icons/icons8-external-link-16.png"); */
+  /* display: inline-block; */
   /* } */
 
   /* ================================================================================ */
@@ -114,7 +114,7 @@
     padding: 5px;
 
     /* &::after { */
-      /* content: url(/icons/icons8-error-16.png); */
+    /* content: url(/icons/icons8-error-16.png); */
     /* } */
   }
 

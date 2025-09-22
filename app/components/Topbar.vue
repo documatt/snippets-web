@@ -1,6 +1,6 @@
 <template>
   <div
-    class="border-b border-slate-300 py-1 px-6 flex gap-2 items-center text-slate-700 dark:text-slate-300"
+    class="flex items-center gap-2 border-b border-slate-300 px-6 py-1 text-slate-700 dark:text-slate-300"
   >
     I want to preview
 
@@ -20,12 +20,12 @@
     <NuxtImg
       src="/images/sphinx-logo.svg"
       alt="Sphinx logo"
-      class="h-[0.75lh] inline dark:hidden"
+      class="inline h-[0.75lh] dark:hidden"
     />
     <NuxtImg
       src="/images/sphinx-logo-dark.svg"
       alt="Sphinx logo"
-      class="h-[0.75lh] inline not-dark:hidden"
+      class="inline h-[0.75lh] not-dark:hidden"
     />
 
     Sphinx 8.2.1
@@ -63,7 +63,7 @@ let previousSyntax = previewStore.syntax;
 function onSyntaxChange(event: Event) {
   const selectElement = event.target as HTMLSelectElement;
   const confirmed = window.confirm(
-    "Switching a syntax will clear your content. Do you want to continue?"
+    "Switching a syntax will clear your content. Do you want to continue?",
   );
   if (confirmed) {
     // Switch syntax

@@ -3,7 +3,7 @@
   <PreviewState />
 
   <!-- Preview -->
-  <div class="overflow-auto h-full" title="HTML preview of markup">
+  <div class="h-full overflow-auto" title="HTML preview of markup">
     <!-- eslint-disable-next-line vue/no-v-html -->
     <div class="sphinx-preview pointer-events-none" v-html="sanitizedHtml" />
   </div>

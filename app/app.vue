@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-screen">
+  <div class="flex h-screen flex-col">
     <!-- header, topbar -->
     <Header />
     <Topbar />

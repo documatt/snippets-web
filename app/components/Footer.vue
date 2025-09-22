@@ -1,6 +1,6 @@
 <template>
   <footer
-    class="border-t border-slate-300 py-2 px-6 flex gap-4 text-sm justify-between text-slate-500"
+    class="flex justify-between gap-4 border-t border-slate-300 px-6 py-2 text-sm text-slate-500"
   >
     <span
       >🚀 Do you want to try Sphinx as service?
@@ -15,7 +15,7 @@
       Made with <Icon name="prime:heart" /> by
       <a href="https://documatt.com" target="_blank" class="link">Documatt</a>
 
-      <div class="inline-flex gap-1.5 ml-4">
+      <div class="ml-4 inline-flex gap-1.5">
         <a href="https://www.youtube.com/@Documatt" target="_blank"
           ><Icon name="fa-brands:youtube"
         /></a>

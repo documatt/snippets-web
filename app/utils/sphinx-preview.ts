@@ -11,7 +11,7 @@ export interface ISphinxPreview {
     confdir: string,
     outdir: string,
     confoverrides: Record<string, any>,
-    verbosity: 0 | 1 | 2
+    verbosity: 0 | 1 | 2,
   ) => {
     build: () => { status: string; warnings: string };
   };
@@ -59,7 +59,7 @@ export async function bootSphinxPreview() {
   const sphinxpreview: ISphinxPreview = pyodide.pyimport("sphinx_preview");
 
   console.debug(
-    `bootPyodide() completed in ${formatElapsedTime(performance.now() - start)}`
+    `bootPyodide() completed in ${formatElapsedTime(performance.now() - start)}`,
   );
 
   return { pyodide, sphinxpreview };
@@ -68,7 +68,7 @@ export async function bootSphinxPreview() {
 export async function runSphinxPreview(
   pyodide: PyodideAPI,
   sphinxpreview: ISphinxPreview,
-  files: Files
+  files: Files,
 ): Promise<PreviewResult> {
   const start = performance.now();
   console.debug("runPreview()");
@@ -82,7 +82,7 @@ export async function runSphinxPreview(
   const dirs = [srcdir, confdir, outdir];
   for (const path of dirs) {
     pyodide.runPython(
-      `import shutil; shutil.rmtree("${path}", ignore_errors=True)`
+      `import shutil; shutil.rmtree("${path}", ignore_errors=True)`,
     );
     pyodide.FS.mkdirTree(path);
   }
@@ -108,14 +108,14 @@ export async function runSphinxPreview(
     confdir,
     outdir,
     confoverrides,
-    verbosity
+    verbosity,
   );
   const { status, warnings } = instance.build();
   // @ts-expect-error "method readFile() doesn't exist" but it definitively exists
   const html = pyodide.FS.readFile(outdir + "index.html", { encoding: "utf8" });
 
   console.debug(
-    `runPreview() completed in ${formatElapsedTime(performance.now() - start)}`
+    `runPreview() completed in ${formatElapsedTime(performance.now() - start)}`,
   );
 
   return {
