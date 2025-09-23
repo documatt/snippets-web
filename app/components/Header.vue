@@ -21,7 +21,11 @@
       <!-- More functions? Try Documatt -->
 
       More functions?
-      <a href="https://documatt.com" target="_blank">
+      <a
+        :href="appConfig.dcomUrl"
+        target="_blank"
+        data-rybbit-event="try_documatt_clicked"
+      >
         <button
           class="btn hover:bg-primary text-slate-500 hover:text-slate-200"
         >
@@ -32,3 +36,7 @@
     </div>
   </header>
 </template>
+
+<script setup lang="ts">
+const appConfig = useAppConfig();
+</script>

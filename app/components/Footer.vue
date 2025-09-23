@@ -4,7 +4,10 @@
   >
     <span
       >🚀 Do you want to try Sphinx as service?
-      <a href="https://documatt.com" class="link"
+      <a
+        :href="appConfig.dcomUrl"
+        class="link"
+        data-rybbit-event="try_documatt_clicked"
         >Try Documatt, a free worry-free Sphinx.</a
       >
     </span>
@@ -13,7 +16,7 @@
       <!-- <Icon name="emojione-v1:flag-for-czechia" /> -->
 
       Made with <Icon name="prime:heart" /> by
-      <a href="https://documatt.com" target="_blank" class="link">Documatt</a>
+      <a :href="appConfig.dcomUrl" target="_blank" class="link">Documatt</a>
 
       <div class="ml-4 inline-flex gap-1.5">
         <a href="https://www.youtube.com/@Documatt" target="_blank"
@@ -32,3 +35,7 @@
     </div>
   </footer>
 </template>
+
+<script setup lang="ts">
+const appConfig = useAppConfig();
+</script>
