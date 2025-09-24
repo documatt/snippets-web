@@ -1,6 +1,6 @@
 <div align="center">
 
-![Project hero image](https://github.com/documatt/snippets-web/blob/main/public/images/hero.svg?raw=true)
+[![Project hero image](https://github.com/documatt/snippets-web/blob/main/public/images/hero.svg?raw=true)](https://snippets.documatt.com)
 
 # snippets-web
 
@@ -10,7 +10,7 @@
 
 <!-- Minor intro -->
 
-The Snippets has started from the urge to quickly try, play and learn Sphinx reStructuredText and MyST Markdown syntax while developing the [Documatt](https://documatt.com), our app for creating beautiful documentation, manual, help, or book.
+The Snippets has started from the urge to quickly try, play and learn Sphinx reStructuredText and MyST Markdown syntax while developing the [Documatt](https://documatt.com), our app for creating beautiful documentation, manual, help, or book. Snippets is deployed at https://snippets.documatt.com.
 
 <!-- Highlights in points -->
 
