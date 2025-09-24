@@ -2,7 +2,7 @@
   <div class="flex h-screen flex-col">
     <!-- header, topbar -->
     <Header />
-    <Topbar />
+    <Toolbar />
     <!-- editor, preview, console -->
     <div class="h-full overflow-y-auto">
       <splitpanes vertical class="default-theme">
