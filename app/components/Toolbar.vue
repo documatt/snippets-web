@@ -53,7 +53,10 @@
     <div class="flex items-center text-sm">
       <div class="tooltip tooltip-left" data-tip="Snippets are open-source!">
         <a href="https://github.com/documatt/snippets-web">
-          <Icon name="prime:github" class="text-2xl text-slate-600" />
+          <Icon
+            name="prime:github"
+            class="text-2xl text-slate-600 dark:text-slate-300"
+          />
         </a>
       </div>
     </div>

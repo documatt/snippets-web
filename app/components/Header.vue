@@ -28,7 +28,7 @@
         data-rybbit-event="try_documatt_clicked"
       >
         <button
-          class="btn hover:bg-primary text-slate-500 hover:text-slate-200"
+          class="btn hover:bg-primary text-slate-500 hover:text-slate-300 dark:bg-slate-700 dark:text-slate-300"
         >
           Try Documatt
           <Icon name="prime:arrow-right" />
