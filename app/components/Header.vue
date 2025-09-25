@@ -9,9 +9,9 @@
         alt="Documatt Snippets logo"
         class="w-12"
       />
-      <h1 class="text-primary text-xl font-bold">Snippets</h1>
+      <h1 class="text-primary text-xl font-bold">Sphinx Snippets</h1>
       <h1 class="ml-4 text-sm font-bold">
-        Edit, preview and learn reStructuredText and Markdown.
+        Try and learn Sphinx with reStructuredText or Markdown
       </h1>
     </div>
 
