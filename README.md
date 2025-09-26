@@ -23,6 +23,7 @@ _[📟 Source code](https://github.com/documatt/snippets-web)_
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/documatt/snippets-web?style=flat&logo=github&labelColor=097cba&color=163B36)](https://github.com/documatt/snippets-web)
 [![MIT licence](https://img.shields.io/badge/license-MIT-blue?labelColor=097cba&color=163B36)](https://raw.githubusercontent.com/documatt/snippets-web/refs/heads/main/LICENSE)
+[![Discord](https://img.shields.io/discord/1420709207975399509?label=Discord&logo=discord&labelColor=097cba&color=163B36)](https://discord.gg/uRhJp3HA)
 
 </div>
 
