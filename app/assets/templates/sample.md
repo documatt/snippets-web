@@ -1,4 +1,4 @@
-# Sample document
+# {FILENAME}
 
 This document demonstrates Markdown syntax. Professional books and tech documentation are plain text files with this easy markup language. Documatt is the tool for creating beautiful docs, manuals, or books for tech and novel writers.
 

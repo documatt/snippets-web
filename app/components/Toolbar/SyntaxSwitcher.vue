@@ -21,7 +21,7 @@ let previousSyntax = previewStore.syntax;
 function onSyntaxChange(event: Event) {
   const selectElement = event.target as HTMLSelectElement;
   const confirmed = window.confirm(
-    "Switching a syntax will clear your content. Do you want to continue?",
+    "Switching a syntax will clear your files. Do you want to continue?",
   );
   if (confirmed) {
     const newSyntax =

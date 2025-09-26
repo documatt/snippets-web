@@ -1,6 +1,6 @@
 import type { PyodideAPI } from "pyodide";
 import type { PreviewResult } from "~/utils/sphinx-preview";
-import { runSphinxPreview } from "~/utils/sphinx-preview";
+import { SphinxPreviewRunner, Syntax } from "~/utils/sphinx-preview";
 
 export enum PreviewStates {
   NotBooted = "NotBooted",
@@ -12,6 +12,13 @@ export enum PreviewStates {
 // later <string, blob>
 export type Files = Record<string, string>;
 
+export const DEFAULT_SYNTAX = Syntax.RST;
+
+// Files, at the beginning, contains only rootdoc and empty conf.py
+function getInitialFiles(syntax: Syntax): Files {
+  return { [getRootFilename(syntax)]: "", "conf.py": "" };
+}
+
 export const usePreviewStore = defineStore("preview", () => {
   // ***************************************************************************
   // Setup
@@ -19,6 +26,7 @@ export const usePreviewStore = defineStore("preview", () => {
 
   let pyodide: PyodideAPI | undefined = undefined;
   let sphinxpreview: ISphinxPreview | undefined = undefined;
+  const uiStore = useUiStore();
 
   // ***************************************************************************
   // State
@@ -26,17 +34,18 @@ export const usePreviewStore = defineStore("preview", () => {
 
   const state = ref<PreviewStates>(PreviewStates.NotBooted);
   const result = ref<PreviewResult>();
-  const syntax = ref(Syntax.RST);
-  const files = ref<Files>({});
+  const syntax = ref(DEFAULT_SYNTAX);
+  const files = ref<Files>(getInitialFiles(DEFAULT_SYNTAX));
 
   // ***************************************************************************
   // State watchers
   // ***************************************************************************
 
   // Clean files when syntax changed
-  watch(syntax, (newVal) => {
-    console.log("syntax changed to", newVal);
-    files.value = {};
+  watch(syntax, (newSyntax) => {
+    console.log("syntax changed to", newSyntax);
+    files.value = getInitialFiles(newSyntax);
+    uiStore.activeDoc = getRootFilename(newSyntax);
   });
 
   // Rerun preview on change in files
@@ -45,11 +54,6 @@ export const usePreviewStore = defineStore("preview", () => {
   // ***************************************************************************
   // Getters
   // ***************************************************************************
-  const rootDocIsBlank = computed(() => {
-    if (_hasNoFiles(files.value)) return true;
-    const rootBody = files.value["index." + syntax.value];
-    return rootBody === "" ? true : false;
-  });
 
   // ***************************************************************************
   // Actions
@@ -66,19 +70,15 @@ export const usePreviewStore = defineStore("preview", () => {
   async function runPreview() {
     await until(state).toBe(PreviewStates.Idle);
 
-    const files2: Files = files.value;
-
-    // If no files yet (`{}`) (on initial), create blank root document
-    if (_hasNoFiles(files2)) {
-      files2["index." + syntax.value] = "";
-    }
-
-    // Minimal Sphinx project needs blank conf.py
-    files2["conf.py"] = "";
-
-    // Bang!
     state.value = PreviewStates.InProgress;
-    result.value = await runSphinxPreview(pyodide!, sphinxpreview!, files2);
+    const runner = new SphinxPreviewRunner(
+      pyodide!,
+      sphinxpreview!,
+      files.value,
+      syntax.value,
+    );
+    // Bang!
+    result.value = await runner.run();
     state.value = PreviewStates.Idle;
   }
 
@@ -90,13 +90,8 @@ export const usePreviewStore = defineStore("preview", () => {
     result,
     syntax,
     files,
-    rootDocIsBlank,
     bootPreview,
     runPreview,
     debouncedRunPreview,
   };
 });
-
-function _hasNoFiles(files: Files) {
-  return Object.keys(files).length == 0;
-}

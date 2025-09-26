@@ -15,11 +15,14 @@ import { computed } from "vue";
 import DOMPurify from "dompurify";
 
 const previewStore = usePreviewStore();
+const uiStore = useUiStore();
 
 const sanitizedHtml = computed(() => {
   // DOMPurify can run on browser only
   if (import.meta.client) {
-    return DOMPurify.sanitize(previewStore.result?.html ?? "");
+    return DOMPurify.sanitize(
+      previewStore.result?.htmlFiles[uiStore.activeDoc] ?? "",
+    );
   } else {
     return null;
   }
