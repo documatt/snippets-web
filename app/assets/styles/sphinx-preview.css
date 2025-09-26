@@ -51,10 +51,8 @@
   .topic,
   .admonition,
   .sidebar {
-    background-color: whitesmoke;
+    @apply m-4 bg-gray-200 px-8 py-1 dark:bg-gray-700;
     border-left: 5px solid #dbdbdb;
-    padding: 1.25em 1.5em;
-    margin: 1em;
   }
 
   .sidebar {
