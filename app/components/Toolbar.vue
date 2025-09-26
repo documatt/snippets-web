@@ -50,8 +50,20 @@
     </div>
 
     <!-- Right side -->
-    <div class="flex items-center text-sm">
-      <div class="tooltip tooltip-left" data-tip="Snippets are open-source!">
+    <div class="flex items-center gap-2 text-sm">
+      <div
+        class="tooltip tooltip-left"
+        data-tip="Get help and friends on Discord"
+      >
+        <a href="https://discord.gg/uRhJp3HA">
+          <Icon
+            name="prime:discord"
+            class="text-2xl text-slate-600 dark:text-slate-300"
+          />
+        </a>
+      </div>
+
+      <div class="tooltip tooltip-left" data-tip="Snippets is open-source">
         <a href="https://github.com/documatt/snippets-web">
           <Icon
             name="prime:github"
