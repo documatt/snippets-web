@@ -13,17 +13,17 @@
 
     <input type="radio" :name="tabGroup" class="tab" aria-label="HTML" />
     <div class="tab-content p-3">
-      <PreviewSourceTab :source="previewStore.result?.html" />
+      <PreviewHtmlTab />
     </div>
 
     <input type="radio" :name="tabGroup" class="tab" aria-label="Status" />
     <div class="tab-content p-3">
-      <PreviewSourceTab :source="previewStore.result?.status" />
+      <PreviewShowSource :source="previewStore.result?.status" />
     </div>
 
     <input type="radio" :name="tabGroup" class="tab" aria-label="Warnings" />
     <div class="tab-content p-3">
-      <PreviewSourceTab :source="previewStore.result?.warnings" />
+      <PreviewShowSource :source="previewStore.result?.warnings" />
     </div>
   </div>
 </template>

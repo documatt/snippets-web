@@ -17,8 +17,13 @@ export interface ISphinxPreview {
   };
 }
 
+/** Object with filename as key and its rendered HTML as value */
+interface HtmlFiles {
+  [filename: string]: string;
+}
+
 export interface PreviewResult {
-  html: string;
+  htmlFiles: HtmlFiles;
   status: string;
   warnings: string;
 }
@@ -65,62 +70,107 @@ export async function bootSphinxPreview() {
   return { pyodide, sphinxpreview };
 }
 
-export async function runSphinxPreview(
-  pyodide: PyodideAPI,
-  sphinxpreview: ISphinxPreview,
-  files: Files,
-): Promise<PreviewResult> {
-  const start = performance.now();
-  console.debug("runPreview()");
+export class SphinxPreviewRunner {
+  private static readonly SRCDIR = "/srcdir/";
+  private static readonly CONFDIR = "/srcdir/";
+  private static readonly OUTDIR = "/outdir/";
 
-  // Must end with /
-  const srcdir = "/srcdir/";
-  const confdir = srcdir;
-  const outdir = "/outdir/";
+  private pyodide: PyodideAPI;
+  private sphinxpreview: ISphinxPreview;
+  private files: Files;
+  private syntax: Syntax;
 
-  // (Re-)create Sphinx project's folders and files
-  const dirs = [srcdir, confdir, outdir];
-  for (const path of dirs) {
-    pyodide.runPython(
-      `import shutil; shutil.rmtree("${path}", ignore_errors=True)`,
+  constructor(
+    pyodide: PyodideAPI,
+    sphinxpreview: ISphinxPreview,
+    files: Files,
+    syntax: Syntax,
+  ) {
+    this.pyodide = pyodide;
+    this.sphinxpreview = sphinxpreview;
+    this.files = files;
+    this.syntax = syntax;
+    console.debug("SphinxPreviewRunner initialized");
+  }
+
+  private recreateDirs() {
+    const dirs = [
+      SphinxPreviewRunner.SRCDIR,
+      SphinxPreviewRunner.CONFDIR,
+      SphinxPreviewRunner.OUTDIR,
+    ];
+    for (const path of dirs) {
+      this.pyodide.runPython(
+        `import shutil; shutil.rmtree("${path}", ignore_errors=True)`,
+      );
+      this.pyodide.FS.mkdirTree(path);
+    }
+  }
+
+  private writeFiles() {
+    for (const filename in this.files) {
+      const path = SphinxPreviewRunner.SRCDIR + filename;
+      const body = this.files[filename];
+      this.pyodide.FS.writeFile(path, body);
+    }
+  }
+
+  private runBuild() {
+    const instance = this.sphinxpreview.SphinxPreview(
+      SphinxPreviewRunner.SRCDIR,
+      SphinxPreviewRunner.CONFDIR,
+      SphinxPreviewRunner.OUTDIR,
+      // confoverrides
+      {
+        suppress_warnings: [
+          "app.add_node",
+          "app.add_directive",
+          "app.add_role",
+        ],
+      },
+      // verbosity
+      0,
     );
-    pyodide.FS.mkdirTree(path);
+    return instance.build();
   }
 
-  for (const filename in files) {
-    const path = srcdir + filename;
-    const body = files[filename];
-    pyodide.FS.writeFile(path, body);
+  private readSingleHtmlFile(path: string): string {
+    // @ts-expect-error "method readFile() doesn't exist" but it definitively exists
+    return this.pyodide.FS.readFile(SphinxPreviewRunner.OUTDIR + path, {
+      encoding: "utf8",
+    });
   }
 
-  const confoverrides = {
-    // On second run in Pyodide only, the nodes, directives and roles are registereted multiple times and Sphinx throws zillions of warnings like
-    // WARNING: while setting up extension sphinx.addnodes: node class 'toctree' is already registered, its visitors will be overridden [app.add_node]
-    // WARNING: while setting up extension sphinx.addnodes: node class 'desc' is already registered, its visitors will be overridden [app.add_node]
-    // WARNING: while setting up extension sphinx.addnodes: node class 'desc_signature' is already registered, its visitors will be overridden [app.add_node]
-    suppress_warnings: ["app.add_node", "app.add_directive", "app.add_role"],
-  };
-  const verbosity = 0;
+  private readAllHtmlFiles(): HtmlFiles {
+    const htmlFiles: HtmlFiles = {};
 
-  // Run and read
-  const instance = sphinxpreview.SphinxPreview(
-    srcdir,
-    confdir,
-    outdir,
-    confoverrides,
-    verbosity,
-  );
-  const { status, warnings } = instance.build();
-  // @ts-expect-error "method readFile() doesn't exist" but it definitively exists
-  const html = pyodide.FS.readFile(outdir + "index.html", { encoding: "utf8" });
+    // Read .html for corresponding .rst/.md
+    for (const docFilename in this.files) {
+      if (docFilename === "conf.py") continue;
 
-  console.debug(
-    `runPreview() completed in ${formatElapsedTime(performance.now() - start)}`,
-  );
+      const htmlFilename = docFilename.replace("." + this.syntax, ".html");
+      const html = this.readSingleHtmlFile(htmlFilename);
+      htmlFiles[docFilename] = html;
+    }
 
-  return {
-    html,
-    status,
-    warnings,
-  };
+    return htmlFiles;
+  }
+
+  public async run(): Promise<PreviewResult> {
+    const start = performance.now();
+    this.recreateDirs();
+    this.writeFiles();
+    const { status, warnings } = this.runBuild();
+    const htmlFiles = this.readAllHtmlFiles();
+
+    console.debug(
+      `SphinxPreviewRunner completed in ${formatElapsedTime(performance.now() - start)}`,
+    );
+
+    return {
+      htmlFiles,
+      status,
+      warnings,
+    };
+  }
 }

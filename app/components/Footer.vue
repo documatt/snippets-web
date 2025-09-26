@@ -8,7 +8,7 @@
         :href="appConfig.dcomUrl"
         class="link"
         data-rybbit-event="try_documatt_clicked"
-        >Try Documatt, a free worry-free Sphinx.</a
+        >Try Documatt, a worry-free Sphinx.</a
       >
     </span>
 

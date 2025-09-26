@@ -1,5 +1,5 @@
 ###############
-Sample document
+{FILENAME}
 ###############
 
 .. epigraph:: This document demonstrates reStructuredText syntax. Professional books and tech documentation are plain text files with this easy markup language. Documatt Snippets is an online editor with a preview useful for learning and testing reStructuredText without installing it.
