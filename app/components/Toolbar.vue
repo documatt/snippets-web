@@ -3,16 +3,11 @@
     class="flex flex-col items-center justify-between gap-2 border-b border-slate-300 px-6 py-1 text-slate-700 lg:flex-row dark:text-slate-300"
   >
     <!-- Left side -->
-    <div class="flex items-center">
-      <div>I want to preview</div>
-
-      <div>
+    <div class="flex flex-col items-center lg:flex-row lg:gap-12">
+      <div class="flex items-center gap-1.5">
+        I want to preview
         <ToolbarSyntaxSwitcher />
-      </div>
-
-      <div>
         using
-
         <NuxtImg
           src="/images/sphinx-logo.svg"
           alt="Sphinx logo"
@@ -23,9 +18,10 @@
           alt="Sphinx logo"
           class="inline h-[0.75lh] not-dark:hidden"
         />
-
         Sphinx 8.2.3
       </div>
+
+      <ToolbarCreateShareLink />
 
       <!-- More info -->
       <!--

@@ -4,15 +4,19 @@
   >
     <!-- Left-side logo and motto -->
     <div class="flex items-center">
-      <NuxtImg
-        src="/images/snippets-logo.svg"
-        alt="Documatt Snippets logo"
-        class="w-12"
-      />
-      <h1 class="text-primary font-sans text-xl font-bold">Sphinx Snippets</h1>
-      <h1 class="ml-4 text-sm font-bold">
+      <NuxtLink to="/" class="flex items-center">
+        <NuxtImg
+          src="/images/snippets-logo.svg"
+          alt="Documatt Snippets logo"
+          class="w-12"
+        />
+        <h1 class="text-primary font-sans text-xl font-bold">
+          Sphinx Snippets
+        </h1>
+      </NuxtLink>
+      <h2 class="ml-4 text-sm font-bold">
         Try and learn Sphinx with reStructuredText or Markdown
-      </h1>
+      </h2>
     </div>
 
     <!-- Righ-side buttons -->

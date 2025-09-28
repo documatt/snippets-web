@@ -9,13 +9,16 @@ export enum PreviewStates {
   InProgress = "InProgress",
 }
 
+/**
+ * Mapping of filename to its content as string.
+ */
 // later <string, blob>
 export type Files = Record<string, string>;
 
 export const DEFAULT_SYNTAX = Syntax.RST;
 
 // Files, at the beginning, contains only rootdoc and empty conf.py
-function getInitialFiles(syntax: Syntax): Files {
+export function getInitialFiles(syntax: Syntax): Files {
   return { [getRootFilename(syntax)]: "", "conf.py": "" };
 }
 
@@ -36,6 +39,8 @@ export const usePreviewStore = defineStore("preview", () => {
   const result = ref<PreviewResult>();
   const syntax = ref(DEFAULT_SYNTAX);
   const files = ref<Files>(getInitialFiles(DEFAULT_SYNTAX));
+  /** Undefined when not shared. */
+  const shareHash = ref<string>();
 
   // ***************************************************************************
   // State watchers
@@ -48,8 +53,18 @@ export const usePreviewStore = defineStore("preview", () => {
     uiStore.activeDoc = getRootFilename(newSyntax);
   });
 
-  // Rerun preview on change in files
-  watch(files, async () => await debouncedRunPreview(), { deep: true });
+  // On change in files
+  watch(
+    files,
+    async () => {
+      // Rerun preview on change in files
+      await debouncedRunPreview();
+
+      // Unset share hash
+      shareHash.value = undefined;
+    },
+    { deep: true },
+  );
 
   // ***************************************************************************
   // Getters
@@ -90,6 +105,7 @@ export const usePreviewStore = defineStore("preview", () => {
     result,
     syntax,
     files,
+    shareHash,
     bootPreview,
     runPreview,
     debouncedRunPreview,
