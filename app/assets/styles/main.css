@@ -15,8 +15,13 @@
 @import "./sphinx-preview.css";
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
-@plugin "daisyui";
 
 :root {
   font-family: Rubik, sans-serif;
 }
+
+/* ***************************************************************************** */
+/* *** daisyUI tweaks *** */
+/* ***************************************************************************** */
+
+@plugin "daisyui";
