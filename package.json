@@ -10,7 +10,10 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "deploy": "npm run generate && firebase deploy",
+    "gcs:set-cors": "gcloud storage buckets update gs://snippets-d9ae2.firebasestorage.app --cors-file=gcs-cors.json",
+    "gcs:get-cors": "gcloud storage buckets describe gs://snippets-d9ae2.firebasestorage.app --format='default(cors_config)'"
   },
   "dependencies": {
     "@nuxt/eslint": "1.9.0",

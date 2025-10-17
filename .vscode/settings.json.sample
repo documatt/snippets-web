@@ -5,7 +5,8 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
 
   "files.associations": {
-    "**/app/assets/styles/*.css": "tailwindcss"
+    "**/app/assets/styles/*.css": "tailwindcss",
+    "firebase.json": "jsonc"
   },
 
   // Recommended by Tailwind CSS extension

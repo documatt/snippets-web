@@ -1,4 +1,4 @@
-<!-- Button which incidates ready, running, error and finished states by button color, icon, text, and tooltip -->
+<!-- Button which indicates ready, running, error and finished states by button color, icon, text, and tooltip -->
 <template>
   <ClientOnly>
     <div class="tooltip tooltip-left" :data-tip="props.desc[status].tooltip">
