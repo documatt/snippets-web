@@ -8,6 +8,7 @@
     <Header />
     <Toolbar />
     <!-- editor, preview, console -->
+    <LoadingBar />
     <slot />
     <div class="h-full overflow-y-auto">
       <splitpanes vertical class="default-theme">
