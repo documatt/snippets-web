@@ -24,12 +24,7 @@ const appConfig = useAppConfig();
 // undefined, or e.g., "34ce5bc8" from "/s/34ce5bc8"
 const hash = route.path.startsWith("/s/") ? route.path.slice(3) : undefined;
 
-const {
-  refresh,
-  data: files,
-  pending,
-  error,
-} = await useAsyncData(route.path, fetchFiles, {
+const { refresh, pending, error } = await useAsyncData(route.path, fetchFiles, {
   server: false,
   immediate: false,
 });
@@ -42,19 +37,20 @@ interface SnippetsJson10 {
 }
 
 async function fetchFiles() {
-  // TODO: Use Promise.all() to load all files at once
+  const newFiles: Files = {};
+
   const snippetsJson = await $fetch<SnippetsJson10>(
     `${appConfig.bucketPrefix}/${hash}/snippets.json`,
   );
+
+  // TODO: Use Promise.all() to load all files at once
   for (const filename of snippetsJson.inFilenames) {
-    previewStore.files[filename] = await $fetch<string>(
+    newFiles[filename] = await $fetch<string>(
       `${appConfig.bucketPrefix}/${hash}/in/${filename}`,
     );
   }
-}
 
-watch(files, (newFiles) => {
-  if (!newFiles) return;
+  // Set to store
   previewStore.files = newFiles;
-});
+}
 </script>

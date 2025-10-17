@@ -11,7 +11,6 @@ import type { ButtonDescription } from "~/components/common/StateButton.vue";
 
 const appConfig = useAppConfig();
 const previewStore = usePreviewStore();
-const hash = calcHash(previewStore.files);
 
 const buttonDesc: ButtonDescription = {
   idle: {
@@ -44,6 +43,7 @@ interface ResBody {
 }
 
 async function startShare() {
+  const hash = calcHash(previewStore.files);
   const inFilenames = Object.keys(previewStore.files);
 
   const res = await $fetch<ResBody>(`${appConfig.uploadFnUrl}/${hash}`, {
@@ -51,14 +51,15 @@ async function startShare() {
     body: { inFilenames } as ReqBody,
   });
 
-  // Upload
-  // TODO: All upload in paralel using Promise.all
-  for (const [filename, url] of Object.entries(res.inFilenames)) {
-    await $fetch(url, {
-      method: "PUT",
-      body: previewStore.files[filename],
-    });
-  }
+  // Upload all in parallel using Promise.all
+  await Promise.all(
+    Object.entries(res.inFilenames).map(([filename, url]) =>
+      $fetch(url, {
+        method: "PUT",
+        body: previewStore.files[filename],
+      }),
+    ),
+  );
 
   // Set "already shared"
   previewStore.shareHash = hash;
